@@ -1,0 +1,35 @@
+.operation-form{display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;color:#fff}
+.operation-form [hidden]{display:none!important}
+.operation-services{border:0;padding:0;margin:0 0 28px;min-width:0}
+.operation-services legend{font-size:17px;font-weight:600;margin-bottom:16px}
+.operation-choice{display:flex;align-items:flex-start;gap:12px;padding:20px;margin-bottom:12px;border:1px solid #ffffff45;border-radius:14px;cursor:pointer;background:#ffffff08;transition:background .2s,border-color .2s}
+.operation-choice:has(input:checked){background:#ffffff20;border-color:#fff}
+.operation-choice input{margin:5px 0 0;width:18px;height:18px;accent-color:#fff;flex-shrink:0}
+.operation-choice strong{display:block;font-size:20px;margin-bottom:6px}
+.operation-choice small{display:block;font-size:14px;line-height:1.7;color:#efedff}
+.operation-urgent{padding-top:24px;border-top:1px solid #ffffff35}
+.operation-urgent p{font-size:15px;line-height:1.7;color:#efedff;margin:0 0 14px}
+.operation-urgent a{display:inline-flex;align-items:center;gap:12px;min-height:48px;padding:12px 18px;border:1px solid #ffffff70;border-radius:10px;text-decoration:none;color:#fff;font-weight:600;font-size:15px}
+.operation-urgent a:hover{background:#ffffff1a}
+.operation-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;min-width:0}
+.operation-field{min-width:0}.operation-wide{grid-column:1/-1}
+.operation-field label{display:block;margin-bottom:8px;font-size:14px;font-weight:500;line-height:1.5}
+.operation-field input,.operation-field select,.operation-field textarea{box-sizing:border-box;width:100%;min-width:0;border:1px solid #ffffff50;border-radius:9px;padding:12px 14px;color:#fff;background:#ffffff0d;font-family:inherit;font-size:16px;line-height:1.5;min-height:48px;color-scheme:dark}
+.operation-field input::placeholder,.operation-field textarea::placeholder{color:#e2dfff;opacity:.85}
+.operation-field textarea{min-height:125px;resize:vertical}
+.operation-field input:focus,.operation-field select:focus,.operation-field textarea:focus{outline:2px solid #fff;outline-offset:2px;background:#ffffff16}
+.operation-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.operation-actions button{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;border:1px solid #fff;border-radius:9px;padding:12px 18px;font-family:inherit;font-size:14px;font-weight:600;line-height:1.5;cursor:pointer}
+.operation-actions button[value=whatsapp]{background:#fff;color:#3733a7}
+.operation-actions button[value=email]{background:#ffffff10;color:#fff}
+.operation-actions button:hover{box-shadow:0 3px 12px #15105b26}
+.operation-actions button:disabled{opacity:.55;cursor:wait}
+.operation-note{font-size:12px;line-height:1.7;color:#efedff;margin:16px 0 0}
+.operation-status{font-size:14px;line-height:1.7;padding:14px;border:1px solid #ffffff50;border-radius:9px;background:#ffffff12}
+.operation-fallback{display:inline-block;padding:8px 0;color:#fff;font-size:14px;text-underline-offset:4px}
+.operation-form a:focus-visible,.operation-form button:focus-visible,.operation-choice:has(input:focus-visible){outline:2px solid #fff;outline-offset:4px}
+@media(max-width:780px){.operation-form{grid-template-columns:1fr;gap:32px}.operation-fields{gap:16px}.operation-choice{padding:16px}}
+@media(max-width:480px){.operation-fields{grid-template-columns:1fr}.operation-actions button{flex:1 1 190px}.operation-choice strong{font-size:18px}}
+@media(prefers-reduced-motion:reduce){.operation-choice{transition:none}}
+
+.operation-field select option{background:#fff;color:#171717}

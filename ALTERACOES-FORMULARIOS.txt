@@ -1,0 +1,64 @@
+FORMULARIOS: ENVIO POR E-MAIL E WHATSAPP
+
+Destino de e-mail: lusocontinental@hotmail.com
+Numero do WhatsApp: 351933359605
+Assunto do e-mail: Novo contato recebido pelo site
+
+E-mail: POST nativo para https://formsubmit.co/lusocontinental@hotmail.com.
+Todos os campos existentes possuem name e seguem no POST. CAPTCHA ativado.
+_next e calculado a partir do endereco do site e aponta para mensagem-enviada.html.
+Sem JavaScript, o e-mail continua usando o POST e a confirmacao padrao do FormSubmit.
+
+WhatsApp: botao type=button, manipulador de clique independente, validacao,
+mensagem com todos os dados e URL codificada com encodeURIComponent.
+Nao faz POST nem envia e-mail. O visitante confirma o envio no WhatsApp.
+
+Os campos, classes e estilos existentes foram preservados. Apenas a nota de
+orientacao foi atualizada para descrever o envio real. Nenhum CSS foi alterado.
+O botao de e-mail e o unico submit; ha bloqueio de duplo envio e restauracao
+quando o visitante volta a pagina. Nao ha senhas ou tokens no codigo.
+
+ATIVACAO NECESSARIA
+1. Publique o ZIP no HostGator (extraia os arquivos na pasta do site).
+2. Faca um envio de teste pelo site publicado e conclua o CAPTCHA.
+3. Abra o e-mail de ativacao do FormSubmit na caixa da empresa e confirme.
+4. Teste ambos os formularios depois da ativacao e confira a caixa de entrada/spam.
+Documentacao oficial: https://formsubmit.co/
+
+Verificacoes realizadas sem enviar mensagens externas: validacao de campos,
+conteudo e codificacao do WhatsApp, separacao dos dois canais, protecao contra
+cliques duplicados, restauracao ao voltar, configuracao do POST e integridade do ZIP.
+Recebimento real na caixa da empresa nao verificado; depende da ativacao acima.
+
+ARQUIVOS E TRECHOS MODIFICADOS (codigo completo nos respectivos arquivos)
+
+plataforma-elevatoria.html
+  linha 151: <form class="quote-form"
+  linha 169: class="form-actions"
+  linha 170: class="form-note"
+
+transportes.html
+  linha 111: <form class="quote-form"
+  linha 130: class="form-actions"
+  linha 131: class="form-note"
+
+plataforma-elevatoria.js
+  linha 39: const next =
+  linha 45: function validate
+  linha 57: function whatsappMessage
+  linha 84: form.addEventListener('submit'
+  linha 99: whatsappButton.addEventListener
+  linha 114: window.addEventListener('pageshow'
+
+transportes.js
+  linha 46: const next =
+  linha 52: function validate
+  linha 62: function whatsappMessage
+  linha 83: form.addEventListener('submit'
+  linha 98: whatsappButton.addEventListener
+  linha 113: window.addEventListener('pageshow'
+
+mensagem-enviada.html
+  linha 15: <h1>
+
+As mesmas alteracoes foram sincronizadas na pasta hostgator-build.

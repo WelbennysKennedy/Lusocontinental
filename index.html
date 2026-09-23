@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Luso Continental - transporte técnico e assistência urgente.">
+  <title>Luso Continental | Transporte técnico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="hero-scroll-video.css?v=4">
+  <link rel="stylesheet" href="assistente.css?v=2">
+  <script src="assistente.js" defer></script>
+  <link rel="stylesheet" href="navegacao.css">
+  <script src="navegacao.js" defer></script>
+  <script src="cards-background.js?v=3" defer></script>
+  <link rel="stylesheet" href="main-contact.css?v=2">
+  <script src="main-contact.js?v=2" defer></script>
+</head>
+<body>
+<header class="home-header">
+  <div class="home-header-inner">
+    <button class="home-menu-toggle" type="button" aria-controls="homeNavigation" aria-expanded="false" aria-label="Abrir menu de navegação">
+      <span>Menu</span><span class="home-menu-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+    <nav class="home-nav" id="homeNavigation" aria-label="Navegação principal">
+      <a href="plataforma-elevatoria.html">Plataforma elevatória</a>
+      <a href="transportes.html">Transporte de veículos</a>
+      <a class="home-nav-contact" href="#planeie-sua-operacao">Contato</a>
+    </nav>
+  </div>
+</header>
+
+<!--
+  Hero Scroll Video — trecho para colar
+  ======================================
+  1. Mantenha este arquivo junto com o CSS, o JS e a pasta assets/.
+  2. No <head> do seu site, adicione (a fonte é usada só no bloco de
+     descrição "Transporte de máquinas..."; sem isso ela cai no fallback
+     do sistema e continua funcionando, só menos elegante):
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+       <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="hero-scroll-video.css?v=4">
+  3. Cole o bloco abaixo onde quiser que o hero apareça (normalmente logo
+     após a tag <body>):
+-->
+
+<div class="hsv-progress-bar" id="hsvProgressBar"></div>
+
+<section class="hsv-scroll-stage" id="hsvScrollStage">
+  <div class="hsv-hero">
+    <video
+      id="hsvVideo"
+      muted
+      preload="auto"
+      src="assets/hero-novo.mp4"
+    ></video>
+
+    <div class="hsv-content" id="hsvContent">
+      <h1>Luso Continental</h1>
+      <span class="hsv-title-line"></span>
+      <p>Role para explorar</p>
+    </div>
+
+    <!-- Substitui o título assim que o usuário começa a rolar (crossfade
+         feito pelo JS) — o vídeo continua tocando por trás do texto. -->
+    <div class="hsv-desc" id="hsvDesc">
+      <div class="hsv-desc-inner">
+        <p class="">Transporte técnico para operações urgentes e exigentes</p>
+        <h2 class="lc-heading">
+          <span class="lc-orange">Transporte de máquinas, carros e porta-automóveis.</span>
+          <span class="lc-platform">Plataforma elevatória até 42 metros.</span>
+          <span class="lc-white">Com urgência, segurança e controlo.</span>
+        </h2>
+        <p class="lc-body">A Lusocontinental realiza pronto socorro automóvel, reboque urgente, transporte de carros em porta-automóveis, máquinas, empilhadores e plataforma elevatória até 42 metros para obras, indústria, stands e particulares.</p>
+        <a href="#" class="lc-cta">Saiba mais <span aria-hidden="true">›</span></a>
+      </div>
+    </div>
+
+    <div class="hsv-scroll-hint" id="hsvScrollHint">
+      <span>Scroll</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 5v14M19 12l-7 7-7-7"/>
+      </svg>
+    </div>
+
+    <!-- Relógio de km: acompanha o progresso do scroll 1:1 e some perto
+         do fim do scroll-stage, ao entrar na próxima dobra. -->
+    <div class="hsv-km-gauge" id="hsvKmGauge">
+      <svg class="hsv-km-gauge-ring" viewBox="0 0 200 200">
+        <circle class="hsv-km-gauge-track" cx="100" cy="100" r="90" />
+        <circle class="hsv-km-gauge-progress" id="hsvKmGaugeProgress" cx="100" cy="100" r="90" />
+      </svg>
+      <div class="hsv-km-gauge-label">
+        <span class="hsv-km-gauge-value" id="hsvKmGaugeValue">0</span>
+        <span class="hsv-km-gauge-unit">km</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==========================================================================
+     Seção "Cards" — RASCUNHO. Fica depois do hero, no fluxo normal da
+     página (não sobre o vídeo). Troque .cs-card-media-placeholder por uma
+     <img> real (ou background-image) quando os assets estiverem prontos.
+     ========================================================================== -->
+<section class="cs-section">
+  <div class="cs-background" aria-hidden="true">
+    <div class="cs-background-scene" id="cardsBackgroundScene" data-us-project-src="assets/cards-background.json"></div>
+  </div>
+  <div class="cs-inner">
+
+    <div class="cs-card">
+      <div class="cs-card-media">
+        <img src="img/pronto%20soccoro.jpeg" alt="Caminhão de pronto socorro transportando uma van avariada">
+      </div>
+      <div class="cs-card-body">
+        <h3 class="cs-card-title">Pronto socorro automóvel</h3>
+        <p class="cs-card-text">Assistência e reboque urgente para veículos avariados, sinistrados ou sem condições de circulação.</p>
+        <a href="transportes.html#pronto-socorro" class="cs-card-cta" target="_blank" rel="noopener" aria-label="Saiba mais: Pronto socorro automóvel (nova aba)">Saiba mais ↗</a>
+      </div>
+    </div>
+
+    <div class="cs-card">
+      <div class="cs-card-media">
+        <img src="img/trasnporte%20de%20veiculos.jpg" alt="Porta-automóveis transportando vários carros">
+      </div>
+      <div class="cs-card-body">
+        <h3 class="cs-card-title">Transporte de veículos</h3>
+        <p class="cs-card-text">Porta-automóveis para carros de particulares, stands, oficinas, frotas, retomas e entregas programadas.</p>
+        <a href="transportes.html#transporte-veiculos" class="cs-card-cta" target="_blank" rel="noopener" aria-label="Saiba mais: Transporte de veículos (nova aba)">Saiba mais ↗</a>
+      </div>
+    </div>
+
+    <div class="cs-card">
+      <div class="cs-card-media">
+        <img src="img/maquinas%20e%20empilhadoras.jpg" alt="Caminhão transportando máquinas e equipamentos industriais">
+      </div>
+      <div class="cs-card-body">
+        <h3 class="cs-card-title">Máquinas e empilhadores</h3>
+        <p class="cs-card-text">Transporte de máquinas, empilhadores e equipamentos industriais com avaliação de peso, acesso e descarga.</p>
+        <a href="transportes.html#maquinas-empilhadores" class="cs-card-cta" target="_blank" rel="noopener" aria-label="Saiba mais: Máquinas e empilhadores (nova aba)">Saiba mais ↗</a>
+      </div>
+    </div>
+
+    <div class="cs-card">
+      <div class="cs-card-media">
+        <img src="img/plataforma%20elevatoria.jpg" alt="Caminhão com plataforma elevatória junto a um edifício">
+      </div>
+      <div class="cs-card-body">
+        <h3 class="cs-card-title">Plataforma elevatória</h3>
+        <p class="cs-card-text">Elevação até 42 metros para móveis, materiais, painéis, ar condicionado e cargas em altura.</p>
+        <a href="plataforma-elevatoria.html" class="cs-card-cta" target="_blank" rel="noopener" aria-label="Saiba mais sobre a plataforma elevatória (nova aba)">Saiba mais ↗</a>
+      </div>
+    </div>
+
+    <div class="cs-card">
+      <div class="cs-card-media">
+        <img src="img/apoio%20a%20obras.jpg" alt="Caminhão transportando equipamento para apoio a obras">
+      </div>
+      <div class="cs-card-body">
+        <h3 class="cs-card-title">Apoio a obras</h3>
+        <p class="cs-card-text">Soluções para obras, fachadas, coberturas e acessos difíceis, com equipa e meios ajustados ao local.</p>
+        <a href="transportes.html#apoio-obras" class="cs-card-cta" target="_blank" rel="noopener" aria-label="Saiba mais: Apoio a obras (nova aba)">Saiba mais ↗</a>
+      </div>
+    </div>
+
+    <div class="cs-card">
+      <div class="cs-card-media">
+        <img src="img/cargas%20especiais.jpg" alt="Caminhão transportando carga especial">
+      </div>
+      <div class="cs-card-body">
+        <h3 class="cs-card-title">Cargas especiais</h3>
+        <p class="cs-card-text">Planeamento para materiais volumosos, cargas sensíveis e operações que exigem amarração técnica.</p>
+        <a href="transportes.html#cargas-especiais" class="cs-card-cta" target="_blank" rel="noopener" aria-label="Saiba mais: Cargas especiais (nova aba)">Saiba mais ↗</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==========================================================================
+     Seção "Principais diferenciais" — RASCUNHO.
+     ========================================================================== -->
+<section class="diff-section">
+  <div class="diff-inner">
+    <h2 class="diff-heading reveal-up">Principais diferenciais</h2>
+    <p class="diff-subtitle reveal-up">A Lusocontinental resolve operações onde o detalhe importa: pronto socorro automóvel, porta-automóveis, máquinas e empilhadores, cargas em altura, painéis sandwich, painéis solares, entulho e ar condicionado.</p>
+
+    <div class="diff-cols">
+      <div class="diff-col reveal-up">
+        <div class="diff-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l6-8 6 8-6 8-6-8z"/><path d="M15 12h6"/></svg>
+        </div>
+        <p>Transporte de veículos em porta-carros e porta-automóveis com entrega controlada</p>
+      </div>
+
+      <div class="diff-col reveal-up">
+        <div class="diff-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>
+        </div>
+        <p>Pronto socorro e reboque urgente para carros avariados ou sinistrados</p>
+      </div>
+
+      <div class="diff-col reveal-up">
+        <div class="diff-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="7" width="13" height="9"/><path d="M14 10h4l3 3v3h-7z"/><circle cx="6" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>
+        </div>
+        <p>Transporte de máquinas, empilhadores, painéis e cargas especiais</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     Seção "Operação por serviço" — RASCUNHO.
+     ========================================================================== -->
+<section class="compare-section">
+  <div class="compare-inner">
+    <h2 class="compare-heading reveal-up">Operação por serviço</h2>
+
+    <div class="compare-table reveal-up">
+      <div class="compare-cell compare-header"></div>
+      <div class="compare-cell compare-header compare-featured">Cegonha</div>
+      <div class="compare-cell compare-header">Reboque</div>
+      <div class="compare-cell compare-header">Máquinas</div>
+
+      <div class="compare-cell compare-row-label">Planeamento</div>
+      <div class="compare-cell compare-featured-cell">Rota e janela <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <div class="compare-cell">Localização e acesso</div>
+      <div class="compare-cell">Peso e equipamento</div>
+
+      <div class="compare-cell compare-row-label">Cuidados principais</div>
+      <div class="compare-cell compare-featured-cell">Amarração <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <div class="compare-cell">Assistência rápida</div>
+      <div class="compare-cell">Amarração</div>
+
+      <div class="compare-cell compare-row-label">Equipa dedicada</div>
+      <div class="compare-cell compare-featured-cell">Sim <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <div class="compare-cell">Assistência rápida</div>
+      <div class="compare-cell">Sim</div>
+
+      <div class="compare-cell compare-row-label">Controlo operacional</div>
+      <div class="compare-cell compare-featured-cell">Elevado <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <div class="compare-cell">Urgente</div>
+      <div class="compare-cell">Técnico</div>
+
+      <div class="compare-cell compare-row-label">Preparação média</div>
+      <div class="compare-cell compare-featured-cell">Agendada <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <div class="compare-cell">Disponibilidade</div>
+      <div class="compare-cell">Sob vistoria</div>
+
+      <div class="compare-cell compare-row-label">Ideal para</div>
+      <div class="compare-cell compare-featured-cell">Stands e particulares <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <div class="compare-cell">Carros e urgências</div>
+      <div class="compare-cell">Obras e indústria</div>
+    </div>
+  </div>
+</section>
+
+<!-- Pedido de orcamento: transporte e plataforma elevatoria. -->
+<section class="form-section" id="planeie-sua-operacao">
+  <div class="form-inner">
+    <h2 class="form-heading">Planeie a sua operação</h2>
+    <p class="form-subtitle">Transporte ou plataforma elevatória? Conte-nos o que precisa e receba uma proposta ajustada à sua operação.</p>
+    <hr class="form-divider">
+    <form class="operation-form" id="operationForm" action="https://formsubmit.co/lusocontinental@hotmail.com" method="POST" accept-charset="UTF-8">
+      <input type="hidden" name="_subject" value="Novo contato recebido pelo site">
+      <input type="hidden" name="_captcha" value="true">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_next" value="" disabled>
+      <input type="hidden" name="pagina" value="Página principal">
+      <div>
+        <fieldset class="operation-services">
+          <legend>De que serviço precisa?</legend>
+          <label class="operation-choice"><input type="radio" name="service" value="Transporte" checked required><span><strong>Transporte</strong><small>Veículos, pronto socorro automóvel, máquinas, apoio a obras e cargas especiais.</small></span></label>
+          <label class="operation-choice"><input type="radio" name="service" value="Plataforma elevatória" required><span><strong>Plataforma elevatória</strong><small>Elevação até 42 metros para móveis, materiais e equipamentos.</small></span></label>
+        </fieldset>
+        <div class="operation-urgent"><p>Precisa de assistência urgente? Ligue para confirmar a disponibilidade com a equipa.</p><a href="tel:+351933359605">Ligar agora · +351 933 359 605 ↗</a></div>
+      </div>
+      <div>
+        <div class="operation-fields">
+          <div class="operation-field"><label for="formName">Nome *</label><input id="formName" name="name" autocomplete="name" required maxlength="100" placeholder="O seu nome"></div>
+          <div class="operation-field"><label for="formPhone">Telefone *</label><input id="formPhone" name="phone" type="tel" autocomplete="tel" required maxlength="30" pattern="[+0-9\(\) .\-]{7,30}" placeholder="+351"></div>
+          <div class="operation-field"><label for="formEmail">E-mail (opcional)</label><input id="formEmail" name="email" type="email" autocomplete="email" maxlength="150" placeholder="nome@exemplo.pt"></div>
+          <div class="operation-field"><label for="formCompany">Empresa (opcional)</label><input id="formCompany" name="company" autocomplete="organization" maxlength="120" placeholder="Nome da empresa"></div>
+          <div class="operation-field" id="operationVehicleBrand"><label for="operationVehicleBrandInput">Marca do veículo (opcional)</label><input id="operationVehicleBrandInput" name="marca_veiculo" maxlength="80" placeholder="Ex.: Renault, BMW, Toyota"></div>
+          <div class="operation-field" id="operationVehicleType"><label for="operationVehicleTypeInput">Tipo de veículo (opcional)</label><select id="operationVehicleTypeInput" name="tipo_veiculo"><option value="">Selecione o tipo de veículo</option><option>Ligeiro</option><option>Todo-o-terreno</option><option>Mota</option><option>Van</option><option>Minivan</option></select></div>
+          <div class="operation-field"><label id="operationLocationLabel" for="operationLocation">Origem / recolha *</label><input id="operationLocation" name="location" required maxlength="160" placeholder="Localidade da operação"></div>
+          <div class="operation-field" id="operationDestination"><label for="operationDestinationInput">Destino (se conhecido)</label><input id="operationDestinationInput" name="destination" maxlength="160" placeholder="Localidade da entrega"></div>
+          <div class="operation-field" id="operationHeight" hidden><label for="operationHeightInput">Piso ou altura (opcional)</label><input id="operationHeightInput" name="height" maxlength="60" placeholder="Ex.: 4.º piso ou 15 m" disabled></div>
+          <div class="operation-field operation-wide"><label for="operationDate">Data pretendida (opcional)</label><input id="operationDate" name="date" type="date"></div>
+          <div class="operation-field operation-wide"><label for="operationDetails">Como podemos ajudar? *</label><textarea id="operationDetails" name="details" rows="4" required maxlength="1500" placeholder="Descreva a carga ou o veículo, a quantidade, os acessos e a urgência do pedido."></textarea></div>
+        </div>
+        <div class="operation-actions"><button type="button" value="whatsapp" disabled>Enviar pelo WhatsApp ↗</button><button type="submit" value="email">Enviar por e-mail ↗</button></div>
+        <p class="operation-note">Os campos com * são obrigatórios. Por e-mail, conclua a verificação de segurança. No WhatsApp, reveja a mensagem e toque em Enviar. O orçamento e a disponibilidade são confirmados pela equipa.</p>
+        <p class="operation-status" id="operationStatus" role="status" hidden></p>
+        <a class="operation-fallback" id="operationFallback" target="_blank" rel="noopener" hidden>Abrir o pedido no WhatsApp ↗</a>
+        <noscript><p>Também pode <a href="https://wa.me/351933359605">contactar a equipa pelo WhatsApp</a>. Indique os detalhes do serviço no campo de mensagem.</p></noscript>
+      </div>
+    </form>
+  </div>
+</section>
+
+
+<div class="contact-tools" aria-label="Canais de atendimento">
+  <button class="whatsapp-float" id="assistantToggle" type="button" aria-controls="assistantPanel" aria-expanded="false" aria-label="Abrir assistente Luso Continental">
+    <img src="img/whatsapp.png" alt="">
+    <span>WhatsApp</span>
+  </button>
+  <section class="assistant-panel" id="assistantPanel" data-assistant-topic="general" role="dialog" aria-labelledby="assistantTitle" hidden>
+    <div class="assistant-header"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5Z"/></svg>
+      <div>
+        <strong id="assistantTitle">Assistente Luso Continental</strong>
+        <span>Assistente virtual · Rotas e serviços em Portugal</span>
+      </div>
+      <button type="button" id="assistantClose" aria-label="Fechar assistente">×</button>
+    </div>
+    <div class="assistant-messages" id="assistantMessages" role="log" aria-live="polite" aria-relevant="additions" aria-label="Conversa com o assistente">
+      <p class="assistant-message assistant-message--bot">Olá! Posso esclarecer dúvidas sobre rotas, transporte de veículos, reboque, máquinas e plataforma elevatória até 42 metros.</p>
+    </div>
+    <div class="assistant-quick-actions" aria-label="Perguntas frequentes">
+      <button type="button" data-question="Que rotas fazem em Portugal?">Rotas em Portugal</button>
+      <button type="button" data-question="Que serviços estão disponíveis?">Serviços</button>
+      <button type="button" data-question="Que serviços fazem com a plataforma elevatória?">Plataforma elevatória</button>
+      <button type="button" data-question="Como peço uma cotação?">Cotação</button>
+    </div>
+    <form class="assistant-form" id="assistantForm">
+      <label class="sr-only" for="assistantInput">Escreva a sua dúvida</label>
+      <input id="assistantInput" type="text" placeholder="Escreva a sua dúvida..." maxlength="600" autocomplete="off" required>
+      <button type="submit" aria-label="Enviar dúvida"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></button>
+    </form>
+    <div class="assistant-actions">
+      <a class="assistant-whatsapp-link" href="https://wa.me/351933359605" target="_blank" rel="noopener"><img src="img/whatsapp.png" alt="">Conversar com a equipa no WhatsApp</a>
+    </div>
+    <div class="assistant-contact-links">
+      <a href="mailto:lusocontinental@hotmail.com" aria-label="Enviar e-mail pelo Gmail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/></svg></a>
+      <a href="tel:+351933359605" aria-label="Fazer chamada urgente" title="Chamadas urgentes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.4 1.8.6 2.8.7a2 2 0 0 1 1.8 2.1Z"/></svg></a>
+      <span class="assistant-call-label">Chamadas urgentes</span>
+    </div>
+  </section>
+</div>
+
+<aside class="side-info" aria-label="Informações de contato e rotas">
+  <a class="urgent-call-float" href="tel:+351933359605" aria-label="Ligar para chamadas urgentes">
+    <img src="img/calls.png" alt="">
+    <span>Chamadas urgentes</span>
+  </a>
+  <p class="route-notice">Temos rotas fixas entre a zona de Paredes e Lisboa, semanalmente.</p>
+</aside>
+
+<script src="hero-scroll-video.js"></script>
+</body>
+</html>
+
+<template hidden>
+  4. Antes do </body>, adicione o script:
+      <script src="hero-scroll-video.js"></script>
+
+  Ajustes rápidos:
+  - Velocidade do efeito: mude "height: 900vh" em hero-scroll-video.css (.hsv-scroll-stage).
+  - Título/texto do hero: edite o <h1>/<p> dentro de .hsv-content.
+  - Texto "Transporte de máquinas...": edite dentro de .hsv-desc / .hsv-desc-inner.
+  - Quando cada bloco aparece/some: no hero-scroll-video.js, DESC_FADE_IN_START,
+    DESC_FADE_IN_END, DESC_HOLD_END e DESC_FADE_OUT_END controlam em que % do
+    scroll a descrição entra, fica parada e desaparece de novo — depois disso o
+    vídeo fica "limpo" até você adicionar o próximo bloco de conteúdo (repita o
+    mesmo padrão de fade-in/hold/fade-out para ele, com os próprios números).
+  - Relógio de km: o valor máximo (900) é a constante KM_GAUGE_MAX no topo do
+    hero-scroll-video.js — mude para o número que fizer sentido. Ele já
+    acompanha o scroll 1:1 (sem atraso) e some nos últimos 6% do scroll-stage.
+  - Slides "Operação" (texto + imagem sobre o vídeo, depois da descrição):
+    são 6 blocos .op-slide no HTML (textos e número "01"–"06") com as janelas
+    de cada um no array opSlides do hero-scroll-video.js (fadeInStart,
+    fadeInEnd, holdEnd, fadeOutEnd — em % do scroll — e "side": -1 pra imagem
+    entrar pela esquerda, 1 pela direita). Pra adicionar/remover slides, copie
+    ou apague um bloco .op-slide no HTML e a linha correspondente no array.
+  - Imagens dos slides "Operação": troque a <div class="op-media-placeholder">
+    por uma <img> (ou defina um background-image em .op-media) quando tiver
+    os assets — por enquanto é só um rascunho placeholder.
+  - Remover o texto e a dica de scroll do hero: apague os três <div> (.hsv-content,
+    .hsv-desc e .hsv-scroll-hint).
+  - Caminho do vídeo: ajuste o "src" do <video> conforme onde você colocar assets/hero-novo.mp4.
+  - Seção "Cards" (depois do hero, fora do vídeo): são 6 blocos .cs-card no HTML
+    (imagem + título + texto + botão "Saiba mais"). Cada card entra deslizando
+    de um lado (esquerda/direita alternando, com leve blur), revelado
+    individualmente conforme entra na tela — efeito feito com
+    IntersectionObserver, no final do hero-scroll-video.js (função initCards),
+    independente do resto do componente. Pra ajustar:
+      - Velocidade/curva da entrada: "transition" em .cs-card (hero-scroll-video.css).
+      - Distância/blur inicial: "reveal-x" e "filter" em .cs-card (estado inicial);
+        o lado (esquerda/direita) é definido por card em initCards (JS).
+      - Atraso em cascata entre cards: o "0.12" dentro de initCards (em segundos).
+      - Quando dispara: "threshold" e "rootMargin" do IntersectionObserver em initCards.
+  - Imagens dos cards: troque a <div class="cs-card-media-placeholder"> por uma
+    <img> (ou defina um background-image em .cs-card-media) quando tiver os
+    assets — por enquanto é só um rascunho placeholder.
+  - Efeito "cortina" (só entre o vídeo e os cards): a seção de cards sobe e
+    cobre o vídeo, que fica REALMENTE parado (sticky), porque
+    .hsv-scroll-stage tem altura extra reservada pra isso. É só o
+    "margin-top: -100vh" + cantos arredondados/sombra em .cs-section — ela
+    precisa continuar sendo a PRIMEIRA seção logo depois de </section> do
+    .hsv-scroll-stage pra esse cálculo bater certinho. As seções seguintes
+    (diferenciais, tabela, formulário) NÃO usam esse efeito — ficam no
+    fluxo normal da página, uma depois da outra. Pra desativar mesmo no
+    cards, remova margin-top/border-radius/box-shadow de .cs-section.
+  - Seção "Principais diferenciais", "Operação por serviço" e "Planeie a sua
+    operação": usam a mesma classe .reveal-up (sobe + blur ao entrar na tela,
+    função initReveal no hero-scroll-video.js) — mesmo mecanismo dos cards,
+    só que genérico pra qualquer elemento. Ajustes de velocidade/curva/blur
+    ficam em .reveal-up no CSS; o atraso em cascata (0.12s) fica em initReveal.
+  - Tabela "Operação por serviço": a coluna destacada usa as classes
+    .compare-featured (cabeçalho) e .compare-featured-cell (células com check).
+    Pra destacar outra coluna, mova essas classes pro <div> correspondente.
+    Abaixo de 900px de largura a tabela empilha automaticamente.
+  - Formulário "Planeie a sua operação": o número de itens do slider atualiza
+    ao vivo (função initFormSlider no hero-scroll-video.js). O botão
+    "Calcular agora" ainda não está ligado a nada — é só o visual; conecte-o
+    à sua lógica de envio/cálculo real.
+  </template>

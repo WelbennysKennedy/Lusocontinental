@@ -1,0 +1,19 @@
+.transport-page .hero-grid{grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:24px}
+.transport-hero-photo{margin:0;min-width:0;align-self:center;background:transparent}
+.transport-hero-photo>img{display:block;width:100%;height:auto;padding:0;object-fit:contain}
+.transport-page .hero-actions .text-link{font-size:15px}
+.transport-service{padding:0;gap:0;overflow:hidden}
+.transport-service-image{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;object-position:center;border-radius:0;background:none;padding:0}
+.transport-service-body{display:flex;flex:1;flex-direction:column;min-width:0;padding:30px 32px 32px}
+.transport-service .service-number{margin-bottom:20px}
+.transport-service-body>a{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:20px;border-top:1px solid var(--line);font-size:16px;font-weight:700}
+.transport-service-body>a:hover{color:var(--accent)}
+.transport-service-wide{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:0;padding:0}
+.transport-service-wide .transport-service-image{height:100%;min-height:340px;aspect-ratio:auto}
+.transport-page .gallery-track{--gallery-image-height:clamp(260px,30vw,380px);display:flex;gap:24px;align-items:flex-start}
+.transport-page .gallery-slide{flex:0 0 auto;width:min(100%,calc(var(--gallery-image-height)*var(--image-ratio,1.777778)))}
+.transport-page .gallery-photo{display:block;width:100%;height:auto;aspect-ratio:var(--image-ratio,1.777778);padding:0;border:0;background:none;border-radius:12px;overflow:hidden}
+.transport-page .gallery-photo img{width:100%;height:100%;object-fit:cover;object-position:center}
+.transport-page .service-strip-track{animation-duration:40s}
+@media(max-width:780px){.transport-page .hero-grid{grid-template-columns:1fr;gap:24px}.transport-hero-photo{width:100%;max-width:600px;margin-inline:auto}}
+@media(max-width:640px){.transport-services .transport-service{padding:0;min-height:0}.transport-service-body{padding:26px 24px 28px}.transport-service-wide{grid-template-columns:1fr}.transport-service-wide .transport-service-image{height:auto;min-height:0;aspect-ratio:16/9}.transport-page .gallery-track{--gallery-image-height:360px;gap:16px}}

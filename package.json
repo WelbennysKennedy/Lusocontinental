@@ -1,0 +1,12 @@
+{
+  "name": "lusocontinental",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site institucional da Luso Continental — transportes e plataforma elevatória.",
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  },
+  "engines": {
+    "node": "24.x"
+  }
+}

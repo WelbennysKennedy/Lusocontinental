@@ -1,0 +1,15 @@
+.gallery-map-section{position:relative;isolation:isolate;overflow:hidden;background:#021F59;color:#fff}
+.gallery-map-section>.container{position:relative;z-index:1}
+.gallery-map-section .cs-background{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:linear-gradient(rgba(2,31,89,.82),rgba(2,31,89,.82)),#021F59 url("assets/cards-world-map.png") center / cover no-repeat}
+.gallery-map-section .cs-background-scene{mix-blend-mode:screen;position:absolute;top:50%;left:0;width:100%;height:100%;max-height:1000px;transform:translateY(-50%)}
+.gallery-map-section .cs-background-scene canvas{display:block;filter:grayscale(1) brightness(1.65)}
+.gallery-map-section.cs-background-unavailable .cs-background-scene{visibility:hidden}
+.gallery-map-section .eyebrow,.gallery-map-section h2,.gallery-map-section .gallery-slide strong{color:#fff}
+.gallery-map-section .section-heading>p,.gallery-map-section .gallery-slide figcaption>span{color:#dce6fa}
+.gallery-map-section .gallery-photo:focus-visible{outline:3px solid #fff;outline-offset:3px}
+
+.platform-page .gallery-track{--gallery-image-height:clamp(360px,40vw,560px);display:flex;gap:24px;align-items:flex-start}
+.platform-page .gallery-slide{flex:0 0 auto;width:min(100%,calc(var(--gallery-image-height)*var(--image-ratio,1)))}
+.platform-page .gallery-photo{display:block;width:100%;height:auto;aspect-ratio:var(--image-ratio,1);padding:0;border:0;background:none;border-radius:12px;overflow:hidden}
+.platform-page .gallery-photo img{display:block;width:100%;height:100%;object-fit:contain;object-position:center}
+@media(max-width:640px){.platform-page .gallery-track{--gallery-image-height:420px;gap:16px}}
