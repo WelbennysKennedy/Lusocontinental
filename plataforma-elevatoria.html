@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="plataforma-elevatoria.css">
   <link rel="stylesheet" href="assistente.css?v=2">
-  <script src="plataforma-elevatoria.js?v=2" defer></script>
+  <script src="plataforma-elevatoria.js?v=3" defer></script>
   <script src="galeria.js" defer></script>
   <script src="assistente.js" defer></script>
   <link rel="stylesheet" href="gallery-map.css?v=2">
@@ -158,11 +158,11 @@
           <div class="form-grid">
             <div class="field"><label for="quoteName">Nome *</label><input id="quoteName" name="name" autocomplete="name" required maxlength="100" placeholder="O seu nome"></div>
             <div class="field"><label for="quotePhone">Telefone *</label><input id="quotePhone" name="phone" type="tel" autocomplete="tel" required maxlength="30" placeholder="+351" pattern="[+0-9\(\) .\-]{7,30}" title="Introduza um telefone com 7 a 30 caracteres, usando números, espaços, +, parênteses ou hífen."></div>
-            <div class="field full-width"><label for="quoteEmail">E-mail <span>(opcional)</span></label><input id="quoteEmail" name="email" type="email" autocomplete="email" maxlength="150" placeholder="nome@exemplo.pt"></div>
+            <div class="field full-width"><label for="quoteEmail">E-mail *</label><input id="quoteEmail" name="email" type="email" autocomplete="email" maxlength="150" placeholder="nome@exemplo.pt" required></div>
             <div class="field full-width"><label for="quoteService">Que serviço precisa? *</label><select id="quoteService" name="service" required><option value="">Selecione o serviço</option><option>Móveis e mudanças</option><option>Materiais para obras</option><option>Painéis e coberturas</option><option>Equipamentos em altura</option><option>Outra operação</option></select></div>
             <div class="field full-width"><label for="quoteLocation">Localidade da operação *</label><input id="quoteLocation" name="location" required maxlength="160" placeholder="Ex.: Paredes, Lisboa, Porto…"></div>
-            <div class="field"><label for="quoteHeight">Piso ou altura <span>(opcional)</span></label><input id="quoteHeight" name="height" maxlength="60" placeholder="Ex.: 4.º piso ou 15 m"></div>
-            <div class="field"><label for="quoteDate">Data pretendida <span>(opcional)</span></label><input id="quoteDate" name="date" type="date"></div>
+            <div class="field"><label for="quoteHeight">Piso ou altura *</label><input id="quoteHeight" name="height" maxlength="60" placeholder="Ex.: 4.º piso ou 15 m" required></div>
+            <div class="field"><label for="quoteDate">Data pretendida *</label><input id="quoteDate" name="date" type="date" required></div>
             <div class="field full-width"><label for="quoteDetails">Detalhes da operação *</label><textarea id="quoteDetails" name="details" rows="4" required maxlength="1500" placeholder="O que precisa de elevar? Indique a quantidade, peso ou dimensões aproximados e como é o acesso ao local."></textarea></div>
           </div>
 

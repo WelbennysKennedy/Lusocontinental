@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="plataforma-elevatoria.css">
   <link rel="stylesheet" href="transportes.css">
   <link rel="stylesheet" href="assistente.css?v=2">
-  <script src="transportes.js?v=3" defer></script>
+  <script src="transportes.js?v=4" defer></script>
   <script src="galeria.js" defer></script>
   <script src="assistente.js" defer></script>
   <link rel="stylesheet" href="gallery-map.css">
@@ -118,13 +118,13 @@
         <div class="form-grid">
           <div class="field"><label for="transportName">Nome *</label><input id="transportName" name="name" autocomplete="name" required maxlength="100" placeholder="O seu nome"></div>
           <div class="field"><label for="transportPhone">Telefone *</label><input id="transportPhone" name="phone" type="tel" autocomplete="tel" required maxlength="30" placeholder="+351" pattern="[+0-9\(\) .\-]{7,30}" title="Introduza um número de telefone com pelo menos 7 algarismos."></div>
-          <div class="field full-width"><label for="transportEmail">E-mail <span>(opcional)</span></label><input id="transportEmail" name="email" type="email" autocomplete="email" maxlength="150" placeholder="nome@exemplo.pt"></div>
+          <div class="field full-width"><label for="transportEmail">E-mail *</label><input id="transportEmail" name="email" type="email" autocomplete="email" maxlength="150" placeholder="nome@exemplo.pt" required></div>
           <div class="field full-width"><label for="transportService">Serviço pretendido *</label><select id="transportService" name="service" required><option value="">Selecione o serviço</option><option>Transporte de veículos</option><option>Pronto socorro automóvel</option><option>Máquinas e empilhadores</option><option>Apoio a obras</option><option>Cargas especiais</option></select></div>
-          <div class="field"><label for="transportVehicleBrand">Marca do veículo <span>(opcional)</span></label><input id="transportVehicleBrand" name="marca_veiculo" maxlength="80" placeholder="Ex.: Renault, BMW, Toyota"></div>
-          <div class="field"><label for="transportVehicleType">Tipo de veículo <span>(opcional)</span></label><select id="transportVehicleType" name="tipo_veiculo"><option value="">Selecione o tipo de veículo</option><option>Ligeiro</option><option>Todo-o-terreno</option><option>Mota</option><option>Van</option><option>Minivan</option></select></div>
+          <div class="field"><label for="transportVehicleBrand">Marca do veículo *</label><input id="transportVehicleBrand" name="marca_veiculo" maxlength="80" placeholder="Ex.: Renault, BMW, Toyota" required></div>
+          <div class="field"><label for="transportVehicleType">Tipo de veículo *</label><select id="transportVehicleType" name="tipo_veiculo" required><option value="">Selecione o tipo de veículo</option><option>Ligeiro</option><option>Todo-o-terreno</option><option>Mota</option><option>Van</option><option>Minivan</option></select></div>
           <div class="field"><label for="transportOrigin">Origem / recolha *</label><input id="transportOrigin" name="origin" required maxlength="160" placeholder="Localidade da recolha"></div>
-          <div class="field"><label for="transportDestination">Destino <span>(se conhecido)</span></label><input id="transportDestination" name="destination" maxlength="160" placeholder="Localidade da entrega"></div>
-          <div class="field"><label for="transportDate">Data <span>(opcional)</span></label><input id="transportDate" name="date" type="date"></div>
+          <div class="field"><label for="transportDestination">Destino *</label><input id="transportDestination" name="destination" maxlength="160" placeholder="Localidade da entrega" required></div>
+          <div class="field"><label for="transportDate">Data *</label><input id="transportDate" name="date" type="date" required></div>
           <div class="field"><label for="transportUrgency">Prazo do pedido *</label><select id="transportUrgency" name="urgency" required><option>Transporte programado</option> <option>Urgente — confirmar disponibilidade</option></select></div>
           <div class="field full-width"><label for="transportDetails">Detalhes do transporte *</label><textarea id="transportDetails" name="details" rows="4" required maxlength="1500" placeholder="Indique o veículo ou carga, quantidade, peso e dimensões aproximados. Para reboque, descreva o estado do veículo e o acesso ao local."></textarea></div>
         </div>

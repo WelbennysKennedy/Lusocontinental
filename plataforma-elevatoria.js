@@ -43,9 +43,8 @@
   }
 
   function validate() {
-    ['name', 'phone', 'location', 'details'].forEach((name) => {
-      const field = form.elements.namedItem(name);
-      field.setCustomValidity(field.value.trim() ? '' : 'Preencha este campo.');
+    form.querySelectorAll('input[required], select[required], textarea[required]').forEach((field) => {
+      if (!field.disabled) field.setCustomValidity(field.value.trim() ? '' : 'Preencha este campo.');
     });
     const phone = form.elements.namedItem('phone');
     if (phone.value.replace(/\D/g, '').length < 7) {

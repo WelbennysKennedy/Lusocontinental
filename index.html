@@ -15,7 +15,7 @@
   <script src="navegacao.js" defer></script>
   <script src="cards-background.js?v=3" defer></script>
   <link rel="stylesheet" href="main-contact.css?v=2">
-  <script src="main-contact.js?v=2" defer></script>
+  <script src="main-contact.js?v=3" defer></script>
 </head>
 <body>
 <header class="home-header">
@@ -284,14 +284,14 @@
         <div class="operation-fields">
           <div class="operation-field"><label for="formName">Nome *</label><input id="formName" name="name" autocomplete="name" required maxlength="100" placeholder="O seu nome"></div>
           <div class="operation-field"><label for="formPhone">Telefone *</label><input id="formPhone" name="phone" type="tel" autocomplete="tel" required maxlength="30" pattern="[+0-9\(\) .\-]{7,30}" placeholder="+351"></div>
-          <div class="operation-field"><label for="formEmail">E-mail (opcional)</label><input id="formEmail" name="email" type="email" autocomplete="email" maxlength="150" placeholder="nome@exemplo.pt"></div>
-          <div class="operation-field"><label for="formCompany">Empresa (opcional)</label><input id="formCompany" name="company" autocomplete="organization" maxlength="120" placeholder="Nome da empresa"></div>
-          <div class="operation-field" id="operationVehicleBrand"><label for="operationVehicleBrandInput">Marca do veículo (opcional)</label><input id="operationVehicleBrandInput" name="marca_veiculo" maxlength="80" placeholder="Ex.: Renault, BMW, Toyota"></div>
-          <div class="operation-field" id="operationVehicleType"><label for="operationVehicleTypeInput">Tipo de veículo (opcional)</label><select id="operationVehicleTypeInput" name="tipo_veiculo"><option value="">Selecione o tipo de veículo</option><option>Ligeiro</option><option>Todo-o-terreno</option><option>Mota</option><option>Van</option><option>Minivan</option></select></div>
+          <div class="operation-field"><label for="formEmail">E-mail *</label><input id="formEmail" name="email" type="email" autocomplete="email" maxlength="150" placeholder="nome@exemplo.pt" required></div>
+          <div class="operation-field"><label for="formCompany">Empresa *</label><input id="formCompany" name="company" autocomplete="organization" maxlength="120" placeholder="Nome da empresa" required></div>
+          <div class="operation-field" id="operationVehicleBrand"><label for="operationVehicleBrandInput">Marca do veículo *</label><input id="operationVehicleBrandInput" name="marca_veiculo" maxlength="80" placeholder="Ex.: Renault, BMW, Toyota" required></div>
+          <div class="operation-field" id="operationVehicleType"><label for="operationVehicleTypeInput">Tipo de veículo *</label><select id="operationVehicleTypeInput" name="tipo_veiculo" required><option value="">Selecione o tipo de veículo</option><option>Ligeiro</option><option>Todo-o-terreno</option><option>Mota</option><option>Van</option><option>Minivan</option></select></div>
           <div class="operation-field"><label id="operationLocationLabel" for="operationLocation">Origem / recolha *</label><input id="operationLocation" name="location" required maxlength="160" placeholder="Localidade da operação"></div>
-          <div class="operation-field" id="operationDestination"><label for="operationDestinationInput">Destino (se conhecido)</label><input id="operationDestinationInput" name="destination" maxlength="160" placeholder="Localidade da entrega"></div>
-          <div class="operation-field" id="operationHeight" hidden><label for="operationHeightInput">Piso ou altura (opcional)</label><input id="operationHeightInput" name="height" maxlength="60" placeholder="Ex.: 4.º piso ou 15 m" disabled></div>
-          <div class="operation-field operation-wide"><label for="operationDate">Data pretendida (opcional)</label><input id="operationDate" name="date" type="date"></div>
+          <div class="operation-field" id="operationDestination"><label for="operationDestinationInput">Destino *</label><input id="operationDestinationInput" name="destination" maxlength="160" placeholder="Localidade da entrega" required></div>
+          <div class="operation-field" id="operationHeight" hidden><label for="operationHeightInput">Piso ou altura *</label><input id="operationHeightInput" name="height" maxlength="60" placeholder="Ex.: 4.º piso ou 15 m" disabled required></div>
+          <div class="operation-field operation-wide"><label for="operationDate">Data pretendida *</label><input id="operationDate" name="date" type="date" required></div>
           <div class="operation-field operation-wide"><label for="operationDetails">Como podemos ajudar? *</label><textarea id="operationDetails" name="details" rows="4" required maxlength="1500" placeholder="Descreva a carga ou o veículo, a quantidade, os acessos e a urgência do pedido."></textarea></div>
         </div>
         <div class="operation-actions"><button type="button" value="whatsapp" disabled>Enviar pelo WhatsApp ↗</button><button type="submit" value="email">Enviar por e-mail ↗</button></div>

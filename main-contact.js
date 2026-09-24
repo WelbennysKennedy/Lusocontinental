@@ -28,7 +28,9 @@
   form.addEventListener('change', event => { if (event.target.name === 'service') selectService(); });
   form.addEventListener('input', event => { event.target.setCustomValidity?.(''); clear(); });
   function valid() {
-    ['name', 'phone', 'location', 'details'].forEach(name => field(name).setCustomValidity(field(name).value.trim() ? '' : 'Preencha este campo.'));
+    form.querySelectorAll('input[required], select[required], textarea[required]').forEach(control => {
+      if (!control.disabled) control.setCustomValidity(control.value.trim() ? '' : 'Preencha este campo.');
+    });
     if (field('phone').value.replace(/\D/g, '').length < 7) field('phone').setCustomValidity('Introduza um telefone com pelo menos 7 algarismos.');
     return form.reportValidity();
   }
