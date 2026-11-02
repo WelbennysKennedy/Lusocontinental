@@ -1,0 +1,21 @@
+---
+import Icon from './Icon.astro';
+import { mailHref, site, telHref } from '../data/site';
+
+interface Props {
+  kicker: string;
+  text: string;
+}
+
+const { kicker, text } = Astro.props;
+---
+
+<div class="contact-card-heading">
+  <div class="contact-card-kicker"><span class="contact-card-symbol"><Icon name="mail" strokeWidth={1.5} /></span><span>{kicker}</span></div>
+  <h2 id="quote-title">Fale connosco</h2>
+  <p>{text}</p>
+  <div class="contact-card-channels">
+    <a href={mailHref}><Icon name="mail" strokeWidth={1.5} /><span>{site.email}</span></a>
+    <a href={telHref}><Icon name="phone" strokeWidth={1.5} /><span>{site.phoneDisplay}</span></a>
+  </div>
+</div>

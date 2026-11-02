@@ -1,0 +1,196 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Assistant from '../components/Assistant.astro';
+import CardsBackground from '../components/CardsBackground.astro';
+import ContactCard from '../components/ContactCard.astro';
+import Faq from '../components/Faq.astro';
+import FormSubmitFields from '../components/FormSubmitFields.astro';
+import Gallery from '../components/Gallery.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import QuoteActions from '../components/QuoteActions.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import { formAction, mailHref, routes, site, telHref, whatsappHref } from '../data/site';
+
+import '../styles/plataforma-elevatoria.css';
+import '../styles/assistente.css';
+import '../styles/gallery-map.css';
+import '../styles/contact-forms.css';
+
+import heroPhoto from '../assets/servicos/plataforma-elevatoria-fachada.jpg';
+import varandas from '../assets/plataforma/plataforma-fachada-varandas.jpg';
+import janela from '../assets/plataforma/plataforma-janela-edificio.jpg';
+import cobertura from '../assets/plataforma/plataforma-cobertura-equipa.jpeg';
+import estabilizadores from '../assets/plataforma/plataforma-camiao-estabilizadores.jpeg';
+import residencial from '../assets/plataforma/plataforma-edificio-residencial.jpeg';
+import braco from '../assets/plataforma/plataforma-braco-fachada.jpeg';
+import trilhos from '../assets/plataforma/plataforma-detalhe-trilhos.jpeg';
+
+const stripItems = ['Elevador para mudanças', 'Obras e materiais', 'Painéis solares', 'Ar condicionado', 'Cargas em altura'];
+
+const services = [
+  { title: 'Móveis e mudanças', heading: 'Elevador para mudanças e móveis', text: 'Elevador exterior para mudanças: elevação de sofás, mobiliário e volumes até pisos superiores, através de janelas ou varandas.', srOnly: ' para móveis e mudanças' },
+  { title: 'Materiais para obras', heading: 'Elevação de materiais para obras', text: 'Movimentação de materiais para obras, remodelações, fachadas e coberturas, de acordo com as condições do local.', srOnly: ' para materiais de obras' },
+  { title: 'Painéis e coberturas', heading: 'Painéis solares e coberturas', text: 'Elevação de painéis sandwich e painéis solares, com preparação do acesso e do ponto de receção da carga.', srOnly: ' para painéis e coberturas' },
+  { title: 'Equipamentos em altura', heading: 'Ar condicionado e equipamentos', text: 'Elevação de equipamentos, incluindo ar condicionado, após avaliação das dimensões, do peso e da altura necessária.', srOnly: ' para equipamentos em altura' },
+];
+
+const gallery = [
+  { src: varandas, zoomLabel: 'Ampliar fotografia da elevação junto a varandas (nova aba)', alt: 'Plataforma elevatória estendida até aos pisos superiores de um edifício com varandas em Almada', title: 'Elevação junto à fachada', caption: 'Alcance até aos pisos superiores' },
+  { src: janela, zoomLabel: 'Ampliar fotografia da plataforma junto ao edifício (nova aba)', alt: 'Plataforma elevatória entre o camião e uma janela de um edifício no Seixal', title: 'Acesso pelo exterior', caption: 'Plataforma posicionada junto ao edifício' },
+  { src: cobertura, zoomLabel: 'Ampliar fotografia da operação junto à cobertura (nova aba)', alt: 'Equipa junto à cobertura de um edifício em Lisboa, com a plataforma elevatória estendida', title: 'Operação junto à cobertura', caption: 'Equipa e equipamento no local' },
+  { src: estabilizadores, zoomLabel: 'Ampliar fotografia do posicionamento do camião (nova aba)', alt: 'Camião com estabilizadores e plataforma elevatória junto à fachada de um edifício em Setúbal', title: 'Posicionamento no local', caption: 'Camião e plataforma junto à fachada' },
+  { src: residencial, zoomLabel: 'Ampliar fotografia da elevação num edifício residencial (nova aba)', alt: 'Plataforma elevatória até uma janela de um piso superior de um edifício residencial no Barreiro', title: 'Elevação em altura', caption: 'Acesso aos pisos de um edifício residencial' },
+  { src: braco, zoomLabel: 'Ampliar fotografia do braço elevatório (nova aba)', alt: 'Braço da plataforma elevatória ao longo da fachada de um prédio no Montijo', title: 'Alcance da plataforma', caption: 'Vista do equipamento ao longo da fachada' },
+  { src: trilhos, zoomLabel: 'Ampliar fotografia do detalhe da plataforma (nova aba)', alt: 'Detalhe da plataforma elevatória azul e dos trilhos em frente às janelas de um edifício em Palmela', title: 'Equipamento em detalhe', caption: 'Plataforma e sistema de elevação' },
+  { src: heroPhoto, zoomLabel: 'Ampliar fotografia da plataforma elevatória (nova aba)', alt: 'Plataforma elevatória de 42 metros e braço elevatório junto a um edifício na Margem Sul', title: 'Plataforma elevatória', caption: 'Elevação pelo exterior do edifício' },
+];
+
+const steps = [
+  { title: 'Conte-nos o que precisa', text: 'Indique a localização, o tipo de carga, o piso ou altura e a data pretendida.' },
+  { title: 'Avaliamos a operação', text: 'A equipa analisa os acessos, o espaço disponível e as características da carga para preparar a proposta.' },
+  { title: 'Combinamos os próximos passos', text: 'Após a confirmação do orçamento e da disponibilidade, acertamos consigo a data e os detalhes do serviço.' },
+];
+
+const faq = [
+  { question: 'Qual é a altura máxima da plataforma?', answer: 'O serviço de plataforma elevatória permite elevação até 42 metros, na Margem Sul e em Lisboa. A altura adequada à sua operação é confirmada pela equipa após avaliar o local, os acessos e a carga.' },
+  { question: 'Que informações são necessárias para um orçamento?', answer: 'Indique o local, o tipo de material, a quantidade, o peso e dimensões aproximados, o piso ou altura e a data pretendida. Fotografias do acesso e da carga também ajudam.' },
+  { question: 'Em que zonas está disponível a plataforma elevatória?', answer: 'Na Margem Sul, incluindo Setúbal, Almada, Seixal, Barreiro, Montijo e Palmela, e em Lisboa e arredores. Indique o local da operação para a equipa confirmar a disponibilidade.' },
+  { question: 'A plataforma serve de elevador para mudanças?', answer: 'Sim. Pode solicitar a elevação de móveis e outros volumes numa mudança particular, pelo exterior do edifício. Descreva o que precisa de movimentar para a equipa avaliar a operação.' },
+  { question: 'O formulário confirma logo a marcação?', answer: 'O formulário prepara um pedido de orçamento. A marcação fica dependente da avaliação, da disponibilidade da equipa e da confirmação da proposta.' },
+];
+---
+
+<BaseLayout
+  title="Aluguer de plataforma elevatória 42 m em Lisboa e Almada"
+  description="Aluguer de plataforma elevatória até 42 m e elevador exterior para mudanças em Setúbal, Almada, Seixal, Barreiro, Montijo, Palmela e Lisboa."
+  themeColor="#10152a"
+  bodyClass="platform-page"
+>
+  <SiteHeader />
+
+  <main id="conteudo">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <a class="back-link" href={routes.home}>← Voltar à página inicial</a>
+          <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> ALUGUER DE PLATAFORMA ELEVATÓRIA</p>
+          <h1 id="hero-title">Plataforma elevatória <br />até <em>42 metros.</em></h1>
+          <p class="hero-description">Aluguer de plataforma elevatória na Margem Sul e em Lisboa para levar móveis, materiais e equipamentos onde precisa. Uma operação planeada à medida do seu espaço.</p>
+          <div class="hero-actions">
+            <a class="button" href="#orcamento">Pedir um orçamento <span aria-hidden="true">↗</span></a>
+            <a class="text-link" href={telHref}>Falar com a equipa <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="hero-facts">
+            <div><strong>42<span> m</span></strong><span>Altura máxima de elevação</span></div>
+            <div><strong>À sua medida</strong><span>Planeamento de cada operação</span></div>
+          </div>
+        </div>
+        <figure class="hero-photo">
+          <Image src={heroPhoto} alt="Plataforma elevatória de 42 metros montada num camião, junto à fachada de um edifício em Almada" format="webp" quality={82} widths={[640, 960, 1280, 1600]} sizes="(max-width: 780px) 100vw, 50vw" loading="eager" fetchpriority="high" />
+          <figcaption><span class="photo-dot" aria-hidden="true"></span> Do solo ao destino.<span class="photo-arrow" aria-hidden="true">↗</span></figcaption>
+          <span class="photo-label" aria-hidden="true">ELEVAÇÃO · ATÉ 42 M</span>
+        </figure>
+      </div>
+    </section>
+
+    <div class="service-strip" aria-label="Aplicações da plataforma">
+      <div class="service-strip-track">
+        <div class="service-strip-group">{stripItems.map((item) => <span>{item}</span>)}</div>
+        <div class="service-strip-group" aria-hidden="true">{stripItems.map((item) => <span>{item}</span>)}</div>
+      </div>
+    </div>
+
+    <section class="section services" id="servicos" aria-labelledby="services-title">
+      <div class="container">
+        <div class="section-heading">
+          <div><p class="eyebrow">01 / O QUE FAZEMOS</p><h2 id="services-title">Mais alcance.<br />Mais possibilidades.</h2></div>
+          <p>Quando as escadas e os acessos interiores limitam a passagem, a plataforma permite planear a movimentação pelo exterior. Plataforma elevatória em Almada, no Seixal e em toda a Margem Sul, com aluguer também em Lisboa.</p>
+        </div>
+        <div class="service-grid">
+          {
+            services.map((service, index) => (
+              <article class="service-card">
+                <span class="service-number">{String(index + 1).padStart(2, '0')} <span aria-hidden="true">↗</span></span>
+                <h3>{service.heading}</h3>
+                <p>{service.text}</p>
+                <a href="#orcamento" data-service={service.title}>Pedir orçamento <span aria-hidden="true">↗</span><span class="sr-only">{service.srOnly}</span></a>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="section gallery-section gallery-map-section" id="galeria" aria-labelledby="gallery-title">
+      <CardsBackground />
+      <div class="container">
+        <div class="section-heading"><div><p class="eyebrow">02 / EQUIPAMENTO E OPERAÇÃO</p><h2 id="gallery-title">Meios para chegar<br />mais longe.</h2></div><p>Veja a plataforma em diferentes operações, dos acessos à fachada aos pisos superiores. Explore as fotografias da nossa galeria.</p></div>
+        <Gallery id="platformGallery" label="Fotografias dos equipamentos e operações" trackLabel="Galeria de fotografias. Deslize para os lados ou use as setas do teclado." maxImageHeight={560} slides={gallery} />
+      </div>
+    </section>
+
+    <section class="section process-section" aria-labelledby="process-title">
+      <div class="container process-grid">
+        <div><p class="eyebrow">03 / COMO FUNCIONA</p><h2 id="process-title">Da primeira conversa<br />à elevação.</h2><p class="section-intro">Cada espaço é diferente. Começamos pelos detalhes para preparar a operação certa.</p><a class="text-link" href="#orcamento">Vamos planear a sua <span aria-hidden="true">↗</span></a></div>
+        <ProcessSteps steps={steps} />
+      </div>
+    </section>
+
+    <section class="section quote-section contact-section" id="orcamento" aria-labelledby="quote-title">
+      <div class="container quote-grid">
+        <ContactCard kicker="Plataforma elevatória" text="Conte-nos o que precisa de elevar e onde será a operação. A nossa equipa avalia os detalhes e prepara o seu orçamento." />
+        <form class="quote-form" id="quoteForm" action={formAction} method="POST" accept-charset="UTF-8">
+          <FormSubmitFields pagina="Plataforma elevatória" />
+          <p class="contact-required">Os campos com * são obrigatórios.</p>
+          <div class="form-grid">
+            <div class="field"><label for="quoteName">Nome *</label><input id="quoteName" name="name" autocomplete="name" required maxlength="100" placeholder="O seu nome" /></div>
+            <div class="field"><label for="quotePhone">Telefone *</label><input id="quotePhone" name="phone" type="tel" autocomplete="tel" required maxlength="30" placeholder="+351" pattern="[+0-9\(\) .\-]{7,30}" title="Introduza um telefone com 7 a 30 caracteres, usando números, espaços, +, parênteses ou hífen." /></div>
+            <div class="field full-width"><label for="quoteEmail">E-mail *</label><input id="quoteEmail" name="email" type="email" autocomplete="email" maxlength="150" placeholder="nome@exemplo.pt" required /></div>
+            <div class="field full-width"><label for="quoteService">Que serviço precisa? *</label><select id="quoteService" name="service" required><option value="">Selecione o serviço</option><option>Móveis e mudanças</option><option>Materiais para obras</option><option>Painéis e coberturas</option><option>Equipamentos em altura</option><option>Outra operação</option></select></div>
+            <div class="field full-width"><label for="quoteLocation">Localidade da operação *</label><input id="quoteLocation" name="location" required maxlength="160" placeholder="Ex.: Paredes, Lisboa, Porto…" /></div>
+            <div class="field"><label for="quoteHeight">Piso ou altura *</label><input id="quoteHeight" name="height" maxlength="60" placeholder="Ex.: 4.º piso ou 15 m" required /></div>
+            <div class="field"><label for="quoteDate">Data pretendida *</label><input id="quoteDate" name="date" type="date" required /></div>
+            <div class="field full-width"><label for="quoteDetails">Detalhes da operação *</label><textarea id="quoteDetails" name="details" rows="4" required maxlength="1500" placeholder="O que precisa de elevar? Indique a quantidade, peso ou dimensões aproximados e como é o acesso ao local."></textarea></div>
+          </div>
+          <QuoteActions />
+          <p id="quoteStatus" class="form-status" role="status" hidden></p>
+          <a id="quoteFallback" class="form-fallback" target="_blank" rel="noopener" hidden>Continuar para enviar o pedido ↗</a>
+          <noscript><p>Para pedir um orçamento, <a href={whatsappHref()} target="_blank" rel="noopener">contacte-nos pelo WhatsApp</a> ou envie um e-mail para <a href={mailHref}>{site.email}</a>.</p></noscript>
+        </form>
+      </div>
+    </section>
+
+    <Faq eyebrow="ANTES DE COMEÇAR" items={faq} />
+  </main>
+
+  <SiteFooter
+    tagline="Transporte técnico. Soluções em altura."
+    links={[
+      { label: 'Serviços de transporte', href: routes.transportes },
+      { label: 'Voltar à página inicial', href: routes.home },
+    ]}
+  />
+
+  <Assistant
+    topic="platform"
+    toggleLabel="Abrir assistente da plataforma elevatória"
+    subtitle="Assistente virtual · Plataforma elevatória"
+    greeting="Olá! Posso ajudar com a plataforma elevatória até 42 metros, móveis e mudanças, materiais para obras, painéis e equipamentos. Quer conhecer os serviços ou pedir um orçamento?"
+    quickActionsLabel="Perguntas frequentes sobre a plataforma"
+    quickActions={[
+      { label: 'Serviços', question: 'Que serviços fazem com a plataforma elevatória?' },
+      { label: 'Altura até 42 m', question: 'Qual é a altura máxima da plataforma?' },
+      { label: 'Orçamento', question: 'Como peço um orçamento para a plataforma?' },
+      { label: 'Agendamento', question: 'Como agendar o serviço de plataforma?' },
+    ]}
+    whatsappText="Olá! Gostaria de falar sobre a plataforma elevatória."
+    quoteHref="#orcamento"
+  />
+
+  <script src="../scripts/plataforma-elevatoria.js"></script>
+  <script src="../scripts/galeria.js"></script>
+  <script src="../scripts/assistente.js"></script>
+  <script src="../scripts/cards-background.js"></script>
+</BaseLayout>

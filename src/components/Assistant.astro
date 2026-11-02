@@ -1,0 +1,75 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import whatsappIcon from '../assets/icones/whatsapp.png';
+import { mailHref, site, telHref, whatsappHref } from '../data/site';
+
+interface Props {
+  topic: 'general' | 'transport' | 'platform';
+  toggleLabel: string;
+  subtitle: string;
+  greeting: string;
+  quickActionsLabel: string;
+  quickActions: { label: string; question: string }[];
+  placeholder?: string;
+  submitLabel?: string;
+  whatsappText?: string;
+  quoteHref?: string;
+  callLabel?: string;
+  callTitle?: string;
+  callCaption?: string;
+}
+
+const {
+  topic,
+  toggleLabel,
+  subtitle,
+  greeting,
+  quickActionsLabel,
+  quickActions,
+  placeholder = 'Escreva a sua dúvida…',
+  submitLabel = 'Enviar dúvida ao assistente',
+  whatsappText,
+  quoteHref,
+  callLabel = `Ligar para ${site.phoneDisplay}`,
+  callTitle,
+  callCaption = site.phoneDisplay,
+} = Astro.props;
+---
+
+<div class="contact-tools" aria-label="Canais de atendimento">
+  <button class="whatsapp-float" id="assistantToggle" type="button" aria-controls="assistantPanel" aria-expanded="false" aria-label={toggleLabel}>
+    <Image src={whatsappIcon} alt="" format="webp" quality={90} loading="eager" />
+    <span>WhatsApp</span>
+  </button>
+  <section class="assistant-panel" id="assistantPanel" data-assistant-topic={topic} role="dialog" aria-labelledby="assistantTitle" hidden>
+    <div class="assistant-header">
+      <Icon name="chat" />
+      <div>
+        <strong id="assistantTitle">Assistente Luso Continental</strong>
+        <span>{subtitle}</span>
+      </div>
+      <button type="button" id="assistantClose" aria-label="Fechar assistente">×</button>
+    </div>
+    <div class="assistant-messages" id="assistantMessages" role="log" aria-live="polite" aria-relevant="additions" aria-label="Conversa com o assistente">
+      <p class="assistant-message assistant-message--bot">{greeting}</p>
+    </div>
+    <div class="assistant-quick-actions" aria-label={quickActionsLabel}>
+      {quickActions.map((action) => <button type="button" data-question={action.question}>{action.label}</button>)}
+    </div>
+    <form class="assistant-form" id="assistantForm">
+      <label class="sr-only" for="assistantInput">Escreva a sua dúvida</label>
+      <input id="assistantInput" type="text" placeholder={placeholder} maxlength="600" autocomplete="off" required />
+      <button type="submit" aria-label={submitLabel}><Icon name="send" /></button>
+    </form>
+    <div class="assistant-actions">
+      <a class="assistant-whatsapp-link" href={whatsappHref(whatsappText)} target="_blank" rel="noopener"><Image src={whatsappIcon} alt="" format="webp" quality={90} />Conversar com a equipa no WhatsApp</a>
+      {quoteHref && <a class="assistant-quote-link" href={quoteHref}>Ir para o formulário de orçamento</a>}
+    </div>
+    <div class="assistant-contact-links">
+      <a href={mailHref} aria-label="Enviar e-mail"><Icon name="mail" /></a>
+      <a href={telHref} aria-label={callLabel} title={callTitle}><Icon name="phone" /></a>
+      <span class="assistant-call-label">{callCaption}</span>
+    </div>
+  </section>
+</div>

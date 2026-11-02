@@ -1,0 +1,335 @@
+---
+import { getImage, Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Assistant from '../components/Assistant.astro';
+import CardsBackground from '../components/CardsBackground.astro';
+import FormSubmitFields from '../components/FormSubmitFields.astro';
+import { formAction, routes, site, telHref, whatsappHref } from '../data/site';
+import { footerAreas, lisboaArredores, margemSul } from '../data/zonas';
+
+import '../styles/hero-scroll-video.css';
+import '../styles/assistente.css';
+import '../styles/navegacao.css';
+import '../styles/main-contact.css';
+
+import heroPosterSource from '../assets/hero-poster.png';
+import chamadasIcon from '../assets/icones/chamadas.png';
+import prontoSocorro from '../assets/servicos/pronto-socorro-reboque.jpeg';
+import transporteVeiculos from '../assets/servicos/transporte-veiculos-porta-automoveis.jpg';
+import maquinas from '../assets/servicos/transporte-maquinas-empilhadores.jpg';
+import plataforma from '../assets/servicos/plataforma-elevatoria-fachada.jpg';
+import apoioObras from '../assets/servicos/apoio-a-obras.jpg';
+import cargasEspeciais from '../assets/servicos/cargas-especiais.jpg';
+
+const heroPoster = await getImage({ src: heroPosterSource, format: 'webp', quality: 70 });
+
+const description = 'Reboque de automóveis, pronto socorro e transporte de carros em Setúbal, Almada, Seixal, Barreiro, Montijo, Palmela e Lisboa. Ligue +351 933 359 605.';
+
+const offers = [
+  'Reboque de automóveis',
+  'Pronto socorro automóvel',
+  'Transporte de automóveis em porta-automóveis',
+  'Transporte de máquinas e empilhadores',
+  'Aluguer de plataforma elevatória até 42 metros',
+  'Transporte de cargas especiais',
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'AutomotiveBusiness',
+  name: site.name,
+  url: Astro.site?.href,
+  telephone: site.phone,
+  email: site.email,
+  description,
+  image: new URL(heroPoster.src, Astro.site).href,
+  areaServed: [...margemSul, ...lisboaArredores].map((name) => ({ '@type': 'City', name })),
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Serviços da Luso Continental',
+    itemListElement: offers.map((name) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name } })),
+  },
+};
+
+const services = [
+  {
+    image: prontoSocorro,
+    alt: 'Reboque de carrinha avariada em Setúbal',
+    title: 'Reboque e pronto socorro automóvel',
+    text: 'Reboque urgente de carros e carrinhas avariados ou sinistrados em Setúbal, Almada, Seixal, Barreiro, Montijo, Palmela e Lisboa.',
+    href: `${routes.transportes}#pronto-socorro`,
+    label: 'Saiba mais: Pronto socorro automóvel (nova aba)',
+  },
+  {
+    image: transporteVeiculos,
+    alt: 'Porta-automóveis a transportar vários carros na Margem Sul',
+    title: 'Transporte de automóveis',
+    text: 'Transporte de carros e motas em camião porta-automóveis, na Margem Sul e em Lisboa, para particulares, stands, oficinas, frotas e retomas.',
+    href: `${routes.transportes}#transporte-veiculos`,
+    label: 'Saiba mais: Transporte de veículos (nova aba)',
+  },
+  {
+    image: maquinas,
+    alt: 'Camião a fazer transporte de máquinas e equipamentos industriais em Setúbal',
+    title: 'Transporte de máquinas e empilhadores',
+    text: 'Transporte de máquinas industriais, máquinas de obra e empilhadores em Setúbal e Lisboa, com avaliação de peso, acesso e descarga.',
+    href: `${routes.transportes}#maquinas-empilhadores`,
+    label: 'Saiba mais: Máquinas e empilhadores (nova aba)',
+  },
+  {
+    image: plataforma,
+    alt: 'Camião com plataforma elevatória junto a um edifício em Almada',
+    title: 'Aluguer de plataforma elevatória',
+    text: 'Plataforma até 42 metros na Margem Sul e em Lisboa: elevador exterior para mudanças, materiais, painéis solares, ar condicionado e cargas em altura.',
+    href: routes.plataforma,
+    label: 'Saiba mais sobre a plataforma elevatória (nova aba)',
+  },
+  {
+    image: apoioObras,
+    alt: 'Camião a transportar equipamento de apoio a obras em Lisboa',
+    title: 'Transporte para obras',
+    text: 'Transporte de equipamentos e materiais para obras, fachadas, coberturas e acessos difíceis, com equipa e meios ajustados ao local.',
+    href: `${routes.transportes}#apoio-obras`,
+    label: 'Saiba mais: Apoio a obras (nova aba)',
+  },
+  {
+    image: cargasEspeciais,
+    alt: 'Camião a fazer transporte de carga especial no Seixal',
+    title: 'Transporte de cargas especiais',
+    text: 'Transporte de materiais volumosos e cargas sensíveis, com planeamento e amarração técnica.',
+    href: `${routes.transportes}#cargas-especiais`,
+    label: 'Saiba mais: Cargas especiais (nova aba)',
+  },
+];
+
+const compareRows = [
+  ['Planeamento', 'Rota e janela', 'Localização e acesso', 'Peso e equipamento'],
+  ['Cuidados principais', 'Amarração', 'Assistência rápida', 'Amarração'],
+  ['Equipa dedicada', 'Sim', 'Assistência rápida', 'Sim'],
+  ['Controlo operacional', 'Elevado', 'Urgente', 'Técnico'],
+  ['Preparação média', 'Agendada', 'Disponibilidade', 'Sob vistoria'],
+  ['Ideal para', 'Stands e particulares', 'Carros e urgências', 'Obras e indústria'],
+];
+---
+
+<BaseLayout title="Reboque e pronto socorro em Setúbal e Lisboa | Luso Continental" description={description}>
+  <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <link slot="head" rel="preload" as="image" href={heroPoster.src} fetchpriority="high" />
+
+  <header class="home-header">
+    <div class="home-header-inner">
+      <button class="home-menu-toggle" type="button" aria-controls="homeNavigation" aria-expanded="false" aria-label="Abrir menu de navegação">
+        <span>Menu</span><span class="home-menu-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+      </button>
+      <nav class="home-nav" id="homeNavigation" aria-label="Navegação principal">
+        <a href={routes.plataforma}>Plataforma elevatória</a>
+        <a href={routes.transportes}>Transporte de veículos</a>
+        <a class="home-nav-contact" href="#planeie-sua-operacao">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hsv-progress-bar" id="hsvProgressBar"></div>
+
+  <section class="hsv-scroll-stage" id="hsvScrollStage">
+    <div class="hsv-hero">
+      <video id="hsvVideo" muted playsinline preload="auto" poster={heroPoster.src}>
+        <source src="/assets/hero-mobile.mp4" type="video/mp4" media="(max-width: 780px)" />
+        <source src="/assets/hero-desktop.mp4" type="video/mp4" />
+      </video>
+
+      <div class="hsv-content" id="hsvContent">
+        <h1>Luso Continental</h1>
+        <span class="hsv-title-line"></span>
+        <p>Role para explorar</p>
+      </div>
+
+      <div class="hsv-desc" id="hsvDesc">
+        <div class="hsv-desc-inner">
+          <p>Reboque, pronto socorro e transporte de automóveis</p>
+          <h2 class="lc-heading">
+            <span class="lc-orange">Transporte de máquinas, carros e porta-automóveis.</span>
+            <span class="lc-platform">Plataforma elevatória até 42 metros.</span>
+            <span class="lc-white">Com urgência, segurança e controlo.</span>
+          </h2>
+          <p class="lc-body">A Lusocontinental realiza pronto socorro automóvel, reboque urgente, transporte de carros em porta-automóveis, máquinas, empilhadores e plataforma elevatória até 42 metros para obras, indústria, stands e particulares em Setúbal, Almada, Seixal, Lisboa e toda a Margem Sul.</p>
+          <a href="#" class="lc-cta">Saiba mais <span aria-hidden="true">›</span></a>
+        </div>
+      </div>
+
+      <div class="hsv-scroll-hint" id="hsvScrollHint">
+        <span>Scroll</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 5v14M19 12l-7 7-7-7" />
+        </svg>
+      </div>
+
+      <div class="hsv-km-gauge" id="hsvKmGauge">
+        <svg class="hsv-km-gauge-ring" viewBox="0 0 200 200">
+          <circle class="hsv-km-gauge-track" cx="100" cy="100" r="90"></circle>
+          <circle class="hsv-km-gauge-progress" id="hsvKmGaugeProgress" cx="100" cy="100" r="90"></circle>
+        </svg>
+        <div class="hsv-km-gauge-label">
+          <span class="hsv-km-gauge-value" id="hsvKmGaugeValue">0</span>
+          <span class="hsv-km-gauge-unit">km</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <CardsBackground />
+    <div class="cs-inner">
+      {
+        services.map((service) => (
+          <div class="cs-card">
+            <div class="cs-card-media">
+              <Image
+                src={service.image}
+                alt={service.alt}
+                format="webp"
+                quality={82}
+                widths={[480, 720, 960, 1280].filter((width) => width <= service.image.width)}
+                sizes="(max-width: 780px) 100vw, (max-width: 1100px) 50vw, 420px"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="cs-card-body">
+              <h3 class="cs-card-title">{service.title}</h3>
+              <p class="cs-card-text">{service.text}</p>
+              <a href={service.href} class="cs-card-cta" target="_blank" rel="noopener" aria-label={service.label}>Saiba mais ↗</a>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="diff-section">
+    <div class="diff-inner">
+      <h2 class="diff-heading reveal-up">Principais diferenciais</h2>
+      <p class="diff-subtitle reveal-up">A Lusocontinental resolve operações onde o detalhe importa: pronto socorro automóvel, porta-automóveis, máquinas e empilhadores, cargas em altura, painéis sandwich, painéis solares, entulho e ar condicionado.</p>
+
+      <div class="diff-cols">
+        <div class="diff-col reveal-up">
+          <div class="diff-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l6-8 6 8-6 8-6-8z" /><path d="M15 12h6" /></svg>
+          </div>
+          <p>Transporte de veículos em porta-carros e porta-automóveis com entrega controlada</p>
+        </div>
+
+        <div class="diff-col reveal-up">
+          <div class="diff-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z" /></svg>
+          </div>
+          <p>Pronto socorro e reboque urgente para carros avariados ou sinistrados</p>
+        </div>
+
+        <div class="diff-col reveal-up">
+          <div class="diff-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="7" width="13" height="9" /><path d="M14 10h4l3 3v3h-7z" /><circle cx="6" cy="18" r="1.6" /><circle cx="17.5" cy="18" r="1.6" /></svg>
+          </div>
+          <p>Transporte de máquinas, empilhadores, painéis e cargas especiais</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="compare-section">
+    <div class="compare-inner">
+      <h2 class="compare-heading reveal-up">Operação por serviço</h2>
+
+      <div class="compare-table reveal-up">
+        <div class="compare-cell compare-header"></div>
+        <div class="compare-cell compare-header compare-featured">Cegonha</div>
+        <div class="compare-cell compare-header">Reboque</div>
+        <div class="compare-cell compare-header">Máquinas</div>
+        {
+          compareRows.map(([label, featured, towing, machines]) => (
+            <Fragment>
+              <div class="compare-cell compare-row-label">{label}</div>
+              <div class="compare-cell compare-featured-cell">{featured} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></svg></div>
+              <div class="compare-cell">{towing}</div>
+              <div class="compare-cell">{machines}</div>
+            </Fragment>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="form-section" id="planeie-sua-operacao">
+    <div class="form-inner">
+      <h2 class="form-heading">Planeie a sua operação</h2>
+      <p class="form-subtitle">Transporte ou plataforma elevatória? Conte-nos o que precisa e receba uma proposta ajustada à sua operação.</p>
+      <hr class="form-divider" />
+      <form class="operation-form" id="operationForm" action={formAction} method="POST" accept-charset="UTF-8">
+        <FormSubmitFields pagina="Página principal" />
+        <div>
+          <fieldset class="operation-services">
+            <legend>De que serviço precisa?</legend>
+            <label class="operation-choice"><input type="radio" name="service" value="Transporte" checked required /><span><strong>Transporte</strong><small>Veículos, pronto socorro automóvel, máquinas, apoio a obras e cargas especiais.</small></span></label>
+            <label class="operation-choice"><input type="radio" name="service" value="Plataforma elevatória" required /><span><strong>Plataforma elevatória</strong><small>Elevação até 42 metros para móveis, materiais e equipamentos.</small></span></label>
+          </fieldset>
+          <div class="operation-urgent"><p>Precisa de assistência urgente? Ligue para confirmar a disponibilidade com a equipa.</p><a href={telHref}>Ligar agora · {site.phoneDisplay} ↗</a></div>
+        </div>
+        <div>
+          <div class="operation-fields">
+            <div class="operation-field"><label for="formName">Nome *</label><input id="formName" name="name" autocomplete="name" required maxlength="100" placeholder="O seu nome" /></div>
+            <div class="operation-field"><label for="formPhone">Telefone *</label><input id="formPhone" name="phone" type="tel" autocomplete="tel" required maxlength="30" pattern="[+0-9\(\) .\-]{7,30}" placeholder="+351" /></div>
+            <div class="operation-field"><label for="formEmail">E-mail *</label><input id="formEmail" name="email" type="email" autocomplete="email" maxlength="150" placeholder="nome@exemplo.pt" required /></div>
+            <div class="operation-field"><label for="formCompany">Empresa *</label><input id="formCompany" name="company" autocomplete="organization" maxlength="120" placeholder="Nome da empresa" required /></div>
+            <div class="operation-field" id="operationVehicleBrand"><label for="operationVehicleBrandInput">Marca do veículo *</label><input id="operationVehicleBrandInput" name="marca_veiculo" maxlength="80" placeholder="Ex.: Renault, BMW, Toyota" required /></div>
+            <div class="operation-field" id="operationVehicleType"><label for="operationVehicleTypeInput">Tipo de veículo *</label><select id="operationVehicleTypeInput" name="tipo_veiculo" required><option value="">Selecione o tipo de veículo</option><option>Ligeiro</option><option>Todo-o-terreno</option><option>Mota</option><option>Van</option><option>Minivan</option></select></div>
+            <div class="operation-field"><label id="operationLocationLabel" for="operationLocation">Origem / recolha *</label><input id="operationLocation" name="location" required maxlength="160" placeholder="Localidade da operação" /></div>
+            <div class="operation-field" id="operationDestination"><label for="operationDestinationInput">Destino *</label><input id="operationDestinationInput" name="destination" maxlength="160" placeholder="Localidade da entrega" required /></div>
+            <div class="operation-field" id="operationHeight" hidden><label for="operationHeightInput">Piso ou altura *</label><input id="operationHeightInput" name="height" maxlength="60" placeholder="Ex.: 4.º piso ou 15 m" disabled required /></div>
+            <div class="operation-field operation-wide"><label for="operationDate">Data pretendida *</label><input id="operationDate" name="date" type="date" required /></div>
+            <div class="operation-field operation-wide"><label for="operationDetails">Como podemos ajudar? *</label><textarea id="operationDetails" name="details" rows="4" required maxlength="1500" placeholder="Descreva a carga ou o veículo, a quantidade, os acessos e a urgência do pedido."></textarea></div>
+          </div>
+          <div class="operation-actions"><button type="button" value="whatsapp" disabled>Enviar pelo WhatsApp ↗</button><button type="submit" value="email">Enviar por e-mail ↗</button></div>
+          <p class="operation-note">Os campos com * são obrigatórios. Por e-mail, conclua a verificação de segurança. No WhatsApp, reveja a mensagem e toque em Enviar. O orçamento e a disponibilidade são confirmados pela equipa.</p>
+          <p class="operation-status" id="operationStatus" role="status" hidden></p>
+          <a class="operation-fallback" id="operationFallback" target="_blank" rel="noopener" hidden>Abrir o pedido no WhatsApp ↗</a>
+          <noscript><p>Também pode <a href={whatsappHref()}>contactar a equipa pelo WhatsApp</a>. Indique os detalhes do serviço no campo de mensagem.</p></noscript>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <footer class="home-footer"><p>{footerAreas}</p></footer>
+
+  <Assistant
+    topic="general"
+    toggleLabel="Abrir assistente Luso Continental"
+    subtitle="Assistente virtual · Rotas e serviços em Portugal"
+    greeting="Olá! Posso esclarecer dúvidas sobre rotas, transporte de veículos, reboque, máquinas e plataforma elevatória até 42 metros."
+    quickActionsLabel="Perguntas frequentes"
+    quickActions={[
+      { label: 'Rotas em Portugal', question: 'Que rotas fazem em Portugal?' },
+      { label: 'Serviços', question: 'Que serviços estão disponíveis?' },
+      { label: 'Plataforma elevatória', question: 'Que serviços fazem com a plataforma elevatória?' },
+      { label: 'Cotação', question: 'Como peço uma cotação?' },
+    ]}
+    placeholder="Escreva a sua dúvida..."
+    submitLabel="Enviar dúvida"
+    callLabel="Fazer chamada urgente"
+    callTitle="Chamadas urgentes"
+    callCaption="Chamadas urgentes"
+  />
+
+  <aside class="side-info" aria-label="Informações de contacto e rotas">
+    <a class="urgent-call-float" href={telHref} aria-label="Ligar para chamadas urgentes">
+      <Image src={chamadasIcon} alt="" format="webp" quality={90} loading="eager" />
+      <span>Chamadas urgentes</span>
+    </a>
+    <p class="route-notice">Temos rotas fixas entre a zona de Paredes e Lisboa, semanalmente.</p>
+  </aside>
+
+  <script src="../scripts/assistente.js"></script>
+  <script src="../scripts/navegacao.js"></script>
+  <script src="../scripts/cards-background.js"></script>
+  <script src="../scripts/main-contact.js"></script>
+  <script src="../scripts/hero-scroll-video.js"></script>
+</BaseLayout>

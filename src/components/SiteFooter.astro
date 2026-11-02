@@ -1,0 +1,20 @@
+---
+import Brand from './Brand.astro';
+import { footerAreas } from '../data/zonas';
+
+interface Props {
+  tagline: string;
+  links: { label: string; href: string }[];
+}
+
+const { tagline, links } = Astro.props;
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <Brand />
+    <p>{tagline}</p>
+    {links.map((link) => <a href={link.href}>{link.label} <span aria-hidden="true">↗</span></a>)}
+  </div>
+  <p class="container footer-areas">{footerAreas}</p>
+</footer>

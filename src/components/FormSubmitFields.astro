@@ -1,0 +1,13 @@
+---
+interface Props {
+  pagina: string;
+}
+
+const { pagina } = Astro.props;
+---
+
+<input type="hidden" name="_subject" value="Novo contato recebido pelo site" />
+<input type="hidden" name="_captcha" value="true" />
+<input type="hidden" name="_template" value="table" />
+<input type="hidden" name="_next" value="" disabled />
+<input type="hidden" name="pagina" value={pagina} />

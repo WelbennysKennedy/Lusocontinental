@@ -1,0 +1,28 @@
+---
+import { Font } from 'astro:assets';
+
+interface Props {
+  title: string;
+  description: string;
+  themeColor?: string;
+  bodyClass?: string;
+}
+
+const { title, description, themeColor, bodyClass } = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    {themeColor && <meta name="theme-color" content={themeColor} />}
+    <title>{title}</title>
+    <Font cssVariable="--font-jakarta" preload={[{ subset: 'latin' }]} />
+    <slot name="head" />
+  </head>
+  <body class={bodyClass}>
+    <slot />
+  </body>
+</html>

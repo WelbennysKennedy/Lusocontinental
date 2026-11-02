@@ -1,0 +1,52 @@
+---
+import type { ImageMetadata } from 'astro';
+import { getImage, Image } from 'astro:assets';
+
+interface Slide {
+  src: ImageMetadata;
+  alt: string;
+  title: string;
+  caption: string;
+  zoomLabel: string;
+}
+
+interface Props {
+  id: string;
+  label: string;
+  trackLabel: string;
+  // Altura máxima da fotografia em CSS (--gallery-image-height), para calcular o "sizes".
+  maxImageHeight: number;
+  slides: Slide[];
+}
+
+const { id, label, trackLabel, maxImageHeight, slides } = Astro.props;
+
+const prepared = await Promise.all(
+  slides.map(async (slide) => {
+    const ratio = slide.src.width / slide.src.height;
+    const full = await getImage({ src: slide.src, format: 'webp', quality: 85, width: Math.min(slide.src.width, 2000) });
+    return {
+      ...slide,
+      ratio: ratio.toFixed(10),
+      fullHref: full.src,
+      sizes: `min(100vw, ${Math.ceil(maxImageHeight * ratio)}px)`,
+      widths: [320, 480, 640, 960, 1280, 1600].filter((width) => width < slide.src.width),
+    };
+  }),
+);
+---
+
+<div class="gallery-carousel" id={id} role="group" aria-roledescription="carrossel" aria-label={label}>
+  <div class="gallery-track" id="galleryTrack" tabindex="0" aria-label={trackLabel}>
+    {
+      prepared.map((slide) => (
+        <figure class="gallery-slide" style={`--image-ratio:${slide.ratio}`}>
+          <a class="gallery-photo" href={slide.fullHref} target="_blank" rel="noopener" aria-label={slide.zoomLabel}>
+            <Image src={slide.src} alt={slide.alt} format="webp" quality={82} widths={slide.widths} sizes={slide.sizes} loading="lazy" decoding="async" />
+          </a>
+          <figcaption><strong>{slide.title}</strong><span>{slide.caption}</span></figcaption>
+        </figure>
+      ))
+    }
+  </div>
+</div>

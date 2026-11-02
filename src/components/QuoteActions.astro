@@ -1,0 +1,9 @@
+---
+import Icon from './Icon.astro';
+---
+
+<div class="form-actions">
+  <button class="button" type="button" name="channel" value="whatsapp" disabled><Icon name="send" strokeWidth={1.5} />Enviar pelo WhatsApp</button>
+  <button class="button button-secondary" type="submit" name="channel" value="email"><Icon name="mail" strokeWidth={1.5} />Enviar por e-mail</button>
+</div>
+<p class="form-note">Por e-mail, o pedido é enviado após a verificação de segurança. No WhatsApp, reveja a mensagem e toque em Enviar. A equipa confirma o orçamento e a disponibilidade.</p>

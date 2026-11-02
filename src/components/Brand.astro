@@ -1,0 +1,14 @@
+---
+import { routes } from '../data/site';
+
+interface Props {
+  label?: string;
+}
+
+const { label } = Astro.props;
+---
+
+<a class="brand" href={routes.home} aria-label={label}>
+  <span class="brand-symbol" aria-hidden="true">LC<span>↗</span></span>
+  <span>LUSO<span class="brand-light">CONTINENTAL</span></span>
+</a>

@@ -18,9 +18,4 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci
-      - name: Check JavaScript syntax
-        run: |
-          for file in *.js scripts/*.mjs assets/*.js; do
-            node --check "$file"
-          done
       - run: npm run build

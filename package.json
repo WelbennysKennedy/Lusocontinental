@@ -1,12 +1,19 @@
 {
   "name": "lusocontinental",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
+  "type": "module",
   "description": "Site institucional da Luso Continental — transportes e plataforma elevatória.",
   "scripts": {
-    "build": "node scripts/build.mjs"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
   },
   "engines": {
     "node": "24.x"
+  },
+  "dependencies": {
+    "astro": "^7.4.5",
+    "sharp": "^0.35.5"
   }
 }

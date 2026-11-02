@@ -1,0 +1,203 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Assistant from '../components/Assistant.astro';
+import CardsBackground from '../components/CardsBackground.astro';
+import ContactCard from '../components/ContactCard.astro';
+import Faq from '../components/Faq.astro';
+import FormSubmitFields from '../components/FormSubmitFields.astro';
+import Gallery from '../components/Gallery.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import QuoteActions from '../components/QuoteActions.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import { formAction, mailHref, routes, site, telHref, whatsappHref } from '../data/site';
+
+import '../styles/plataforma-elevatoria.css';
+import '../styles/transportes.css';
+import '../styles/assistente.css';
+import '../styles/gallery-map.css';
+import '../styles/contact-forms.css';
+
+import heroPhoto from '../assets/transportes/camiao-porta-automoveis-scania.png';
+import juntoStand from '../assets/transportes/porta-automoveis-junto-stand.jpeg';
+import prontoSocorro from '../assets/servicos/pronto-socorro-reboque.jpeg';
+import maquinas from '../assets/transportes/camiao-maquinas-equipamento.jpeg';
+import retroescavadora from '../assets/transportes/camiao-retroescavadora-obras.jpeg';
+import cargaArticulada from '../assets/transportes/camiao-carga-plataforma-articulada.jpeg';
+import vistaLateral from '../assets/transportes/porta-automoveis-vista-lateral.jpeg';
+import scaniaAzul from '../assets/transportes/porta-automoveis-scania-azul.jpeg';
+import carrosCarregados from '../assets/transportes/porta-automoveis-carros-carregados.jpeg';
+import azulBranco from '../assets/transportes/porta-automoveis-azul-branco.jpeg';
+
+const stripItems = ['Reboque de automóveis', 'Transporte de carros', 'Pronto socorro', 'Máquinas e empilhadores', 'Apoio a obras', 'Cargas especiais'];
+
+const services = [
+  { id: 'transporte-veiculos', image: juntoStand, alt: 'Porta-automóveis carregado para transporte de carros na Margem Sul', title: 'Transporte de veículos', heading: 'Transporte de automóveis', text: 'Transporte de carros, motas e carrinhas em camião porta-automóveis, na Margem Sul, em Setúbal e em Lisboa, para particulares, stands, oficinas e frotas. Recolhas, retomas e entregas programadas com origem, destino e prazo definidos.', cta: 'Pedir orçamento', srOnly: ' para transporte de veículos' },
+  { id: 'pronto-socorro', image: prontoSocorro, alt: 'Reboque de carrinha sinistrada em Almada', title: 'Pronto socorro automóvel', heading: 'Reboque e pronto socorro automóvel', text: 'Pronto socorro e reboque urgente em Setúbal, Almada e Lisboa, para carros e carrinhas avariados, sinistrados ou sem condições de circulação. Informe a localização e o estado do veículo para confirmar o atendimento.', cta: 'Pedir assistência', srOnly: ' de pronto socorro automóvel' },
+  { id: 'maquinas-empilhadores', image: maquinas, alt: 'Camião a fazer transporte de máquinas e equipamento industrial em Setúbal', title: 'Máquinas e empilhadores', heading: 'Transporte de máquinas e empilhadores', text: 'Transporte de máquinas em Setúbal e de empilhadores em Lisboa, incluindo máquinas de obra e equipamentos industriais. Avaliamos peso, dimensões e condições de carga e descarga para planear o transporte.', cta: 'Pedir orçamento', srOnly: ' para máquinas e empilhadores', position: 'object-position:center 35%' },
+  { id: 'apoio-obras', image: retroescavadora, alt: 'Retroescavadora transportada num camião de apoio a obras no Seixal', title: 'Apoio a obras', heading: 'Transporte para obras', text: 'Transporte de equipamentos, retroescavadoras e materiais para a sua obra. Preparação da recolha e da entrega de acordo com os acessos, a carga e a sequência dos trabalhos.', cta: 'Pedir orçamento', srOnly: ' para apoio a obras' },
+  { id: 'cargas-especiais', image: cargaArticulada, alt: 'Transporte de carga especial em Lisboa: camião a carregar um veículo com plataforma articulada', title: 'Cargas especiais', heading: 'Transporte de cargas especiais', text: 'Planeamento para materiais volumosos, cargas sensíveis e operações que exigem cuidados de amarração. Cada pedido é avaliado pelas características da carga, percurso e condições de acesso.', cta: 'Planear o transporte', srOnly: ' de cargas especiais', wide: true },
+];
+
+const gallery = [
+  { src: vistaLateral, alt: 'Vista lateral de um porta-automóveis com vários carros em Lisboa', title: 'Transporte de veículos', caption: 'Recolhas e entregas em porta-automóveis' },
+  { src: prontoSocorro, alt: 'Carrinha sinistrada sobre a plataforma de um reboque no Barreiro', title: 'Pronto socorro automóvel', caption: 'Reboque de veículos sem condições de circulação' },
+  { src: maquinas, alt: 'Transporte de empilhadores e máquinas em Lisboa: camião com plataforma de tesoura', title: 'Máquinas e equipamentos', caption: 'Transporte de equipamento industrial' },
+  { src: retroescavadora, alt: 'Retroescavadora amarela transportada num camião para uma obra em Palmela', title: 'Apoio a obras', caption: 'Movimentação de equipamentos para o local' },
+  { src: cargaArticulada, alt: 'Camião a carregar um veículo com plataforma elevatória articulada no Montijo', title: 'Transporte de equipamentos', caption: 'Meios ajustados a cada operação' },
+  { src: juntoStand, alt: 'Transporte de veículos em Setúbal: porta-automóveis azul junto a um stand', title: 'Recolha de automóveis', caption: 'Transporte para stands e particulares' },
+  { src: scaniaAzul, alt: 'Porta-automóveis Scania azul carregado para transporte de carros em Almada', title: 'Na estrada', caption: 'Veículos preparados para o transporte' },
+  { src: carrosCarregados, alt: 'Automóveis carregados num porta-automóveis para transporte de veículos no Seixal', title: 'A nossa operação', caption: 'Transporte de vários veículos' },
+  { src: azulBranco, alt: 'Porta-automóveis azul e branco carregado para transporte de carros na Margem Sul', title: 'Da origem ao destino', caption: 'Recolhas e entregas programadas' },
+].map((slide) => ({ ...slide, zoomLabel: `Ampliar fotografia: ${slide.title} (nova aba)` }));
+
+const steps = [
+  { title: 'Descreva a sua carga', text: 'Indique o serviço, a origem, o destino, a quantidade e a data ou urgência do pedido.' },
+  { title: 'Preparamos a proposta', text: 'A equipa avalia as características da carga, o percurso e os acessos para confirmar os meios e o orçamento.' },
+  { title: 'Combinamos a operação', text: 'Depois de confirmar a proposta e a disponibilidade, acertamos a recolha e a entrega consigo.' },
+];
+
+const faq = [
+  { question: 'Transportam veículos de particulares e stands?', answer: 'Sim. O serviço de porta-automóveis destina-se a particulares, stands, oficinas e frotas, incluindo retomas e entregas programadas. Indique a quantidade, os veículos, a origem e o destino.' },
+  { question: 'Fazem reboque em Setúbal, Almada e Lisboa?', answer: `Sim. Fazemos reboque de automóveis e carrinhas na Margem Sul, incluindo Setúbal, Almada, Seixal, Barreiro, Montijo e Palmela, e em Lisboa e arredores. Ligue para ${site.phoneDisplay} e confirme a disponibilidade.` },
+  { question: 'Transportam motas e carrinhas?', answer: 'Sim. Além de automóveis ligeiros, pode pedir o transporte de motas, carrinhas, minivans e veículos todo-o-terreno. Indique a marca, o tipo de veículo, a origem e o destino.' },
+  { question: 'O que devo indicar para pedir um reboque?', answer: `Informe a localização, o tipo e estado do veículo, se consegue circular e o destino pretendido, caso já o conheça. Para um reboque urgente, ligue para ${site.phoneDisplay} e confirme a disponibilidade.` },
+  { question: 'Como é preparado o transporte de máquinas?', answer: 'A equipa avalia peso, dimensões e acessos de recolha e entrega. Indique também as condições de carga e descarga e junte fotografias pelo WhatsApp, se possível.' },
+  { question: 'Que informação precisam para cargas especiais?', answer: 'Descreva a carga, peso, dimensões, características de manuseamento, origem e destino. Os meios e a viabilidade da operação são confirmados após avaliação.' },
+  { question: 'Que rotas fazem?', answer: 'São realizadas operações em Portugal continental, incluindo a Margem Sul e Lisboa, com rotas fixas semanais entre a zona de Paredes e Lisboa. Envie origem, destino e prazo para confirmar a operação pretendida.' },
+  { question: 'Enviar o formulário confirma o serviço?', answer: 'O formulário prepara um pedido de orçamento para enviar pelo WhatsApp ou e-mail. O serviço fica confirmado após avaliação, disponibilidade e aceitação da proposta.' },
+];
+---
+
+<BaseLayout
+  title="Transporte de automóveis em Setúbal e Lisboa | Luso Continental"
+  description="Transporte de automóveis, motas e máquinas, reboque e pronto socorro em Setúbal, Almada, Seixal, Barreiro, Montijo, Palmela e Lisboa. Peça orçamento."
+  themeColor="#10152a"
+  bodyClass="transport-page"
+>
+  <SiteHeader />
+
+  <main id="conteudo">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <a class="back-link" href={routes.home}>← Voltar à página inicial</a>
+          <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> REBOQUE E TRANSPORTE DE AUTOMÓVEIS</p>
+          <h1 id="hero-title">Reboque de carros <br /><em>e transporte.</em></h1>
+          <p class="hero-description">Do transporte de automóveis ao pronto socorro em Setúbal, Almada, Lisboa e toda a Margem Sul, com o planeamento que cada operação exige.</p>
+          <div class="hero-actions"><a class="button" href="#orcamento">Pedir um orçamento <span aria-hidden="true">↗</span></a><a class="text-link" href={telHref}>Precisa de reboque? Ligue <span aria-hidden="true">↗</span></a></div>
+          <div class="hero-facts"><div><strong>5 serviços</strong><span>Soluções para diferentes cargas</span></div><div><strong>À sua medida</strong><span>Origem, destino e prazo</span></div></div>
+        </div>
+        <figure class="transport-hero-photo">
+          <Image src={heroPhoto} alt="Vista frontal de um camião Scania porta-automóveis azul para transporte de veículos em Setúbal e Lisboa" format="webp" quality={84} widths={[480, 720, 1024]} sizes="(max-width: 780px) min(100vw, 600px), 45vw" loading="eager" fetchpriority="high" />
+        </figure>
+      </div>
+    </section>
+
+    <div class="service-strip" aria-label="Serviços de transporte">
+      <div class="service-strip-track">
+        <div class="service-strip-group">{stripItems.map((item) => <span>{item}</span>)}</div>
+        <div class="service-strip-group" aria-hidden="true">{stripItems.map((item) => <span>{item}</span>)}</div>
+      </div>
+    </div>
+
+    <section class="section services" id="servicos" aria-labelledby="services-title">
+      <div class="container">
+        <div class="section-heading"><div><p class="eyebrow">01 / O QUE TRANSPORTAMOS</p><h2 id="services-title">Cada carga tem<br />o seu caminho.</h2></div><p>Particulares, stands, oficinas, indústria e obras. Escolha o serviço e conte-nos o que precisa de movimentar.</p></div>
+        <div class="service-grid transport-services">
+          {
+            services.map((service, index) => (
+              <article class:list={['service-card', 'transport-service', { 'transport-service-wide': service.wide }]} id={service.id}>
+                <Image
+                  class="transport-service-image"
+                  src={service.image}
+                  alt={service.alt}
+                  style={service.position}
+                  format="webp"
+                  quality={82}
+                  widths={[480, 720, 960, 1280].filter((width) => width <= service.image.width)}
+                  sizes="(max-width: 780px) 100vw, 640px"
+                  loading="lazy"
+                />
+                <div class="transport-service-body">
+                  <span class="service-number">{String(index + 1).padStart(2, '0')} <span aria-hidden="true">↗</span></span>
+                  <h3>{service.heading}</h3>
+                  <p>{service.text}</p>
+                  <a href="#orcamento" data-service={service.title}>{service.cta} <span aria-hidden="true">↗</span><span class="sr-only">{service.srOnly}</span></a>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="section gallery-section gallery-map-section" id="galeria" aria-labelledby="gallery-title">
+      <CardsBackground />
+      <div class="container">
+        <div class="section-heading"><div><p class="eyebrow">02 / EQUIPAMENTO E OPERAÇÃO</p><h2 id="gallery-title">Na estrada.<br />No terreno.</h2></div><p>Conheça os meios de transporte da Luso Continental. As fotografias mostram veículos, reboques e equipamentos de apoio às operações.</p></div>
+        <Gallery id="transportGallery" label="Fotografias dos serviços de transporte" trackLabel="Galeria de transportes. Arraste para os lados ou use as setas do teclado." maxImageHeight={380} slides={gallery} />
+      </div>
+    </section>
+
+    <section class="section process-section" aria-labelledby="process-title">
+      <div class="container process-grid">
+        <div><p class="eyebrow">03 / COMO FUNCIONA</p><h2 id="process-title">Da primeira conversa<br />à entrega.</h2><p class="section-intro">Um transporte bem preparado começa com as informações certas. Conte-nos de onde sai, para onde vai e o que precisa de levar.</p><a class="text-link" href="#orcamento">Vamos planear o transporte <span aria-hidden="true">↗</span></a></div>
+        <ProcessSteps steps={steps} />
+      </div>
+    </section>
+
+    <section class="section quote-section contact-section" id="orcamento" aria-labelledby="quote-title">
+      <div class="container quote-grid">
+        <ContactCard kicker="Serviços de transporte" text="Diga-nos o que precisa de transportar, a origem e o destino. A nossa equipa ajuda a preparar o seu pedido de orçamento." />
+        <form class="quote-form" id="transportQuoteForm" action={formAction} method="POST" accept-charset="UTF-8">
+          <FormSubmitFields pagina="Serviços de transporte" />
+          <p class="contact-required">Os campos com * são obrigatórios.</p>
+          <div class="form-grid">
+            <div class="field"><label for="transportName">Nome *</label><input id="transportName" name="name" autocomplete="name" required maxlength="100" placeholder="O seu nome" /></div>
+            <div class="field"><label for="transportPhone">Telefone *</label><input id="transportPhone" name="phone" type="tel" autocomplete="tel" required maxlength="30" placeholder="+351" pattern="[+0-9\(\) .\-]{7,30}" title="Introduza um número de telefone com pelo menos 7 algarismos." /></div>
+            <div class="field full-width"><label for="transportEmail">E-mail *</label><input id="transportEmail" name="email" type="email" autocomplete="email" maxlength="150" placeholder="nome@exemplo.pt" required /></div>
+            <div class="field full-width"><label for="transportService">Serviço pretendido *</label><select id="transportService" name="service" required><option value="">Selecione o serviço</option><option>Transporte de veículos</option><option>Pronto socorro automóvel</option><option>Máquinas e empilhadores</option><option>Apoio a obras</option><option>Cargas especiais</option></select></div>
+            <div class="field"><label for="transportVehicleBrand">Marca do veículo *</label><input id="transportVehicleBrand" name="marca_veiculo" maxlength="80" placeholder="Ex.: Renault, BMW, Toyota" required /></div>
+            <div class="field"><label for="transportVehicleType">Tipo de veículo *</label><select id="transportVehicleType" name="tipo_veiculo" required><option value="">Selecione o tipo de veículo</option><option>Ligeiro</option><option>Todo-o-terreno</option><option>Mota</option><option>Van</option><option>Minivan</option></select></div>
+            <div class="field"><label for="transportOrigin">Origem / recolha *</label><input id="transportOrigin" name="origin" required maxlength="160" placeholder="Localidade da recolha" /></div>
+            <div class="field"><label for="transportDestination">Destino *</label><input id="transportDestination" name="destination" maxlength="160" placeholder="Localidade da entrega" required /></div>
+            <div class="field"><label for="transportDate">Data *</label><input id="transportDate" name="date" type="date" required /></div>
+            <div class="field"><label for="transportUrgency">Prazo do pedido *</label><select id="transportUrgency" name="urgency" required><option>Transporte programado</option> <option>Urgente — confirmar disponibilidade</option></select></div>
+            <div class="field full-width"><label for="transportDetails">Detalhes do transporte *</label><textarea id="transportDetails" name="details" rows="4" required maxlength="1500" placeholder="Indique o veículo ou carga, quantidade, peso e dimensões aproximados. Para reboque, descreva o estado do veículo e o acesso ao local."></textarea></div>
+          </div>
+          <QuoteActions />
+          <p id="transportQuoteStatus" class="form-status" role="status" hidden></p>
+          <a id="transportQuoteFallback" class="form-fallback" target="_blank" rel="noopener" hidden>Continuar para enviar o pedido ↗</a>
+          <noscript><p>Peça o seu orçamento pelo <a href={whatsappHref()} target="_blank" rel="noopener">WhatsApp</a> ou pelo <a href={mailHref}>e-mail</a>.</p></noscript>
+        </form>
+      </div>
+    </section>
+
+    <Faq eyebrow="ANTES DE PARTIR" items={faq} />
+  </main>
+
+  <SiteFooter tagline="Transporte técnico. Da origem ao destino." links={[{ label: 'Conhecer a plataforma elevatória', href: routes.plataforma }]} />
+
+  <Assistant
+    topic="transport"
+    toggleLabel="Abrir assistente de transportes"
+    subtitle="Assistente virtual · Serviços de transporte"
+    greeting="Olá! Posso ajudar com transporte de veículos, pronto socorro automóvel, máquinas e empilhadores, apoio a obras e cargas especiais. De que serviço precisa?"
+    quickActionsLabel="Perguntas frequentes sobre transportes"
+    quickActions={[
+      { label: 'Serviços', question: 'Que serviços de transporte fazem?' },
+      { label: 'Pronto socorro', question: 'Preciso de pronto socorro urgente' },
+      { label: 'Máquinas', question: 'Transportam máquinas e empilhadores?' },
+      { label: 'Orçamento', question: 'Como peço orçamento de transporte?' },
+    ]}
+    whatsappText="Olá! Gostaria de pedir informações sobre transporte."
+    quoteHref="#orcamento"
+  />
+
+  <script src="../scripts/transportes.js"></script>
+  <script src="../scripts/galeria.js"></script>
+  <script src="../scripts/assistente.js"></script>
+  <script src="../scripts/cards-background.js"></script>
+</BaseLayout>

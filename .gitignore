@@ -1,6 +1,7 @@
 # Dependencies and generated deployments
 node_modules/
 dist/
+.astro/
 .vercel/
 hostgator-build/
 *.zip
