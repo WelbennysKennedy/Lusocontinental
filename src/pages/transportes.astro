@@ -36,8 +36,8 @@ const pageUrl = new URL(routes.transportes, Astro.site).href;
 const stripItems = ['Reboque de automóveis', 'Transporte de carros', 'Pronto socorro', 'Máquinas e empilhadores', 'Apoio a obras', 'Cargas especiais'];
 
 const services = [
-  { id: 'transporte-veiculos', image: juntoStand, alt: 'Porta-automóveis carregado para transporte de carros', title: 'Transporte de veículos', heading: 'Transporte de automóveis', text: 'Transporte de carros, motas e carrinhas em camião porta-automóveis, na Margem Sul, em Setúbal e em Lisboa, para particulares, stands, oficinas e frotas. Recolhas, retomas e entregas programadas com origem, destino e prazo definidos.', cta: 'Pedir orçamento', srOnly: ' para transporte de veículos' },
   { id: 'pronto-socorro', image: prontoSocorro, alt: 'Reboque de carrinha sinistrada', title: 'Pronto socorro automóvel', heading: 'Reboque e pronto socorro automóvel', text: 'Pronto socorro e reboque urgente em Setúbal, Almada e Lisboa, para carros e carrinhas avariados, sinistrados ou sem condições de circulação. Informe a localização e o estado do veículo para confirmar o atendimento.', cta: 'Pedir assistência', srOnly: ' de pronto socorro automóvel' },
+  { id: 'transporte-veiculos', image: juntoStand, alt: 'Porta-automóveis carregado para transporte de carros', title: 'Transporte de veículos', heading: 'Transporte de automóveis', text: 'Transporte de carros, motas e carrinhas em camião porta-automóveis, na Margem Sul, em Setúbal e em Lisboa, para particulares, stands, oficinas e frotas. Recolhas, retomas e entregas programadas com origem, destino e prazo definidos.', cta: 'Pedir orçamento', srOnly: ' para transporte de veículos' },
   { id: 'maquinas-empilhadores', image: maquinas, alt: 'Camião a fazer transporte de máquinas e equipamento industrial', title: 'Máquinas e empilhadores', heading: 'Transporte de máquinas e empilhadores', text: 'Transporte de máquinas em Setúbal e de empilhadores em Lisboa, incluindo máquinas de obra e equipamentos industriais. Avaliamos peso, dimensões e condições de carga e descarga para planear o transporte.', cta: 'Pedir orçamento', srOnly: ' para máquinas e empilhadores', position: 'object-position:center 35%' },
   { id: 'apoio-obras', image: retroescavadora, alt: 'Retroescavadora transportada num camião de apoio a obras', title: 'Apoio a obras', heading: 'Transporte para obras', text: 'Transporte de equipamentos, retroescavadoras e materiais para a sua obra. Preparação da recolha e da entrega de acordo com os acessos, a carga e a sequência dos trabalhos.', cta: 'Pedir orçamento', srOnly: ' para apoio a obras' },
   { id: 'cargas-especiais', image: cargaArticulada, alt: 'Transporte de carga especial: camião a carregar um veículo com plataforma articulada', title: 'Cargas especiais', heading: 'Transporte de cargas especiais', text: 'Planeamento para materiais volumosos, cargas sensíveis e operações que exigem cuidados de amarração. Cada pedido é avaliado pelas características da carga, percurso e condições de acesso.', cta: 'Planear o transporte', srOnly: ' de cargas especiais', wide: true },
@@ -86,6 +86,8 @@ const faq = [
 <BaseLayout
   title="Transporte de automóveis em Setúbal e Lisboa | Luso Continental"
   description="Transporte de automóveis, motas e máquinas, reboque e pronto socorro em Setúbal, Almada, Seixal, Barreiro, Montijo, Palmela e Lisboa. Peça orçamento."
+  shareImage={prontoSocorro}
+  shareImageAlt="Reboque com uma carrinha sinistrada sobre a plataforma"
   themeColor="#10152a"
   bodyClass="transport-page"
 >
