@@ -2,10 +2,13 @@
 import { getImage, Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Assistant from '../components/Assistant.astro';
+import Brand from '../components/Brand.astro';
 import CardsBackground from '../components/CardsBackground.astro';
 import FormSubmitFields from '../components/FormSubmitFields.astro';
 import { formAction, routes, site, telHref, whatsappHref } from '../data/site';
-import { footerAreas, lisboaArredores, margemSul } from '../data/zonas';
+import { areaServed, businessId, businessType, businessUrl } from '../data/schema';
+import { getShareImage } from '../data/share-image';
+import { footerAreas } from '../data/zonas';
 
 import '../styles/hero-scroll-video.css';
 import '../styles/assistente.css';
@@ -23,6 +26,8 @@ import cargasEspeciais from '../assets/servicos/cargas-especiais.jpg';
 
 const heroPoster = await getImage({ src: heroPosterSource, format: 'webp', quality: 70 });
 
+const shareImage = await getShareImage();
+
 const description = 'Reboque de automóveis, pronto socorro e transporte de carros em Setúbal, Almada, Seixal, Barreiro, Montijo, Palmela e Lisboa. Ligue +351 933 359 605.';
 
 const offers = [
@@ -36,14 +41,16 @@ const offers = [
 
 const schema = {
   '@context': 'https://schema.org',
-  '@type': 'AutomotiveBusiness',
+  '@type': businessType,
+  '@id': businessId,
   name: site.name,
-  url: Astro.site?.href,
+  url: businessUrl,
+  logo: new URL('/icon-512.png', Astro.site).href,
   telephone: site.phone,
   email: site.email,
   description,
-  image: new URL(heroPoster.src, Astro.site).href,
-  areaServed: [...margemSul, ...lisboaArredores].map((name) => ({ '@type': 'City', name })),
+  image: new URL(shareImage.src, Astro.site).href,
+  areaServed,
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'Serviços da Luso Continental',
@@ -54,7 +61,7 @@ const schema = {
 const services = [
   {
     image: prontoSocorro,
-    alt: 'Reboque de carrinha avariada em Setúbal',
+    alt: 'Reboque de carrinha avariada',
     title: 'Reboque e pronto socorro automóvel',
     text: 'Reboque urgente de carros e carrinhas avariados ou sinistrados em Setúbal, Almada, Seixal, Barreiro, Montijo, Palmela e Lisboa.',
     href: `${routes.transportes}#pronto-socorro`,
@@ -62,7 +69,7 @@ const services = [
   },
   {
     image: transporteVeiculos,
-    alt: 'Porta-automóveis a transportar vários carros na Margem Sul',
+    alt: 'Porta-automóveis a transportar vários carros',
     title: 'Transporte de automóveis',
     text: 'Transporte de carros e motas em camião porta-automóveis, na Margem Sul e em Lisboa, para particulares, stands, oficinas, frotas e retomas.',
     href: `${routes.transportes}#transporte-veiculos`,
@@ -70,7 +77,7 @@ const services = [
   },
   {
     image: maquinas,
-    alt: 'Camião a fazer transporte de máquinas e equipamentos industriais em Setúbal',
+    alt: 'Camião a fazer transporte de máquinas e equipamentos industriais',
     title: 'Transporte de máquinas e empilhadores',
     text: 'Transporte de máquinas industriais, máquinas de obra e empilhadores em Setúbal e Lisboa, com avaliação de peso, acesso e descarga.',
     href: `${routes.transportes}#maquinas-empilhadores`,
@@ -78,7 +85,7 @@ const services = [
   },
   {
     image: plataforma,
-    alt: 'Camião com plataforma elevatória junto a um edifício em Almada',
+    alt: 'Camião com plataforma elevatória junto a um edifício',
     title: 'Aluguer de plataforma elevatória',
     text: 'Plataforma até 42 metros na Margem Sul e em Lisboa: elevador exterior para mudanças, materiais, painéis solares, ar condicionado e cargas em altura.',
     href: routes.plataforma,
@@ -86,7 +93,7 @@ const services = [
   },
   {
     image: apoioObras,
-    alt: 'Camião a transportar equipamento de apoio a obras em Lisboa',
+    alt: 'Camião a transportar equipamento de apoio a obras',
     title: 'Transporte para obras',
     text: 'Transporte de equipamentos e materiais para obras, fachadas, coberturas e acessos difíceis, com equipa e meios ajustados ao local.',
     href: `${routes.transportes}#apoio-obras`,
@@ -94,7 +101,7 @@ const services = [
   },
   {
     image: cargasEspeciais,
-    alt: 'Camião a fazer transporte de carga especial no Seixal',
+    alt: 'Camião a fazer transporte de carga especial',
     title: 'Transporte de cargas especiais',
     text: 'Transporte de materiais volumosos e cargas sensíveis, com planeamento e amarração técnica.',
     href: `${routes.transportes}#cargas-especiais`,
@@ -131,8 +138,10 @@ const compareRows = [
 
   <div class="hsv-progress-bar" id="hsvProgressBar"></div>
 
+  <main id="conteudo">
   <section class="hsv-scroll-stage" id="hsvScrollStage">
     <div class="hsv-hero">
+      <Brand class="home-logo hero-logo" claro />
       <video id="hsvVideo" muted playsinline preload="auto" poster={heroPoster.src}>
         <source src="/assets/hero-mobile.mp4" type="video/mp4" media="(max-width: 780px)" />
         <source src="/assets/hero-desktop.mp4" type="video/mp4" />
@@ -152,8 +161,8 @@ const compareRows = [
             <span class="lc-platform">Plataforma elevatória até 42 metros.</span>
             <span class="lc-white">Com urgência, segurança e controlo.</span>
           </h2>
-          <p class="lc-body">A Lusocontinental realiza pronto socorro automóvel, reboque urgente, transporte de carros em porta-automóveis, máquinas, empilhadores e plataforma elevatória até 42 metros para obras, indústria, stands e particulares em Setúbal, Almada, Seixal, Lisboa e toda a Margem Sul.</p>
-          <a href="#" class="lc-cta">Saiba mais <span aria-hidden="true">›</span></a>
+          <p class="lc-body">A Luso Continental realiza pronto socorro automóvel, reboque urgente, transporte de carros em porta-automóveis, máquinas, empilhadores e plataforma elevatória até 42 metros para obras, indústria, stands e particulares em Setúbal, Almada, Seixal, Lisboa e toda a Margem Sul.</p>
+          <a href="#servicos" class="lc-cta">Saiba mais <span aria-hidden="true">›</span></a>
         </div>
       </div>
 
@@ -177,7 +186,7 @@ const compareRows = [
     </div>
   </section>
 
-  <section class="cs-section">
+  <section class="cs-section" id="servicos">
     <CardsBackground />
     <div class="cs-inner">
       {
@@ -209,7 +218,7 @@ const compareRows = [
   <section class="diff-section">
     <div class="diff-inner">
       <h2 class="diff-heading reveal-up">Principais diferenciais</h2>
-      <p class="diff-subtitle reveal-up">A Lusocontinental resolve operações onde o detalhe importa: pronto socorro automóvel, porta-automóveis, máquinas e empilhadores, cargas em altura, painéis sandwich, painéis solares, entulho e ar condicionado.</p>
+      <p class="diff-subtitle reveal-up">A Luso Continental resolve operações onde o detalhe importa: pronto socorro automóvel, porta-automóveis, máquinas e empilhadores, cargas em altura, painéis sandwich, painéis solares, entulho e ar condicionado.</p>
 
       <div class="diff-cols">
         <div class="diff-col reveal-up">
@@ -261,6 +270,7 @@ const compareRows = [
 
   <section class="form-section" id="planeie-sua-operacao">
     <div class="form-inner">
+      <Brand class="home-logo form-logo" claro />
       <h2 class="form-heading">Planeie a sua operação</h2>
       <p class="form-subtitle">Transporte ou plataforma elevatória? Conte-nos o que precisa e receba uma proposta ajustada à sua operação.</p>
       <hr class="form-divider" />
@@ -297,12 +307,13 @@ const compareRows = [
       </form>
     </div>
   </section>
+  </main>
 
   <footer class="home-footer"><p>{footerAreas}</p></footer>
 
   <Assistant
     topic="general"
-    toggleLabel="Abrir assistente Luso Continental"
+    toggleLabel="WhatsApp: abrir assistente Luso Continental"
     subtitle="Assistente virtual · Rotas e serviços em Portugal"
     greeting="Olá! Posso esclarecer dúvidas sobre rotas, transporte de veículos, reboque, máquinas e plataforma elevatória até 42 metros."
     quickActionsLabel="Perguntas frequentes"

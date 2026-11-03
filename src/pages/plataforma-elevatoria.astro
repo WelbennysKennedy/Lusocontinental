@@ -11,6 +11,7 @@ import ProcessSteps from '../components/ProcessSteps.astro';
 import QuoteActions from '../components/QuoteActions.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import SiteHeader from '../components/SiteHeader.astro';
+import { areaServed, provider } from '../data/schema';
 import { formAction, mailHref, routes, site, telHref, whatsappHref } from '../data/site';
 
 import '../styles/plataforma-elevatoria.css';
@@ -27,6 +28,18 @@ import residencial from '../assets/plataforma/plataforma-edificio-residencial.jp
 import braco from '../assets/plataforma/plataforma-braco-fachada.jpeg';
 import trilhos from '../assets/plataforma/plataforma-detalhe-trilhos.jpeg';
 
+const description = 'Aluguer de plataforma elevatória até 42 m e elevador exterior para mudanças em Setúbal, Almada, Seixal, Barreiro, Montijo, Palmela e Lisboa.';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Aluguer de plataforma elevatória até 42 metros',
+  description,
+  url: new URL(routes.plataforma, Astro.site).href,
+  provider,
+  areaServed,
+};
+
 const stripItems = ['Elevador para mudanças', 'Obras e materiais', 'Painéis solares', 'Ar condicionado', 'Cargas em altura'];
 
 const services = [
@@ -37,14 +50,14 @@ const services = [
 ];
 
 const gallery = [
-  { src: varandas, zoomLabel: 'Ampliar fotografia da elevação junto a varandas (nova aba)', alt: 'Plataforma elevatória estendida até aos pisos superiores de um edifício com varandas em Almada', title: 'Elevação junto à fachada', caption: 'Alcance até aos pisos superiores' },
-  { src: janela, zoomLabel: 'Ampliar fotografia da plataforma junto ao edifício (nova aba)', alt: 'Plataforma elevatória entre o camião e uma janela de um edifício no Seixal', title: 'Acesso pelo exterior', caption: 'Plataforma posicionada junto ao edifício' },
-  { src: cobertura, zoomLabel: 'Ampliar fotografia da operação junto à cobertura (nova aba)', alt: 'Equipa junto à cobertura de um edifício em Lisboa, com a plataforma elevatória estendida', title: 'Operação junto à cobertura', caption: 'Equipa e equipamento no local' },
-  { src: estabilizadores, zoomLabel: 'Ampliar fotografia do posicionamento do camião (nova aba)', alt: 'Camião com estabilizadores e plataforma elevatória junto à fachada de um edifício em Setúbal', title: 'Posicionamento no local', caption: 'Camião e plataforma junto à fachada' },
-  { src: residencial, zoomLabel: 'Ampliar fotografia da elevação num edifício residencial (nova aba)', alt: 'Plataforma elevatória até uma janela de um piso superior de um edifício residencial no Barreiro', title: 'Elevação em altura', caption: 'Acesso aos pisos de um edifício residencial' },
-  { src: braco, zoomLabel: 'Ampliar fotografia do braço elevatório (nova aba)', alt: 'Braço da plataforma elevatória ao longo da fachada de um prédio no Montijo', title: 'Alcance da plataforma', caption: 'Vista do equipamento ao longo da fachada' },
-  { src: trilhos, zoomLabel: 'Ampliar fotografia do detalhe da plataforma (nova aba)', alt: 'Detalhe da plataforma elevatória azul e dos trilhos em frente às janelas de um edifício em Palmela', title: 'Equipamento em detalhe', caption: 'Plataforma e sistema de elevação' },
-  { src: heroPhoto, zoomLabel: 'Ampliar fotografia da plataforma elevatória (nova aba)', alt: 'Plataforma elevatória de 42 metros e braço elevatório junto a um edifício na Margem Sul', title: 'Plataforma elevatória', caption: 'Elevação pelo exterior do edifício' },
+  { src: varandas, zoomLabel: 'Ampliar fotografia da elevação junto a varandas (nova aba)', alt: 'Plataforma elevatória estendida até aos pisos superiores de um edifício com varandas', title: 'Elevação junto à fachada', caption: 'Alcance até aos pisos superiores' },
+  { src: janela, zoomLabel: 'Ampliar fotografia da plataforma junto ao edifício (nova aba)', alt: 'Plataforma elevatória entre o camião e uma janela de um edifício', title: 'Acesso pelo exterior', caption: 'Plataforma posicionada junto ao edifício' },
+  { src: cobertura, zoomLabel: 'Ampliar fotografia da operação junto à cobertura (nova aba)', alt: 'Equipa junto à cobertura de um edifício, com a plataforma elevatória estendida', title: 'Operação junto à cobertura', caption: 'Equipa e equipamento no local' },
+  { src: estabilizadores, zoomLabel: 'Ampliar fotografia do posicionamento do camião (nova aba)', alt: 'Camião com estabilizadores e plataforma elevatória junto à fachada de um edifício', title: 'Posicionamento no local', caption: 'Camião e plataforma junto à fachada' },
+  { src: residencial, zoomLabel: 'Ampliar fotografia da elevação num edifício residencial (nova aba)', alt: 'Plataforma elevatória até uma janela de um piso superior de um edifício residencial', title: 'Elevação em altura', caption: 'Acesso aos pisos de um edifício residencial' },
+  { src: braco, zoomLabel: 'Ampliar fotografia do braço elevatório (nova aba)', alt: 'Braço da plataforma elevatória ao longo da fachada de um prédio', title: 'Alcance da plataforma', caption: 'Vista do equipamento ao longo da fachada' },
+  { src: trilhos, zoomLabel: 'Ampliar fotografia do detalhe da plataforma (nova aba)', alt: 'Detalhe da plataforma elevatória azul e dos trilhos em frente às janelas de um edifício', title: 'Equipamento em detalhe', caption: 'Plataforma e sistema de elevação' },
+  { src: heroPhoto, zoomLabel: 'Ampliar fotografia da plataforma elevatória (nova aba)', alt: 'Plataforma elevatória de 42 metros e braço elevatório junto a um edifício', title: 'Plataforma elevatória', caption: 'Elevação pelo exterior do edifício' },
 ];
 
 const steps = [
@@ -64,10 +77,13 @@ const faq = [
 
 <BaseLayout
   title="Aluguer de plataforma elevatória 42 m em Lisboa e Almada"
-  description="Aluguer de plataforma elevatória até 42 m e elevador exterior para mudanças em Setúbal, Almada, Seixal, Barreiro, Montijo, Palmela e Lisboa."
+  description={description}
+  shareImage={heroPhoto}
+  shareImageAlt="Plataforma elevatória de 42 metros montada num camião, junto à fachada de um edifício"
   themeColor="#10152a"
   bodyClass="platform-page"
 >
+  <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
   <SiteHeader />
 
   <main id="conteudo">
@@ -88,7 +104,7 @@ const faq = [
           </div>
         </div>
         <figure class="hero-photo">
-          <Image src={heroPhoto} alt="Plataforma elevatória de 42 metros montada num camião, junto à fachada de um edifício em Almada" format="webp" quality={82} widths={[640, 960, 1280, 1600]} sizes="(max-width: 780px) 100vw, 50vw" loading="eager" fetchpriority="high" />
+          <Image src={heroPhoto} alt="Plataforma elevatória de 42 metros montada num camião, junto à fachada de um edifício" format="webp" quality={82} widths={[640, 960, 1280, 1600]} sizes="(max-width: 780px) 100vw, 50vw" loading="eager" fetchpriority="high" />
           <figcaption><span class="photo-dot" aria-hidden="true"></span> Do solo ao destino.<span class="photo-arrow" aria-hidden="true">↗</span></figcaption>
           <span class="photo-label" aria-hidden="true">ELEVAÇÃO · ATÉ 42 M</span>
         </figure>
@@ -175,7 +191,7 @@ const faq = [
 
   <Assistant
     topic="platform"
-    toggleLabel="Abrir assistente da plataforma elevatória"
+    toggleLabel="WhatsApp: abrir assistente da plataforma elevatória"
     subtitle="Assistente virtual · Plataforma elevatória"
     greeting="Olá! Posso ajudar com a plataforma elevatória até 42 metros, móveis e mudanças, materiais para obras, painéis e equipamentos. Quer conhecer os serviços ou pedir um orçamento?"
     quickActionsLabel="Perguntas frequentes sobre a plataforma"

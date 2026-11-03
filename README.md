@@ -9,7 +9,7 @@ Construído com [Astro](https://astro.build), gerado como site estático. As pá
 - `src/pages/`: uma página por ficheiro (`index`, `transportes`, `plataforma-elevatoria`, `mensagem-enviada`). Os textos, serviços, galerias e perguntas frequentes estão aqui.
 - `src/components/`: blocos reutilizados (assistente, galeria, cabeçalho, rodapé, FAQ, etc.).
 - `src/layouts/BaseLayout.astro`: `<head>` comum, incluindo título e descrição de cada página.
-- `src/data/site.ts`: telefone, e-mail, WhatsApp e endereços das páginas. **Para mudar um contacto, altere só este ficheiro.**
+- `src/data/site.ts`: telefone, e-mail, WhatsApp e endereços das páginas. **Para mudar um contacto, altere só este ficheiro.** Uma página pública nova deve entrar em `routes` para aparecer no `sitemap.xml`.
 - `src/styles/` e `src/scripts/`: estilos e comportamento de cada página.
 - `src/assets/`: fotografias originais. O build gera versões WebP em vários tamanhos.
 - `public/assets/`: ficheiros servidos sem alteração (vídeo do hero e fundo animado).

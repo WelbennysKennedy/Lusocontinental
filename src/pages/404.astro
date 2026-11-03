@@ -1,0 +1,9 @@
+---
+import SimplePageLayout from '../layouts/SimplePageLayout.astro';
+import { site, telHref } from '../data/site';
+---
+
+<SimplePageLayout title="Página não encontrada | Luso Continental">
+  <h1>Página não encontrada</h1>
+  <p>O endereço que abriu não existe ou mudou de lugar. Escolha uma das páginas abaixo ou ligue para <a href={telHref}>{site.phoneDisplay}</a>.</p>
+</SimplePageLayout>

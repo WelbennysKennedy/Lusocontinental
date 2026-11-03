@@ -1,0 +1,4 @@
+.brand{display:inline-block;flex-shrink:0;line-height:0}
+.brand img{display:block;width:auto;height:var(--brand-height,64px)}
+@media(max-width:780px){.brand{--brand-height:50px}}
+@media(max-width:360px){.brand{--brand-height:42px}}

@@ -1,14 +1,20 @@
 ---
-import { routes } from '../data/site';
+import { Image } from 'astro:assets';
+import { routes, site } from '../data/site';
+import logo from '../assets/logo/logotipo-luso-continental.png';
+import logoClaro from '../assets/logo/logotipo-luso-continental-claro.png';
+
+import '../styles/brand.css';
 
 interface Props {
-  label?: string;
+  class?: string;
+  // Texto branco, para fundos escuros como o vídeo e a secção de contacto.
+  claro?: boolean;
 }
 
-const { label } = Astro.props;
+const { class: className, claro = false } = Astro.props;
 ---
 
-<a class="brand" href={routes.home} aria-label={label}>
-  <span class="brand-symbol" aria-hidden="true">LC<span>↗</span></span>
-  <span>LUSO<span class="brand-light">CONTINENTAL</span></span>
+<a class:list={['brand', className]} href={routes.home}>
+  <Image src={claro ? logoClaro : logo} alt={`${site.name}: página inicial`} format="webp" quality={90} widths={[160, 200, 320, 400, 600]} sizes={claro ? '300px' : '200px'} loading="eager" decoding="async" />
 </a>
