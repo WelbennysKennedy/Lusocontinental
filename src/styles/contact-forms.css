@@ -1,36 +1,87 @@
 /* Minimal contact cards for the two service pages. */
-.quote-section.contact-section{background:#fafafa;color:#171717;padding:80px 0}
-.contact-section .quote-grid{display:block;width:calc(100% - 40px);max-width:620px;margin:0 auto;background:#fff;border:1px solid #e3e3e3;border-radius:18px;overflow:hidden;box-shadow:0 2px 3px #00000004}
-.contact-card-heading{padding:30px 30px 26px;border-bottom:1px solid #e5e5e5}
-.contact-card-kicker{display:flex;align-items:center;gap:12px;margin:0 0 22px;color:#737373;font-size:13px;line-height:1.5}
+.quote-section.contact-section{background-color:#fafafa;color:#171717;padding:var(--ds-section-y) 0}
+.contact-section .quote-grid{position:relative;display:block;width:calc(100% - 40px);max-width:620px;margin:0 auto;background:#fff;border:1px solid #e3e3e3;border-radius:18px;overflow:hidden;box-shadow:0 2px 3px #00000004;transition:border-color .3s,box-shadow .3s}
+/* Cantoneiras do modelo ("caixa de detalhe"): a de baixo escurece quando o formulário está em uso. */
+.contact-section .quote-grid::before,.contact-section .quote-grid::after{content:"";position:absolute;z-index:1;width:12px;height:12px;pointer-events:none;transition:border-color .3s}
+.contact-section .quote-grid::before{top:12px;left:12px;border-top:1.5px solid #171717;border-left:1.5px solid #171717}
+.contact-section .quote-grid::after{right:12px;bottom:12px;border-right:1.5px solid #dedede;border-bottom:1.5px solid #dedede}
+.contact-section .quote-grid:hover::after,.contact-section .quote-grid:focus-within::after{border-color:#171717}
+.contact-section .quote-grid:focus-within{box-shadow:0 10px 30px #0000000a}
+.contact-card-heading{padding:32px 32px 24px;border-bottom:1px solid #e5e5e5}
+.contact-card-kicker{display:flex;align-items:center;gap:12px;margin:0 0 24px;color:#737373;font-family:var(--ds-font-mono);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;line-height:1.5}
 .contact-card-symbol{display:grid;place-items:center;flex-shrink:0;width:32px;height:32px;border:1px solid #e5e5e5;border-radius:7px;color:#262626}
 .contact-card-symbol svg{width:17px;height:17px}
 .contact-card-kicker>span:last-child{padding-left:12px;border-left:1px solid #e5e5e5}
-.contact-card-heading h2{font-size:30px;font-weight:600;line-height:1.2;letter-spacing:-.04em;margin:0 0 10px;color:#171717}
-.contact-card-heading>p{margin:0;color:#606060;font-size:14px;line-height:1.7}
-.contact-card-channels{display:grid;grid-template-columns:1.3fr 1fr;gap:10px;margin-top:24px;padding-top:22px;border-top:1px solid #e5e5e5}
-.contact-card-channels a{display:flex;align-items:center;justify-content:center;gap:8px;min-width:0;min-height:44px;padding:10px;border:1px solid #e5e5e5;border-radius:8px;color:#303030;text-decoration:none;font-size:12px;line-height:1.5;overflow-wrap:anywhere;transition:background .2s,border-color .2s}
-.contact-card-channels a:hover{background:#fafafa;border-color:#aaa}
-.contact-card-channels svg{width:15px;height:15px;flex-shrink:0;color:#777}
-.contact-section .quote-form{padding:28px 30px 30px;border-radius:0;color:#262626;background:#fff}
-.contact-required{margin:0 0 20px;font-size:12px;color:#777;line-height:1.5}
-.contact-section .form-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 16px}
-.contact-section .field label{font-size:13px;font-weight:500;color:#343434;margin-bottom:6px;line-height:1.5}
+.contact-card-heading h2{font-size:30px;font-weight:600;line-height:1.2;letter-spacing:var(--ds-tracking-tight);margin:0 0 8px;color:#171717}
+.contact-card-heading>p{margin:0;color:#606060;font-size:15px;line-height:var(--ds-leading-relaxed)}
+.contact-card-channels{display:grid;grid-template-columns:1.3fr 1fr;gap:12px;margin-top:24px;padding-top:24px;border-top:1px solid #e5e5e5}
+.contact-card-channels a{display:flex;align-items:center;justify-content:center;gap:10px;min-width:0;min-height:48px;padding:12px 16px;border:1px solid #e5e5e5;border-radius:12px;background:#fff;color:#303030;text-decoration:none;font-size:14px;line-height:1.5;overflow-wrap:anywhere;transition:background .2s,border-color .2s,color .2s}
+.contact-card-channels a:hover{border-color:#171717;color:#171717}
+.contact-card-channels svg{width:16px;height:16px;flex-shrink:0;color:#777}
+.contact-section .quote-form{padding:32px;border-radius:0;color:#262626;background:#fff}
+.contact-required{margin:0 0 24px;font-size:13px;color:#777;line-height:1.5}
+.contact-section .form-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 16px}
+/* Campos do modelo: rótulo mono que escurece com o campo ativo, fundo suave que fica branco ao focar. */
+.contact-section .field label{font-family:var(--ds-font-mono);font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:#737373;margin-bottom:8px;line-height:1.5;transition:color .2s}
+.contact-section .field:focus-within label{color:#171717}
 .contact-section .field label>span{color:#858585}
-.contact-section .field input,.contact-section .field select,.contact-section .field textarea{background:#fff;color:#202020;border:1px solid #dedede;border-radius:8px;padding:10px 12px;min-height:44px;font-size:15px;line-height:1.5;box-shadow:0 1px 2px #00000002;transition:border-color .2s,box-shadow .2s}
+.contact-section .field input,.contact-section .field select,.contact-section .field textarea{background-color:#fafafa;color:#202020;border:1px solid #e5e5e5;border-radius:12px;padding:12px 14px;min-height:48px;font-size:15px;line-height:1.5;box-shadow:none;transition:border-color .2s,background-color .2s,box-shadow .2s}
+.contact-section .field input:hover,.contact-section .field select:hover,.contact-section .field textarea:hover{border-color:#aaa}
 .contact-section .field input::placeholder,.contact-section .field textarea::placeholder{color:#929292}
 .contact-section .field textarea{min-height:128px}
-.contact-section .field input:focus,.contact-section .field select:focus,.contact-section .field textarea:focus{border-color:#999;outline:none;box-shadow:0 0 0 4px #1717170a}
-.contact-section .form-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px;margin-top:24px}
-.contact-section .form-actions .button{width:auto;min-height:44px;justify-content:center;gap:9px;padding:11px 16px;border:1px solid #171717;border-radius:8px;background:#171717;color:#fff;box-shadow:0 1px 2px #0000000d;font-size:13px;font-weight:600;letter-spacing:0;line-height:1.4;transform:none;transition:background .2s,border-color .2s}
+/* Seta própria nas listas, igual em todos os navegadores. */
+.contact-section .field select{appearance:none;-webkit-appearance:none;padding-right:42px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23777777' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:16px}
+.contact-section .field input:focus,.contact-section .field select:focus,.contact-section .field textarea:focus{background-color:#fff;border-color:#171717;outline:none;box-shadow:0 0 0 4px #1717170a}
+/* Botões do modelo: principal com borda giratória ao passar o rato, secundário com contorno. */
+.contact-section .form-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:12px;margin-top:24px}
+.contact-section .form-actions .button{width:auto;min-height:48px;justify-content:center;gap:10px;padding:12px 20px;border:1px solid transparent;border-radius:999px;background:linear-gradient(#171717,#171717) padding-box,linear-gradient(#171717,#171717) border-box;color:#fff;box-shadow:0 1px 2px #0000000d;font-size:14px;font-weight:600;letter-spacing:0;line-height:1.4;transform:none;transition:color .3s,box-shadow .3s}
 .contact-section .form-actions .button svg{width:16px;height:16px;flex-shrink:0}
-.contact-section .form-actions .button:hover{background:#333;border-color:#333;transform:none}
-.contact-section .form-actions .button-secondary{background:#fff;color:#333;border-color:#ddd}
-.contact-section .form-actions .button-secondary:hover{background:#f6f6f6;border-color:#aaa}
+.contact-section .form-actions .button:not(.button-secondary):not(:disabled):hover{background:linear-gradient(#fff,#fff) padding-box,conic-gradient(from var(--ds-beam-angle),#fff 0%,#171717 50%,#fff 100%) border-box;color:#171717;transform:none;animation:ds-beam-spin 3s linear infinite}
+.contact-section .form-actions .button-secondary{background:#fff;color:#333;border-color:#ddd;transition:border-color .3s,color .3s}
+.contact-section .form-actions .button-secondary:hover{background:#fff;border-color:#171717;color:#171717}
 .contact-section .form-actions .button:disabled{opacity:.5;cursor:not-allowed}
-.contact-section .form-note{font-size:11px;color:#777;line-height:1.7;margin:18px 0 0}
-.contact-section .form-status{background:#f5f5f5;color:#333;border:1px solid #e5e5e5;border-radius:8px;font-size:13px}
+.contact-section .form-note{font-size:12px;color:#777;line-height:var(--ds-leading-relaxed);margin:16px 0 0}
+/* Ecrãs largos: o cartão abre em duas colunas, com a apresentação e os contactos à esquerda
+   e o formulário à direita, em vez de uma coluna estreita isolada no meio da página. */
+@media(min-width:1024px){
+  .contact-section .quote-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:0;align-items:stretch;max-width:1120px}
+  .contact-card-heading{display:flex;flex-direction:column;padding:56px 48px 48px;border-bottom:0;border-right:1px solid #e5e5e5;background:#fafafa}
+  .contact-card-kicker{margin-bottom:32px}
+  .contact-card-heading h2{font-size:clamp(34px,3vw,44px);font-weight:500;line-height:1.1;margin-bottom:16px}
+  .contact-card-heading>p{font-size:16px;max-width:360px}
+  .contact-card-channels{grid-template-columns:1fr;margin-top:auto;padding-top:32px}
+  .contact-card-channels a{justify-content:flex-start}
+  .contact-section .quote-form{padding:48px}
+  .contact-section .form-actions{display:grid;grid-template-columns:1fr 1fr;margin-top:32px}
+}
+.contact-section .form-status{background:#f5f5f5;color:#333;border:1px solid #e5e5e5;border-radius:12px;font-size:13px}
 .contact-section .form-fallback{color:#262626;font-size:13px}
 .contact-section a:focus-visible,.contact-section button:focus-visible{outline:2px solid #555;outline-offset:3px}
-@media(max-width:560px){.quote-section.contact-section{padding:56px 0}.contact-section .quote-grid{width:calc(100% - 28px);border-radius:16px}.contact-card-heading{padding:24px 20px}.contact-card-heading h2{font-size:27px}.contact-card-channels{grid-template-columns:1fr;gap:8px}.contact-card-channels a{justify-content:flex-start;font-size:13px;padding-inline:13px}.contact-section .quote-form{padding:24px 20px}.contact-section .form-grid{grid-template-columns:1fr;gap:16px}.contact-section .field input,.contact-section .field select,.contact-section .field textarea{font-size:16px}.contact-section .form-actions .button{flex:1 1 180px}}
-@media(prefers-reduced-motion:reduce){.contact-section *{transition:none!important}}
+@media(max-width:560px){.contact-section .quote-grid{width:calc(100% - var(--ds-gutter));border-radius:16px}.contact-card-heading{padding:24px}.contact-card-heading h2{font-size:26px}.contact-card-channels{grid-template-columns:1fr;gap:8px}.contact-card-channels a{justify-content:flex-start;font-size:13px;padding-inline:16px}.contact-section .quote-form{padding:24px}.contact-section .form-grid{grid-template-columns:1fr;gap:16px}.contact-section .field input,.contact-section .field select,.contact-section .field textarea{font-size:16px}.contact-section .form-actions .button{flex:1 1 180px}}
+/* Variante com fotografia (página de Transportes): a foto ocupa o fundo da secção.
+   - A coluna «Fale connosco» fica transparente, como uma janela para a foto, com um véu
+     azul-escuro só onde há texto: o texto fica branco e legível sem apagar a imagem.
+   - O formulário mantém-se branco e sólido, com sombra forte, para se destacar. */
+.contact-section--photo{position:relative;isolation:isolate;overflow:hidden;background-color:#0c1a44;border-top:0}
+.contact-section--photo>.contact-photo{position:absolute;inset:0;z-index:-2;width:100%;height:100%;max-width:none;object-fit:cover;object-position:30% 60%}
+.contact-section--photo::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(12,26,68,.2) 0%,rgba(12,26,68,.05) 40%,rgba(12,26,68,.45) 100%)}
+.contact-section--photo .quote-grid{background:transparent;border-color:rgba(255,255,255,.28);box-shadow:0 40px 100px rgba(6,12,32,.45)}
+.contact-section--photo .quote-grid::before{border-color:#fff}
+.contact-section--photo .contact-card-heading{color:#fff;border-color:rgba(255,255,255,.18);background:linear-gradient(180deg,rgba(12,26,68,.72) 0%,rgba(12,26,68,.38) 45%,rgba(12,26,68,.7) 100%)}
+.contact-section--photo .contact-card-heading h2{color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.35)}
+.contact-section--photo .contact-card-heading>p{color:rgba(255,255,255,.9);text-shadow:0 1px 10px rgba(0,0,0,.35)}
+.contact-section--photo .contact-card-kicker{color:rgba(255,255,255,.8)}
+.contact-section--photo .contact-card-kicker>span:last-child{border-color:rgba(255,255,255,.3)}
+.contact-section--photo .contact-card-symbol{border-color:rgba(255,255,255,.35);color:#fff;background:rgba(255,255,255,.08)}
+.contact-section--photo .contact-card-channels{border-color:rgba(255,255,255,.2)}
+.contact-section--photo .contact-card-channels a{border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.12);color:#fff;-webkit-backdrop-filter:blur(12px) saturate(160%);backdrop-filter:blur(12px) saturate(160%)}
+.contact-section--photo .contact-card-channels a:hover{background:#fff;border-color:#fff;color:#171717}
+.contact-section--photo .contact-card-channels svg{color:currentColor}
+.contact-section--photo .contact-card-channels a:focus-visible{outline-color:#fff}
+@media(min-width:1024px){.contact-section--photo .contact-card-heading{background:linear-gradient(180deg,rgba(12,26,68,.7) 0%,rgba(12,26,68,.25) 42%,rgba(12,26,68,.25) 62%,rgba(12,26,68,.72) 100%)}}
+@media(max-width:780px){.contact-section--photo>.contact-photo{object-position:28% center}}
+/* Plataforma: enquadra o elevador encostado à fachada de azulejos. */
+.contact-section--platform>.contact-photo{object-position:20% 15%}
+@media(max-width:780px){.contact-section--platform>.contact-photo{object-position:16% 20%}}
+
+@media(prefers-reduced-motion:reduce){.contact-section *,.contact-section .quote-grid::before,.contact-section .quote-grid::after{transition:none!important;animation:none!important}}

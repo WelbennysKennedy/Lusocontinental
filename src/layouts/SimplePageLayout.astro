@@ -1,6 +1,10 @@
 ---
+import { Font } from 'astro:assets';
 import { routes } from '../data/site';
 import { footerAreas } from '../data/zonas';
+import GoogleTagManager from '../components/GoogleTagManager.astro';
+import CookieConsent from '../components/CookieConsent.astro';
+import '../styles/design-system.css';
 
 interface Props {
   title: string;
@@ -14,17 +18,23 @@ const { title } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <GoogleTagManager />
     <meta name="robots" content="noindex" />
     <title>{title}</title>
+    <Font cssVariable="--font-sans" preload={[{ subset: 'latin' }]} />
+    <Font cssVariable="--font-mono" />
     <style is:inline>
-      *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:#fafafa;color:#171717;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}main{width:100%;max-width:540px;padding:36px;border:1px solid #e3e3e3;border-radius:18px;background:#fff;box-shadow:0 2px 3px #00000004}h1{font-size:28px;line-height:1.2;letter-spacing:-.04em}p{color:#606060;line-height:1.7}p a{color:#262626}.check{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:#e9f6ee;color:#28754a;font-size:25px}.links{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}.links a{padding:12px 16px;border:1px solid #dedede;border-radius:8px;color:#262626;font-size:14px;text-decoration:none}.links a:first-child{background:#171717;color:#fff;border-color:#171717}a:focus-visible{outline:2px solid #555;outline-offset:3px}footer{margin-top:24px;padding-top:18px;border-top:1px solid #e3e3e3}footer p{margin:0;font-size:13px}@media(max-width:480px){main{padding:26px}h1{font-size:25px}}
+      *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background-color:#fafafa;color:#171717;font-family:var(--ds-font-sans)}main{width:100%;max-width:540px;padding:32px;border:1px solid #e3e3e3;border-radius:18px;background:#fff;box-shadow:0 2px 3px #00000004}h1{font-size:28px;font-weight:600;line-height:1.2;letter-spacing:var(--ds-tracking-tight)}p{color:#606060;line-height:var(--ds-leading-relaxed)}p a{color:#262626}.check{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:#e9f6ee;color:#28754a;font-size:25px}.links{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}.links a{padding:12px 16px;border:1px solid #dedede;border-radius:8px;color:#262626;font-size:14px;text-decoration:none}.links a:first-child{background:#171717;color:#fff;border-color:#171717}a:focus-visible{outline:2px solid #555;outline-offset:3px}footer{margin-top:24px;padding-top:18px;border-top:1px solid #e3e3e3}footer p{margin:0;font-size:13px}@media(max-width:480px){main{padding:24px}h1{font-size:25px}}
     </style>
   </head>
-  <body>
-    <main>
+  <body class="ds-grid-mesh">
+    <main class="ds-flashlight">
       <slot />
       <div class="links"><a href={routes.home}>Voltar ao início</a><a href={routes.plataforma}>Plataforma elevatória</a><a href={routes.transportes}>Transportes</a></div>
-      <footer><p>{footerAreas}</p></footer>
+      <footer><p>{footerAreas} · <button type="button" class="cookie-prefs-link" data-cookie-prefs>Preferências de cookies</button></p></footer>
     </main>
+    <CookieConsent />
+    <script src="../scripts/flashlight.js"></script>
+    <script src="../scripts/custom-cursor.js"></script>
   </body>
 </html>

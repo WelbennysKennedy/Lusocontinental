@@ -101,6 +101,48 @@
     move(event.key === 'ArrowRight' ? 1 : -1);
     schedule();
   });
+  // Setas de vidro: andam uma fotografia e reiniciam a passagem automática.
+  const prevButton = gallery.querySelector('[data-gallery-prev]');
+  const nextButton = gallery.querySelector('[data-gallery-next]');
+  prevButton?.addEventListener('click', () => { move(-1); schedule(); });
+  nextButton?.addEventListener('click', () => { move(1); schedule(); });
+
+  // Contador, barra de progresso e desvanecer das bordas seguem o scroll.
+  const current = gallery.querySelector('[data-gallery-current]');
+  const thumb = gallery.querySelector('.gallery-progress-thumb');
+  let frame = 0;
+
+  function update() {
+    frame = 0;
+    const width = track.scrollWidth;
+    const limit = Math.max(0, width - track.clientWidth);
+    const left = track.scrollLeft;
+    gallery.toggleAttribute('data-at-start', left <= 2);
+    gallery.toggleAttribute('data-at-end', left >= limit - 2);
+
+    if (thumb && width) {
+      thumb.style.width = `${(track.clientWidth / width) * 100}%`;
+      thumb.style.left = `${(left / width) * 100}%`;
+    }
+
+    if (current) {
+      const stops = positions();
+      let index = stops.reduce((best, stop, i) =>
+        Math.abs(stop - left) < Math.abs(stops[best] - left) ? i : best, 0);
+      if (limit && left >= limit - 2) index = slides.length - 1;
+      current.textContent = String(index + 1).padStart(2, '0');
+    }
+  }
+
+  function requestUpdate() {
+    if (!frame) frame = window.requestAnimationFrame(update);
+  }
+
+  track.addEventListener('scroll', requestUpdate, { passive: true });
+  window.addEventListener('resize', requestUpdate);
+  window.addEventListener('load', requestUpdate);
+  update();
+
   track.addEventListener('wheel', schedule, { passive: true });
   track.addEventListener('scroll', schedule, { passive: true });
   document.addEventListener('visibilitychange', schedule);

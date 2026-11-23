@@ -1,0 +1,155 @@
+/* ==========================================================================
+   Design system — base comum a todas as páginas.
+   Segue o modelo design_system.html: tipografia (Inter + JetBrains Mono),
+   escala de espaçamentos, fundo quadriculado e superfície "flashlight" dos cards.
+   As CORES continuam definidas nas folhas de cada página.
+   ========================================================================== */
+
+:root {
+  /* Fontes */
+  --ds-font-sans: var(--font-sans), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --ds-font-mono: var(--font-mono), ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  /* Tipografia (escala do modelo) */
+  --ds-tracking-tight: -0.025em;   /* títulos: tracking-tight */
+  --ds-tracking-label: 0.2em;      /* etiquetas mono: tracking-[0.2em] */
+  --ds-leading-tight: 1.08;        /* títulos grandes */
+  --ds-leading-relaxed: 1.65;      /* texto corrido: leading-relaxed */
+  --ds-text-label: 12px;           /* text-xs mono */
+  --ds-text-body: 16px;            /* Body Regular */
+  --ds-text-body-lg: 18px;         /* Body Large */
+
+  /* Espaçamentos (múltiplos de 8 px, como p-6 / p-8 / p-12 do modelo) */
+  --ds-space-2: 8px;
+  --ds-space-3: 12px;
+  --ds-space-4: 16px;
+  --ds-space-6: 24px;
+  --ds-space-8: 32px;
+  --ds-space-12: 48px;
+  --ds-space-16: 64px;
+  --ds-section-y: clamp(64px, 8vw, 112px);
+  --ds-gutter: 48px;               /* px-12 */
+  --ds-max-width: 1280px;          /* max-w-7xl */
+}
+
+@media (max-width: 780px) {
+  :root { --ds-gutter: 24px; }     /* px-6 */
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Fundo quadriculado do modelo (bg-grid-mesh). Só desenha linhas: a cor de fundo
+   de cada secção mantém-se. */
+.ds-grid-mesh {
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, .025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, .025) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Superfície "flashlight": um brilho branco segue o cursor por cima do fundo do
+   card, por baixo do conteúdo (fotografias e texto ficam intactos). */
+.ds-flashlight {
+  position: relative;
+  isolation: isolate;
+}
+
+.ds-flashlight > * {
+  position: relative;
+  z-index: 1;
+}
+
+.ds-flashlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: radial-gradient(350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, .9), transparent 60%);
+  opacity: 0;
+  transition: opacity .4s;
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ds-flashlight:hover::before { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-flashlight::before { transition: none; }
+}
+
+/* Botões do modelo.
+   - "Beam": borda que gira à volta do botão (btn-beam). Usa um ângulo animável;
+     navegadores sem @property mostram a borda parada, sem quebrar nada.
+   - "Shimmer": faixa de luz que atravessa o botão (shimmer-shift). */
+@property --ds-beam-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes ds-beam-spin {
+  to { --ds-beam-angle: 360deg; }
+}
+
+@keyframes ds-shimmer {
+  from { transform: translateX(-130%) skewX(-15deg); }
+  to { transform: translateX(230%) skewX(-15deg); }
+}
+
+/* Cursor do modelo: ponto que segue o rato e anel que o acompanha com atraso.
+   Criado por scripts/custom-cursor.js; a seta do sistema continua visível.
+   O contorno branco mantém-no visível sobre o vídeo e as secções escuras. */
+.ds-cursor-dot,
+.ds-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform;
+  transition: opacity .2s, scale .2s, background-color .2s, border-color .3s;
+}
+
+.ds-cursor-dot {
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  background: #1c1917;
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, .75);
+}
+
+.ds-cursor-ring {
+  width: 32px;
+  height: 32px;
+  margin: -16px 0 0 -16px;
+  border: 1px solid rgba(28, 28, 28, .3);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .3);
+}
+
+.ds-cursor-on .ds-cursor-dot,
+.ds-cursor-on .ds-cursor-ring { opacity: 1; }
+
+.ds-cursor-hover .ds-cursor-dot { scale: 1.6; background: #78716c; }
+.ds-cursor-hover .ds-cursor-ring { scale: 1.3; border-color: #78716c; }
+
+/* Nos campos de texto o cursor de escrita fica livre. */
+.ds-cursor-text .ds-cursor-dot,
+.ds-cursor-text .ds-cursor-ring { opacity: 0; }
+
+@media (hover: none), (pointer: coarse) {
+  .ds-cursor-dot,
+  .ds-cursor-ring { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-cursor-dot,
+  .ds-cursor-ring { transition: opacity .2s; }
+}

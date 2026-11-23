@@ -1,0 +1,306 @@
+/* ==========================================================================
+   Palco da fotografia no topo da página Plataforma Elevatória (design system).
+   Mesma linguagem do topo de Transportes, adaptada a uma fotografia em cartão:
+   1. Régua de altura 0–42 m, brilho e sombra; a foto "sobe do chão" ao abrir.
+   2. Quadriculado técnico atrás do hero + cantoneiras à volta da foto.
+   3. Cartões de vidro a flutuar com informação já presente na página.
+   4. Palavra gigante em contorno, na vertical, a subir na margem direita.
+   Tudo fica dentro de .platform-page, para não tocar nas outras páginas.
+   Para remover tudo: ver backups/hero-plataforma-antes/COMO-VOLTAR.txt
+   ========================================================================== */
+
+/* 2. Quadriculado do modelo, a desvanecer para as bordas do hero. */
+.platform-page .hero {
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+}
+
+.platform-page .hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, .035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, .035) 1px, transparent 1px);
+  background-size: 40px 40px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 75% at 65% 50%, #000 30%, transparent 80%);
+  mask-image: radial-gradient(ellipse 70% 75% at 65% 50%, #000 30%, transparent 80%);
+}
+
+/* O palco envolve a foto: a régua fica à esquerda, as cantoneiras à volta. */
+.platform-page .pf-stage {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  align-self: stretch;
+  min-width: 0;
+  padding: 20px 20px 20px 52px;
+}
+
+/* 2. Cantoneiras (caixa de detalhe do modelo). */
+.platform-page .pf-stage::before,
+.platform-page .pf-stage::after {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+}
+
+.platform-page .pf-stage::before {
+  top: 0;
+  left: 34px;
+  border-top: 1.5px solid var(--ink);
+  border-left: 1.5px solid var(--ink);
+}
+
+.platform-page .pf-stage::after {
+  right: 0;
+  bottom: 0;
+  border-right: 1.5px solid var(--ink);
+  border-bottom: 1.5px solid var(--ink);
+  opacity: .35;
+}
+
+/* 1. A foto: sombra no chão e entrada a "subir do solo". */
+.platform-page .pf-stage > .hero-photo {
+  box-shadow: 0 40px 80px -36px rgba(16, 21, 42, .45), 0 2px 6px rgba(16, 21, 42, .08);
+  animation: pf-photo-rise 1.2s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.platform-page .pf-stage > .hero-photo > img {
+  animation: pf-photo-settle 1.6s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+@keyframes pf-photo-rise {
+  from { clip-path: inset(38% 0 0 0 round 12px); transform: translateY(24px); }
+  to { clip-path: inset(0 0 0 0 round 12px); transform: none; }
+}
+
+@keyframes pf-photo-settle {
+  from { transform: scale(1.08); }
+  to { transform: scale(1); }
+}
+
+/* 1. Brilho azul suave atrás da foto (manchas de luz do modelo). */
+.platform-page .pf-stage-glow {
+  position: absolute;
+  inset: 6% 0 10% 12%;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(closest-side at 30% 40%, rgba(80, 78, 255, .28), transparent),
+    radial-gradient(closest-side at 75% 70%, rgba(2, 31, 89, .2), transparent);
+  filter: blur(48px);
+  animation: pf-stage-float 8s ease-in-out infinite;
+}
+
+@keyframes pf-stage-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+/* 1. Régua de altura: do solo (0 m) ao topo (42 m), com a linha azul a subir. */
+.platform-page .pf-ruler {
+  position: absolute;
+  top: 20px;
+  bottom: 20px;
+  left: 0;
+  width: 40px;
+  pointer-events: none;
+}
+
+/* Marcas: pequenas a cada 24 px e grandes a cada 120 px, encostadas à direita. */
+.platform-page .pf-ruler::before,
+.platform-page .pf-ruler::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.platform-page .pf-ruler::before {
+  width: 7px;
+  background: repeating-linear-gradient(to top, rgba(16, 21, 42, .22) 0 1px, transparent 1px 24px);
+  border-right: 1px solid rgba(16, 21, 42, .14);
+}
+
+.platform-page .pf-ruler::after {
+  width: 14px;
+  background: repeating-linear-gradient(to top, rgba(16, 21, 42, .45) 0 1px, transparent 1px 120px);
+}
+
+.platform-page .pf-ruler-fill {
+  position: absolute;
+  top: 0;
+  right: -1px;
+  bottom: 0;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(to top, var(--accent), rgba(80, 78, 255, .25));
+  transform-origin: bottom;
+  animation: pf-ruler-grow 1.6s cubic-bezier(.65, 0, .35, 1) .3s both;
+}
+
+/* Ponto no topo da linha: chega aos 42 m e fica a pulsar. */
+.platform-page .pf-ruler-fill::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(80, 78, 255, .18);
+}
+
+@keyframes pf-ruler-grow {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+.platform-page .pf-ruler-label {
+  position: absolute;
+  right: 18px;
+  color: var(--muted);
+  font-family: var(--ds-font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.platform-page .pf-ruler-label--top { top: -1px; color: var(--ink); }
+.platform-page .pf-ruler-label--mid { top: 50%; transform: translateY(-50%); }
+.platform-page .pf-ruler-label--base { bottom: -1px; }
+
+/* 4. Palavra gigante só com contorno, na vertical, a ler de baixo para cima. */
+.platform-page .pf-stage-word {
+  position: absolute;
+  top: 50%;
+  right: -84px;
+  z-index: -3;
+  writing-mode: vertical-rl;
+  transform: translateY(-50%) rotate(180deg);
+  font-size: 120px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -.04em;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(16, 21, 42, .12);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* 3. Cartões de vidro a flutuar. */
+.platform-page .pf-stage-tags {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.platform-page .pf-tag {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid rgba(255, 255, 255, .7);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .72);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  backdrop-filter: blur(16px) saturate(160%);
+  box-shadow: 0 10px 30px rgba(16, 21, 42, .14), inset 0 1px 0 #fff;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -.01em;
+  line-height: 1.3;
+  white-space: nowrap;
+  opacity: 0;
+  animation:
+    pf-tag-in .8s cubic-bezier(.16, 1, .3, 1) forwards,
+    pf-tag-wave 7s ease-in-out infinite;
+}
+
+.platform-page .pf-tag svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--accent);
+}
+
+.platform-page .pf-tag--location { top: 14%; right: -16px; animation-delay: .8s, 1.6s; }
+.platform-page .pf-tag--live { top: 46%; left: 28px; animation-delay: 1s, 2.5s; }
+.platform-page .pf-tag--cargo { bottom: 24%; right: -20px; animation-delay: 1.2s, 3.4s; }
+
+/* Ponto "ativo" do modelo, a pulsar. */
+.platform-page .pf-tag-dot {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #0eb888;
+  box-shadow: 0 0 0 3px rgba(14, 184, 136, .2);
+  animation: pf-tag-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pf-tag-in {
+  from { opacity: 0; translate: 0 10px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+/* Flutuação contínua: "transform" aqui e "translate" na entrada, para não se anularem. */
+@keyframes pf-tag-wave {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-6px) rotate(-.4deg); }
+  66% { transform: translateY(4px) rotate(.4deg); }
+}
+
+@keyframes pf-tag-pulse {
+  50% { box-shadow: 0 0 0 6px rgba(14, 184, 136, 0); }
+}
+
+/* Ecrãs médios e pequenos: a palavra deixa de ter margem onde aparecer e a régua
+   fica mais fina, para a foto não perder largura. */
+@media (max-width: 1100px) {
+  .platform-page .pf-stage-word { display: none; }
+  .platform-page .pf-stage { padding: 14px 6px 14px 34px; }
+  .platform-page .pf-stage::before { left: 20px; }
+  .platform-page .pf-ruler { top: 14px; bottom: 14px; width: 28px; }
+  .platform-page .pf-ruler::after { width: 11px; }
+  .platform-page .pf-ruler-label { right: 13px; font-size: 10px; }
+  .platform-page .pf-ruler-label--mid { display: none; }
+}
+
+/* Tablet e telemóvel: a foto ocupa a largura; cartões por dentro. */
+@media (max-width: 780px) {
+  .platform-page .pf-tag { padding: 8px 12px; font-size: 12px; }
+  /* Abaixo da etiqueta "ELEVAÇÃO · ATÉ 42 M" e acima da legenda da foto. */
+  .platform-page .pf-tag--location { top: 27%; right: 0; }
+  .platform-page .pf-tag--live { top: 50%; left: 20px; }
+  .platform-page .pf-tag--cargo { bottom: 30%; right: 0; }
+}
+
+@media (max-width: 420px) {
+  .platform-page .pf-tag--cargo { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .platform-page .pf-stage > .hero-photo,
+  .platform-page .pf-stage > .hero-photo > img,
+  .platform-page .pf-stage-glow,
+  .platform-page .pf-ruler-fill,
+  .platform-page .pf-tag,
+  .platform-page .pf-tag-dot { animation: none; }
+  .platform-page .pf-tag { opacity: 1; }
+}

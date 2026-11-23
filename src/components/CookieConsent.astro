@@ -1,0 +1,159 @@
+---
+// Banner de consentimento. Vai no fim do <body>.
+// Qualquer elemento com data-cookie-prefs (ex.: link no rodapé) volta a abrir o banner.
+---
+
+<section class="cookie-banner" id="cookie-banner" aria-labelledby="cookie-banner-title" hidden>
+  <p class="cookie-banner-title" id="cookie-banner-title">Cookies de estatística</p>
+  <p class="cookie-banner-text">
+    Usamos o Google Analytics para perceber como o site é utilizado e melhorá-lo. Estes cookies só são ativados se aceitar.
+    Pode mudar de ideias em qualquer momento em «Preferências de cookies», no rodapé.
+  </p>
+  <div class="cookie-banner-actions">
+    <button type="button" data-consent="denied">Recusar</button>
+    <button type="button" data-consent="granted">Aceitar</button>
+  </div>
+</section>
+
+<script>
+  import { analytics } from '../data/analytics';
+
+  const { consentKey, consentMaxAgeMs } = analytics;
+  const banner = document.getElementById('cookie-banner');
+
+  type Choice = 'granted' | 'denied';
+
+  function readChoice(): Choice | null {
+    try {
+      const saved = JSON.parse(localStorage.getItem(consentKey) || 'null');
+      if (saved && (saved.value === 'granted' || saved.value === 'denied') && Date.now() - saved.time < consentMaxAgeMs) return saved.value;
+    } catch {}
+    return null;
+  }
+
+  function saveChoice(value: Choice) {
+    try {
+      localStorage.setItem(consentKey, JSON.stringify({ value, time: Date.now() }));
+    } catch {}
+  }
+
+  // Ao recusar depois de ter aceitado, apaga os cookies do Google Analytics já gravados.
+  function clearAnalyticsCookies() {
+    const host = location.hostname.replace(/^www\./, '');
+    const domains = ['', `;domain=${host}`, `;domain=.${host}`];
+    document.cookie
+      .split(';')
+      .map((c) => c.split('=')[0].trim())
+      .filter((name) => /^_ga/.test(name))
+      .forEach((name) => {
+        domains.forEach((d) => {
+          document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/${d}`;
+        });
+      });
+  }
+
+  function applyChoice(value: Choice) {
+    const w = window as unknown as { gtag?: (...args: unknown[]) => void; dataLayer?: unknown[] };
+    w.gtag?.('consent', 'update', { analytics_storage: value });
+    w.dataLayer?.push({ event: 'cookie_consent_update', analytics_storage: value });
+    if (value === 'denied') clearAnalyticsCookies();
+  }
+
+  if (banner) {
+    if (!readChoice()) banner.hidden = false;
+
+    banner.addEventListener('click', (event) => {
+      const button = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-consent]');
+      if (!button) return;
+      const value = button.dataset.consent as Choice;
+      saveChoice(value);
+      applyChoice(value);
+      banner.hidden = true;
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!(event.target as HTMLElement).closest('[data-cookie-prefs]')) return;
+      event.preventDefault();
+      banner.hidden = false;
+      banner.querySelector<HTMLButtonElement>('[data-consent="granted"]')?.focus();
+    });
+  }
+</script>
+
+<style>
+  .cookie-banner {
+    position: fixed;
+    left: 20px;
+    bottom: max(20px, env(safe-area-inset-bottom));
+    z-index: 60;
+    width: min(420px, calc(100vw - 40px));
+    padding: 20px;
+    border: 1px solid #e3e3e3;
+    border-radius: 14px;
+    background: #fff;
+    color: #171717;
+    box-shadow: 0 12px 32px rgba(2, 31, 89, 0.18);
+    font-family: var(--ds-font-sans);
+  }
+  .cookie-banner[hidden] {
+    display: none;
+  }
+  .cookie-banner-title {
+    margin: 0 0 6px;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .cookie-banner-text {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #555;
+  }
+  .cookie-banner-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .cookie-banner-actions button {
+    min-height: 44px;
+    padding: 10px 14px;
+    border: 1px solid #021f59;
+    border-radius: 8px;
+    background: #fff;
+    color: #021f59;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .cookie-banner-actions button[data-consent='granted'] {
+    background: #021f59;
+    color: #fff;
+  }
+  .cookie-banner-actions button:focus-visible {
+    outline: 2px solid #021f59;
+    outline-offset: 2px;
+  }
+  @media (max-width: 480px) {
+    .cookie-banner {
+      left: 12px;
+      right: 12px;
+      width: auto;
+      bottom: max(12px, env(safe-area-inset-bottom));
+      padding: 16px;
+    }
+  }
+
+  /* Link «Preferências de cookies» nos rodapés */
+  :global(.cookie-prefs-link) {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+  }
+</style>

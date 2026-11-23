@@ -13,6 +13,34 @@
   }
 
   header.classList.add('is-enhanced');
+
+  // Vidro adaptável: quando a barra passa por cima de uma secção clara
+  // (data-nav-theme="light"), o texto fica escuro. Observa só uma linha fina
+  // à altura do centro da barra, sem ouvir o scroll (não compete com o vídeo).
+  const lightSections = document.querySelectorAll('[data-nav-theme="light"]');
+  if (lightSections.length && 'IntersectionObserver' in window) {
+    const underHeader = new Set();
+    let observer = null;
+    const watch = () => {
+      if (observer) observer.disconnect();
+      const rect = header.getBoundingClientRect();
+      const line = Math.round(rect.top + rect.height / 2);
+      observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) underHeader.add(entry.target);
+          else underHeader.delete(entry.target);
+        });
+        header.classList.toggle('is-on-light', underHeader.size > 0);
+      }, { rootMargin: `-${line}px 0px -${Math.max(0, window.innerHeight - line - 1)}px 0px` });
+      lightSections.forEach((section) => observer.observe(section));
+    };
+    watch();
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(watch, 150);
+    });
+  }
   toggle.addEventListener('click', () => {
     setOpen(toggle.getAttribute('aria-expanded') !== 'true');
   });

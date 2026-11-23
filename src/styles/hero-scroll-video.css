@@ -5,7 +5,7 @@
    ========================================================================== */
 
 :root {
-  font-family: var(--font-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--ds-font-sans);
   color: #0c1a44;
   background: #fff;
 }
@@ -76,13 +76,13 @@ input { font: inherit; }
   padding: 0 24px;
   color: #fff;
   transition: opacity .2s linear, transform .2s linear;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: var(--ds-font-sans);
 }
 
 .hsv-content h1 {
   font-size: clamp(2.5rem, 10vw, 8rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-weight: 700;
+  letter-spacing: var(--ds-tracking-tight);
   line-height: 1.05;
   color: #fff;
   text-transform: uppercase;
@@ -133,7 +133,7 @@ input { font: inherit; }
     opacity: 1;
     transform: translateY(0) scale(1);
     filter: blur(0);
-    letter-spacing: -0.02em;
+    letter-spacing: var(--ds-tracking-tight);
   }
 }
 
@@ -156,14 +156,15 @@ input { font: inherit; }
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  font-size: .8rem;
-  letter-spacing: .1em;
+  font-size: .7rem;
+  font-weight: 500;
+  letter-spacing: var(--ds-tracking-label);
   text-transform: uppercase;
   color: #fff;
   opacity: .8;
   animation: hsv-bounce 1.8s ease-in-out infinite;
   transition: opacity .2s linear;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: var(--ds-font-mono);
 }
 
 .hsv-scroll-hint svg { width: 20px; height: 20px; }
@@ -232,12 +233,12 @@ input { font: inherit; }
   gap: 6px;
   color: #F5F8FF;
   text-shadow: 0 2px 10px rgba(0,0,0,.5);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: var(--ds-font-mono);
 }
 
 .hsv-km-gauge-value {
   font-size: clamp(1.5rem, 3vw, 2.25rem);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1;
   color: #F5F8FF;
   font-variant-numeric: tabular-nums;
@@ -263,16 +264,17 @@ input { font: inherit; }
 .hsv-desc-inner {
   width: 100%;
   max-width: 1120px;
-  font-family: var(--font-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: var(--ds-font-sans);
 }
 
 .lc-eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 14px;
-  font-size: .8rem;
+  font-family: var(--ds-font-mono);
+  font-size: var(--ds-text-label);
   font-weight: 500;
-  letter-spacing: .22em;
+  letter-spacing: var(--ds-tracking-label);
   text-transform: uppercase;
   color: #D7D7D7;
   margin: 0 0 28px;
@@ -289,9 +291,9 @@ input { font: inherit; }
 
 .lc-heading {
   font-size: clamp(2.25rem, 5.2vw, 4.5rem);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -.03em;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: var(--ds-tracking-tight);
   margin: 0 0 24px;
   text-wrap: balance;
   text-shadow: 0 3px 28px rgba(0,0,0,.65);
@@ -324,10 +326,9 @@ input { font: inherit; }
 .lc-body {
   font-size: clamp(.95rem, 1.4vw, 1.08rem);
   font-weight: 300;
-  line-height: 1.85;
-  letter-spacing: .005em;
+  line-height: var(--ds-leading-relaxed);
   color: #D7D7D7;
-  margin: 0 0 36px;
+  margin: 0 0 32px;
   text-shadow: 0 2px 12px rgba(0,0,0,.5);
 }
 
@@ -339,8 +340,7 @@ input { font: inherit; }
   color: #fff;
   font-weight: 600;
   font-size: .95rem;
-  letter-spacing: .03em;
-  padding: 15px 32px;
+  padding: 16px 32px;
   border-radius: 999px;
   text-decoration: none;
   box-shadow: 0 8px 24px rgba(80,78,255,.35);
@@ -372,7 +372,7 @@ input { font: inherit; }
   padding: 0 clamp(24px, 6vw, 96px);
   opacity: 0;
   pointer-events: none;
-  font-family: var(--font-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: var(--ds-font-sans);
 }
 
 .op-slide-text {
@@ -387,12 +387,12 @@ input { font: inherit; }
 
 .op-index {
   display: block;
+  font-family: var(--ds-font-mono);
   font-size: clamp(1.8rem, 3.4vw, 2.6rem);
   font-weight: 700;
   line-height: 1;
   color: #504eff;
-  letter-spacing: -0.01em;
-  margin: 0 0 14px;
+  margin: 0 0 16px;
   text-shadow: 0 2px 20px rgba(80,78,255,.35);
 }
 
@@ -400,16 +400,16 @@ input { font: inherit; }
   font-size: clamp(1.9rem, 3.4vw, 2.6rem);
   font-weight: 700;
   color: #fff;
-  letter-spacing: -0.015em;
-  line-height: 1.15;
-  margin: 0 0 18px;
+  letter-spacing: var(--ds-tracking-tight);
+  line-height: 1.1;
+  margin: 0 0 16px;
   text-shadow: 0 2px 24px rgba(0,0,0,.55);
 }
 
 .op-body {
   font-size: clamp(1rem, 1.4vw, 1.1rem);
   font-weight: 400;
-  line-height: 1.7;
+  line-height: var(--ds-leading-relaxed);
   color: #D7D7D7;
   text-shadow: 0 2px 12px rgba(0,0,0,.5);
   margin: 0;
@@ -544,7 +544,7 @@ input { font: inherit; }
   overflow: hidden;
   z-index: 10;
   background: #021F59;
-  padding: clamp(64px, 10vw, 112px) 24px;
+  padding: var(--ds-section-y) var(--ds-gutter);
   /* "Cortina": a seção sobe e cobre o vídeo (que fica parado, ainda
      grudado/sticky) em vez do vídeo rolar pra fora — a margem negativa
      puxa esta seção pra cima, sobrepondo o hero enquanto ele ainda está
@@ -562,11 +562,11 @@ input { font: inherit; }
 .cs-inner {
   position: relative;
   z-index: 1;
-  max-width: 1280px;
+  max-width: var(--ds-max-width);
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: clamp(24px, 3vw, 36px);
+  gap: clamp(16px, 2.5vw, 32px);
 }
 
 .cs-card {
@@ -581,7 +581,7 @@ input { font: inherit; }
   transition: opacity 1.1s cubic-bezier(.16,.84,.44,1),
               transform 1.1s cubic-bezier(.16,.84,.44,1),
               filter 1.1s cubic-bezier(.16,.84,.44,1);
-  font-family: var(--font-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: var(--ds-font-sans);
 }
 
 .cs-card.is-visible {
@@ -623,20 +623,20 @@ input { font: inherit; }
 
 .cs-card-media-placeholder svg { width: 32px; height: 32px; opacity: .6; }
 
-.cs-card-body { padding: 28px 28px 32px; }
+.cs-card-body { padding: 32px; }
 
 .cs-card-title {
   font-size: 1.5rem;
   font-weight: 600;
   color: #0c1a44;
-  letter-spacing: -0.01em;
+  letter-spacing: var(--ds-tracking-tight);
   line-height: 1.25;
   margin: 0 0 12px;
 }
 
 .cs-card-text {
   font-size: .95rem;
-  line-height: 1.6;
+  line-height: var(--ds-leading-relaxed);
   color: #4a5a75;
   margin: 0 0 24px;
 }
@@ -644,7 +644,7 @@ input { font: inherit; }
 .cs-card-cta {
   display: inline-flex;
   align-items: center;
-  padding: 11px 22px;
+  padding: 12px 24px;
   border: 1.5px solid #0c1a44;
   border-radius: 8px;
   background: #fff;
@@ -681,27 +681,28 @@ input { font: inherit; }
    Seção "Principais diferenciais" — fundo branco, 3 colunas com ícone.
    ========================================================================== */
 .diff-section {
-  background: #fff;
-  padding: clamp(64px, 10vw, 112px) 24px;
-  font-family: var(--font-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  background-color: #fff;
+  padding: var(--ds-section-y) var(--ds-gutter);
+  font-family: var(--ds-font-sans);
 }
 
-.diff-inner { max-width: 1280px; margin: 0 auto; }
+.diff-inner { max-width: var(--ds-max-width); margin: 0 auto; }
 
 .diff-heading {
   font-size: clamp(2.25rem, 4.5vw, 3.25rem);
   font-weight: 500;
   color: #0c1a44;
-  letter-spacing: -0.01em;
-  margin: 0 0 22px;
+  letter-spacing: var(--ds-tracking-tight);
+  line-height: 1.1;
+  margin: 0 0 24px;
 }
 
 .diff-subtitle {
   max-width: 900px;
-  font-size: 1.02rem;
-  line-height: 1.65;
+  font-size: var(--ds-text-body);
+  line-height: var(--ds-leading-relaxed);
   color: #4a5a75;
-  margin: 0 0 56px;
+  margin: 0 0 48px;
 }
 
 .diff-cols {
@@ -733,13 +734,13 @@ input { font: inherit; }
 
 .diff-col p {
   font-size: 1.05rem;
-  line-height: 1.55;
+  line-height: var(--ds-leading-relaxed);
   color: #16264a;
   margin: 0;
 }
 
 @media (max-width: 780px) {
-  .diff-cols { grid-template-columns: 1fr; gap: 36px; }
+  .diff-cols { grid-template-columns: 1fr; gap: 32px; }
 }
 
 /* ==========================================================================
@@ -747,18 +748,19 @@ input { font: inherit; }
    coluna principal ("Cegonha") destacada em navy + check.
    ========================================================================== */
 .compare-section {
-  background: #eef2fb;
-  padding: clamp(64px, 10vw, 112px) 24px;
-  font-family: var(--font-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  background-color: #eef2fb;
+  padding: var(--ds-section-y) var(--ds-gutter);
+  font-family: var(--ds-font-sans);
 }
 
-.compare-inner { max-width: 1280px; margin: 0 auto; }
+.compare-inner { max-width: var(--ds-max-width); margin: 0 auto; }
 
 .compare-heading {
   font-size: clamp(2.25rem, 4.5vw, 3.25rem);
   font-weight: 500;
   color: #0c1a44;
-  letter-spacing: -0.01em;
+  letter-spacing: var(--ds-tracking-tight);
+  line-height: 1.1;
   margin: 0 0 48px;
 }
 
@@ -777,7 +779,11 @@ input { font: inherit; }
 }
 
 .compare-header {
-  font-weight: 700;
+  font-family: var(--ds-font-mono);
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
   color: #0c1a44;
   background: #fff;
 }
@@ -820,8 +826,8 @@ input { font: inherit; }
    ========================================================================== */
 .form-section {
   background: linear-gradient(135deg, #4b49e8, #6361ff);
-  padding: clamp(64px, 10vw, 112px) 24px;
-  font-family: var(--font-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  padding: var(--ds-section-y) var(--ds-gutter);
+  font-family: var(--ds-font-sans);
 }
 
 .urgent-call-float {
@@ -902,20 +908,21 @@ body.is-form-active .side-info {
   .side-info { opacity: 1; visibility: visible; pointer-events: auto; animation: none; }
 }
 
-.form-inner { max-width: 1280px; margin: 0 auto; }
+.form-inner { max-width: var(--ds-max-width); margin: 0 auto; }
 
 .form-heading {
   font-size: clamp(2.25rem, 4.5vw, 3.25rem);
   font-weight: 500;
   color: #fff;
-  letter-spacing: -0.01em;
-  margin: 0 0 22px;
+  letter-spacing: var(--ds-tracking-tight);
+  line-height: 1.1;
+  margin: 0 0 24px;
 }
 
 .form-subtitle {
   max-width: 760px;
-  font-size: 1.02rem;
-  line-height: 1.65;
+  font-size: var(--ds-text-body);
+  line-height: var(--ds-leading-relaxed);
   color: rgba(255,255,255,.85);
   margin: 0 0 48px;
 }
@@ -1099,6 +1106,8 @@ body.is-form-active .side-info {
   .cs-inner {
     grid-template-columns: minmax(0, 1fr);
   }
+
+  .cs-card-body { padding: 24px; }
 
   .cs-card {
     transform: translateY(40px) scale(.97);

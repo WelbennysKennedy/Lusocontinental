@@ -13,3 +13,67 @@
 .platform-page .gallery-photo{display:block;width:100%;height:auto;aspect-ratio:var(--image-ratio,1);padding:0;border:0;background:none;border-radius:12px;overflow:hidden}
 .platform-page .gallery-photo img{display:block;width:100%;height:100%;object-fit:contain;object-position:center}
 @media(max-width:640px){.platform-page .gallery-track{--gallery-image-height:420px;gap:16px}}
+
+/* ==========================================================================
+   Galeria com o design system (Plataforma e Transportes).
+   Para voltar atrás: copiar os ficheiros de backups/galeria-antes/.
+   ========================================================================== */
+.gallery-map-section .gallery-carousel{position:relative}
+/* O mapa animado cobre a secção inteira (com os controlos ela passa dos 1000 px). */
+.gallery-map-section .cs-background-scene{max-height:none}
+
+/* As fotografias cortadas nos lados desvanecem em vez de acabar num corte seco.
+   No início e no fim da galeria o lado correspondente fica sem desvanecer. */
+.gallery-map-section .gallery-carousel .gallery-track{--fade-l:72px;--fade-r:72px;-webkit-mask-image:linear-gradient(to right,transparent 0,#000 var(--fade-l),#000 calc(100% - var(--fade-r)),transparent 100%);mask-image:linear-gradient(to right,transparent 0,#000 var(--fade-l),#000 calc(100% - var(--fade-r)),transparent 100%)}
+.gallery-map-section .gallery-carousel[data-at-start] .gallery-track{--fade-l:0px}
+.gallery-map-section .gallery-carousel[data-at-end] .gallery-track{--fade-r:0px}
+
+/* Fotografia: borda fina, sombra profunda e aproximação suave ao passar o rato. */
+.gallery-map-section .gallery-carousel .gallery-photo{position:relative;border:1px solid rgba(255,255,255,.16);box-shadow:0 30px 60px -30px rgba(0,0,0,.65),0 2px 6px rgba(0,0,0,.15);transition:border-color .4s}
+.gallery-map-section .gallery-carousel .gallery-photo img{transition:transform .9s cubic-bezier(.16,1,.3,1)}
+.gallery-map-section .gallery-carousel .gallery-photo:hover{border-color:rgba(255,255,255,.5)}
+.gallery-map-section .gallery-carousel .gallery-photo:hover img{transform:scale(1.045)}
+
+/* Etiqueta de vidro "Ampliar ↗": a fotografia abre em tamanho grande. */
+.gallery-zoom{position:absolute;top:14px;right:14px;z-index:1;display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border:1px solid rgba(255,255,255,.3);border-radius:999px;background:rgba(8,14,36,.45);-webkit-backdrop-filter:blur(12px) saturate(160%);backdrop-filter:blur(12px) saturate(160%);color:#fff;font-family:var(--ds-font-mono);font-size:11px;font-weight:500;letter-spacing:.12em;line-height:1;text-transform:uppercase;opacity:0;transform:translateY(-6px);transition:opacity .3s,transform .3s;pointer-events:none}
+.gallery-photo:hover .gallery-zoom,.gallery-photo:focus-visible .gallery-zoom{opacity:1;transform:none}
+@media(hover:none){.gallery-zoom{display:none}}
+
+/* Com o rato sobre uma fotografia, as outras recuam um pouco. */
+@media(hover:hover) and (pointer:fine){
+  /* Escurece com filtro (e não com transparência) para o mapa não aparecer através das fotos. */
+  .gallery-map-section .gallery-slide{transition:filter .45s}
+  .gallery-map-section .gallery-track:not(.is-dragging):has(.gallery-photo:hover) .gallery-slide:not(:has(.gallery-photo:hover)){filter:brightness(.5) saturate(.6)}
+}
+
+/* Legenda: número técnico e linha que se acende com a fotografia ativa. */
+.gallery-map-section .gallery-slide figcaption{position:relative;gap:6px;margin-top:16px;padding:16px 4px 4px}
+.gallery-map-section .gallery-slide figcaption::before,.gallery-map-section .gallery-slide figcaption::after{content:"";position:absolute;top:0;left:0;width:100%;height:1px}
+.gallery-map-section .gallery-slide figcaption::before{background:rgba(255,255,255,.16)}
+.gallery-map-section .gallery-slide figcaption::after{background:#fff;transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.gallery-map-section .gallery-slide:hover figcaption::after,.gallery-map-section .gallery-slide:focus-within figcaption::after{transform:scaleX(1)}
+.gallery-map-section .gallery-slide figcaption>.gallery-index{margin-bottom:4px;color:rgba(220,230,250,.7);font-family:var(--ds-font-mono);font-size:11px;font-weight:500;letter-spacing:.2em;line-height:1}
+
+/* Controlos: barra de progresso, contador e setas redondas de vidro. */
+.gallery-controls{display:flex;align-items:center;gap:24px;margin-top:32px}
+.gallery-progress{position:relative;flex:1;height:2px;border-radius:2px;background:rgba(255,255,255,.18);overflow:hidden}
+.gallery-progress-thumb{position:absolute;top:0;left:0;width:30%;height:100%;border-radius:2px;background:#fff;transition:width .3s}
+.gallery-count{margin:0;color:#dce6fa;font-family:var(--ds-font-mono);font-size:12px;font-weight:500;letter-spacing:.2em;white-space:nowrap}
+.gallery-count>span{color:#fff}
+.gallery-nav{display:flex;gap:10px}
+.gallery-nav-button{display:grid;place-items:center;width:48px;height:48px;padding:0;border:1px solid rgba(255,255,255,.3);border-radius:50%;background:rgba(255,255,255,.08);-webkit-backdrop-filter:blur(12px) saturate(160%);backdrop-filter:blur(12px) saturate(160%);color:#fff;cursor:pointer;transition:background-color .25s,border-color .25s,color .25s,transform .25s}
+.gallery-nav-button svg{width:18px;height:18px}
+.gallery-nav-button:hover{background:#fff;border-color:#fff;color:#021F59}
+.gallery-nav-button:active{transform:scale(.94)}
+.gallery-nav-button:focus-visible{outline:2px solid #fff;outline-offset:3px}
+
+@media(max-width:640px){
+  .gallery-map-section .gallery-carousel .gallery-track{--fade-l:24px;--fade-r:24px}
+  .gallery-controls{gap:16px;margin-top:24px}
+  .gallery-nav-button{width:44px;height:44px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .gallery-map-section .gallery-carousel .gallery-photo img,.gallery-zoom,.gallery-map-section .gallery-slide,.gallery-map-section .gallery-slide figcaption::after,.gallery-progress-thumb,.gallery-nav-button{transition:none}
+  .gallery-map-section .gallery-carousel .gallery-photo:hover img{transform:none}
+}

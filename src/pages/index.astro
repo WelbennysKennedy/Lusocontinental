@@ -191,7 +191,7 @@ const compareRows = [
     <div class="cs-inner">
       {
         services.map((service) => (
-          <div class="cs-card">
+          <div class="cs-card ds-flashlight">
             <div class="cs-card-media">
               <Image
                 src={service.image}
@@ -215,7 +215,7 @@ const compareRows = [
     </div>
   </section>
 
-  <section class="diff-section">
+  <section class="diff-section ds-grid-mesh" data-nav-theme="light">
     <div class="diff-inner">
       <h2 class="diff-heading reveal-up">Principais diferenciais</h2>
       <p class="diff-subtitle reveal-up">A Luso Continental resolve operações onde o detalhe importa: pronto socorro automóvel, porta-automóveis, máquinas e empilhadores, cargas em altura, painéis sandwich, painéis solares, entulho e ar condicionado.</p>
@@ -245,7 +245,7 @@ const compareRows = [
     </div>
   </section>
 
-  <section class="compare-section">
+  <section class="compare-section ds-grid-mesh" data-nav-theme="light">
     <div class="compare-inner">
       <h2 class="compare-heading reveal-up">Operação por serviço</h2>
 
@@ -309,7 +309,7 @@ const compareRows = [
   </section>
   </main>
 
-  <footer class="home-footer"><p>{footerAreas}</p></footer>
+  <footer class="home-footer"><p>{footerAreas} · <button type="button" class="cookie-prefs-link" data-cookie-prefs>Preferências de cookies</button></p></footer>
 
   <Assistant
     topic="general"

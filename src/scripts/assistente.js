@@ -196,12 +196,14 @@ import { site, telHref, whatsappHref } from '../data/site.ts';
     });
     toggle.hidden = false;
 
-    const homeForm = document.getElementById('planeie-sua-operacao');
-    if (homeForm && 'IntersectionObserver' in window) {
+    // Esconde os botões flutuantes enquanto o formulário de orçamento está à vista,
+    // para não taparem os botões de envio (página inicial e páginas de serviço).
+    const quoteForm = document.getElementById('planeie-sua-operacao') || document.getElementById('orcamento');
+    if (quoteForm && 'IntersectionObserver' in window) {
       const observer = new IntersectionObserver((entries) => {
         document.body.classList.toggle('is-form-active', entries[0].isIntersecting);
       }, { threshold: 0.15 });
-      observer.observe(homeForm);
+      observer.observe(quoteForm);
     }
   }
 

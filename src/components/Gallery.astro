@@ -36,17 +36,35 @@ const prepared = await Promise.all(
 );
 ---
 
-<div class="gallery-carousel" id={id} role="group" aria-roledescription="carrossel" aria-label={label}>
+<div class="gallery-carousel" id={id} role="group" aria-roledescription="carrossel" aria-label={label} data-at-start>
   <div class="gallery-track" id="galleryTrack" tabindex="0" aria-label={trackLabel}>
     {
-      prepared.map((slide) => (
+      prepared.map((slide, index) => (
         <figure class="gallery-slide" style={`--image-ratio:${slide.ratio}`}>
           <a class="gallery-photo" href={slide.fullHref} target="_blank" rel="noopener" aria-label={slide.zoomLabel}>
             <Image src={slide.src} alt={slide.alt} format="webp" quality={82} widths={slide.widths} sizes={slide.sizes} loading="lazy" decoding="async" />
+            <span class="gallery-zoom" aria-hidden="true">Ampliar <span>↗</span></span>
           </a>
-          <figcaption><strong>{slide.title}</strong><span>{slide.caption}</span></figcaption>
+          <figcaption>
+            <span class="gallery-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            <strong>{slide.title}</strong><span>{slide.caption}</span>
+          </figcaption>
         </figure>
       ))
     }
+  </div>
+
+  <!-- Controlos do modelo: barra de progresso, contador e setas de vidro. -->
+  <div class="gallery-controls">
+    <div class="gallery-progress" aria-hidden="true"><span class="gallery-progress-thumb"></span></div>
+    <p class="gallery-count" aria-hidden="true"><span data-gallery-current>01</span> / {String(prepared.length).padStart(2, '0')}</p>
+    <div class="gallery-nav">
+      <button class="gallery-nav-button" type="button" data-gallery-prev aria-controls="galleryTrack" aria-label="Fotografia anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5" /><path d="m11 6-6 6 6 6" /></svg>
+      </button>
+      <button class="gallery-nav-button" type="button" data-gallery-next aria-controls="galleryTrack" aria-label="Fotografia seguinte">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg>
+      </button>
+    </div>
   </div>
 </div>

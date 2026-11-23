@@ -16,5 +16,5 @@ const { tagline, links } = Astro.props;
     <p>{tagline}</p>
     {links.map((link) => <a href={link.href}>{link.label} <span aria-hidden="true">↗</span></a>)}
   </div>
-  <p class="container footer-areas">{footerAreas}</p>
+  <p class="container footer-areas">{footerAreas} · <button type="button" class="cookie-prefs-link" data-cookie-prefs>Preferências de cookies</button></p>
 </footer>

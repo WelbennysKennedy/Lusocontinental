@@ -19,6 +19,7 @@ import '../styles/transportes.css';
 import '../styles/assistente.css';
 import '../styles/gallery-map.css';
 import '../styles/contact-forms.css';
+import '../styles/transport-hero-stage.css';
 
 import heroPhoto from '../assets/transportes/camiao-porta-automoveis-scania.png';
 import juntoStand from '../assets/transportes/porta-automoveis-junto-stand.jpeg';
@@ -30,6 +31,7 @@ import vistaLateral from '../assets/transportes/porta-automoveis-vista-lateral.j
 import scaniaAzul from '../assets/transportes/porta-automoveis-scania-azul.jpeg';
 import carrosCarregados from '../assets/transportes/porta-automoveis-carros-carregados.jpeg';
 import azulBranco from '../assets/transportes/porta-automoveis-azul-branco.jpeg';
+import contactPhoto from '../assets/transportes/transportador-azul-estrada-rural.png';
 
 const pageUrl = new URL(routes.transportes, Astro.site).href;
 
@@ -105,8 +107,19 @@ const faq = [
           <div class="hero-actions"><a class="button" href="#orcamento">Pedir um orçamento <span aria-hidden="true">↗</span></a><a class="text-link" href={telHref}>Precisa de reboque? Ligue <span aria-hidden="true">↗</span></a></div>
           <div class="hero-facts"><div><strong>5 serviços</strong><span>Soluções para diferentes cargas</span></div><div><strong>À sua medida</strong><span>Origem, destino e prazo</span></div></div>
         </div>
-        <figure class="transport-hero-photo">
-          <Image src={heroPhoto} alt="Vista frontal de um camião Scania porta-automóveis azul para transporte de veículos" format="webp" quality={84} widths={[480, 720, 1024]} sizes="(max-width: 780px) min(100vw, 600px), 45vw" loading="eager" fetchpriority="high" />
+        <figure class="transport-hero-photo hero-stage">
+          {/* Palco do camião: palavra em contorno, brilho, estrada e sombra (decorativos). */}
+          <span class="hero-stage-word" aria-hidden="true">TRANSPORTE</span>
+          <span class="hero-stage-glow" aria-hidden="true"></span>
+          <span class="hero-stage-road" aria-hidden="true"></span>
+          <span class="hero-stage-shadow" aria-hidden="true"></span>
+          <Image class="hero-stage-truck" src={heroPhoto} alt="Vista frontal de um camião Scania porta-automóveis azul para transporte de veículos" format="webp" quality={84} widths={[480, 720, 1024]} sizes="(max-width: 780px) min(100vw, 600px), 45vw" loading="eager" fetchpriority="high" />
+          {/* Cartões de vidro: repetem informação já presente na página, por isso ficam ocultos aos leitores de ecrã. */}
+          <div class="hero-stage-tags" aria-hidden="true">
+            <span class="hero-tag hero-tag--location"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 1 1 14 0C19 14.8 12 21 12 21z" /><circle cx="12" cy="9.5" r="2.5" /></svg>Setúbal · Almada · Lisboa</span>
+            <span class="hero-tag hero-tag--live"><span class="hero-tag-dot"></span>Pronto socorro</span>
+            <span class="hero-tag hero-tag--area"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18" /><path d="M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z" /><circle cx="12" cy="12" r="9" /></svg>Margem Sul</span>
+          </div>
         </figure>
       </div>
     </section>
@@ -118,13 +131,13 @@ const faq = [
       </div>
     </div>
 
-    <section class="section services" id="servicos" aria-labelledby="services-title">
+    <section class="section services ds-grid-mesh" id="servicos" aria-labelledby="services-title">
       <div class="container">
         <div class="section-heading"><div><p class="eyebrow">01 / O QUE TRANSPORTAMOS</p><h2 id="services-title">Cada carga tem<br />o seu caminho.</h2></div><p>Particulares, stands, oficinas, indústria e obras. Escolha o serviço e conte-nos o que precisa de movimentar.</p></div>
         <div class="service-grid transport-services">
           {
             services.map((service, index) => (
-              <article class:list={['service-card', 'transport-service', { 'transport-service-wide': service.wide }]} id={service.id}>
+              <article class:list={['service-card', 'ds-flashlight', 'transport-service', { 'transport-service-wide': service.wide }]} id={service.id}>
                 <Image
                   class="transport-service-image"
                   src={service.image}
@@ -157,14 +170,15 @@ const faq = [
       </div>
     </section>
 
-    <section class="section process-section" aria-labelledby="process-title">
+    <section class="section process-section ds-grid-mesh" aria-labelledby="process-title">
       <div class="container process-grid">
         <div><p class="eyebrow">03 / COMO FUNCIONA</p><h2 id="process-title">Da primeira conversa<br />à entrega.</h2><p class="section-intro">Um transporte bem preparado começa com as informações certas. Conte-nos de onde sai, para onde vai e o que precisa de levar.</p><a class="text-link" href="#orcamento">Vamos planear o transporte <span aria-hidden="true">↗</span></a></div>
         <ProcessSteps steps={steps} />
       </div>
     </section>
 
-    <section class="section quote-section contact-section" id="orcamento" aria-labelledby="quote-title">
+    <section class="section quote-section contact-section contact-section--photo" id="orcamento" aria-labelledby="quote-title">
+      <Image class="contact-photo" src={contactPhoto} alt="" format="webp" quality={80} widths={[640, 960, 1280, 1672]} sizes="100vw" loading="lazy" decoding="async" />
       <div class="container quote-grid">
         <ContactCard kicker="Serviços de transporte" text="Diga-nos o que precisa de transportar, a origem e o destino. A nossa equipa ajuda a preparar o seu pedido de orçamento." />
         <form class="quote-form" id="transportQuoteForm" action={formAction} method="POST" accept-charset="UTF-8">

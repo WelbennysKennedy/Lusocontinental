@@ -18,6 +18,7 @@ import '../styles/plataforma-elevatoria.css';
 import '../styles/assistente.css';
 import '../styles/gallery-map.css';
 import '../styles/contact-forms.css';
+import '../styles/platform-hero-stage.css';
 
 import heroPhoto from '../assets/servicos/plataforma-elevatoria-fachada.jpg';
 import varandas from '../assets/plataforma/plataforma-fachada-varandas.jpg';
@@ -27,6 +28,7 @@ import estabilizadores from '../assets/plataforma/plataforma-camiao-estabilizado
 import residencial from '../assets/plataforma/plataforma-edificio-residencial.jpeg';
 import braco from '../assets/plataforma/plataforma-braco-fachada.jpeg';
 import trilhos from '../assets/plataforma/plataforma-detalhe-trilhos.jpeg';
+import contactPhoto from '../assets/plataforma/mudancas-elevador-azulejos.png';
 
 const description = 'Aluguer de plataforma elevatória até 42 m e elevador exterior para mudanças em Setúbal, Almada, Seixal, Barreiro, Montijo, Palmela e Lisboa.';
 
@@ -103,11 +105,29 @@ const faq = [
             <div><strong>À sua medida</strong><span>Planeamento de cada operação</span></div>
           </div>
         </div>
-        <figure class="hero-photo">
-          <Image src={heroPhoto} alt="Plataforma elevatória de 42 metros montada num camião, junto à fachada de um edifício" format="webp" quality={82} widths={[640, 960, 1280, 1600]} sizes="(max-width: 780px) 100vw, 50vw" loading="eager" fetchpriority="high" />
-          <figcaption><span class="photo-dot" aria-hidden="true"></span> Do solo ao destino.<span class="photo-arrow" aria-hidden="true">↗</span></figcaption>
-          <span class="photo-label" aria-hidden="true">ELEVAÇÃO · ATÉ 42 M</span>
-        </figure>
+        <div class="pf-stage">
+          <!-- Palco do topo: ver src/styles/platform-hero-stage.css -->
+          <span class="pf-stage-word" aria-hidden="true">ELEVAÇÃO</span>
+          <span class="pf-stage-glow" aria-hidden="true"></span>
+          <span class="pf-ruler" aria-hidden="true">
+            <span class="pf-ruler-fill"></span>
+            <span class="pf-ruler-label pf-ruler-label--top">42 m</span>
+            <span class="pf-ruler-label pf-ruler-label--mid">21</span>
+            <span class="pf-ruler-label pf-ruler-label--base">0 m</span>
+          </span>
+
+          <figure class="hero-photo">
+            <Image src={heroPhoto} alt="Plataforma elevatória de 42 metros montada num camião, junto à fachada de um edifício" format="webp" quality={82} widths={[640, 960, 1280, 1600]} sizes="(max-width: 780px) 100vw, 50vw" loading="eager" fetchpriority="high" />
+            <figcaption><span class="photo-dot" aria-hidden="true"></span> Do solo ao destino.<span class="photo-arrow" aria-hidden="true">↗</span></figcaption>
+            <span class="photo-label" aria-hidden="true">ELEVAÇÃO · ATÉ 42 M</span>
+          </figure>
+
+          <div class="pf-stage-tags" aria-hidden="true">
+            <span class="pf-tag pf-tag--location"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 1 1 14 0C19 14.8 12 21 12 21z" /><circle cx="12" cy="9.5" r="2.5" /></svg>Margem Sul · Lisboa</span>
+            <span class="pf-tag pf-tag--live"><span class="pf-tag-dot"></span>Mudanças pelo exterior</span>
+            <span class="pf-tag pf-tag--cargo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8v8l9 5 9-5z" /><path d="m3 8 9 5 9-5" /><path d="M12 13v8" /></svg>Móveis · materiais · equipamentos</span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -118,7 +138,7 @@ const faq = [
       </div>
     </div>
 
-    <section class="section services" id="servicos" aria-labelledby="services-title">
+    <section class="section services ds-grid-mesh" id="servicos" aria-labelledby="services-title">
       <div class="container">
         <div class="section-heading">
           <div><p class="eyebrow">01 / O QUE FAZEMOS</p><h2 id="services-title">Mais alcance.<br />Mais possibilidades.</h2></div>
@@ -127,7 +147,7 @@ const faq = [
         <div class="service-grid">
           {
             services.map((service, index) => (
-              <article class="service-card">
+              <article class="service-card ds-flashlight">
                 <span class="service-number">{String(index + 1).padStart(2, '0')} <span aria-hidden="true">↗</span></span>
                 <h3>{service.heading}</h3>
                 <p>{service.text}</p>
@@ -147,14 +167,15 @@ const faq = [
       </div>
     </section>
 
-    <section class="section process-section" aria-labelledby="process-title">
+    <section class="section process-section ds-grid-mesh" aria-labelledby="process-title">
       <div class="container process-grid">
         <div><p class="eyebrow">03 / COMO FUNCIONA</p><h2 id="process-title">Da primeira conversa<br />à elevação.</h2><p class="section-intro">Cada espaço é diferente. Começamos pelos detalhes para preparar a operação certa.</p><a class="text-link" href="#orcamento">Vamos planear a sua <span aria-hidden="true">↗</span></a></div>
         <ProcessSteps steps={steps} />
       </div>
     </section>
 
-    <section class="section quote-section contact-section" id="orcamento" aria-labelledby="quote-title">
+    <section class="section quote-section contact-section contact-section--photo contact-section--platform" id="orcamento" aria-labelledby="quote-title">
+      <Image class="contact-photo" src={contactPhoto} alt="" format="webp" quality={80} widths={[640, 960, 1280, 1672]} sizes="100vw" loading="lazy" decoding="async" />
       <div class="container quote-grid">
         <ContactCard kicker="Plataforma elevatória" text="Conte-nos o que precisa de elevar e onde será a operação. A nossa equipa avalia os detalhes e prepara o seu orçamento." />
         <form class="quote-form" id="quoteForm" action={formAction} method="POST" accept-charset="UTF-8">

@@ -7,5 +7,5 @@ const { steps } = Astro.props;
 ---
 
 <ol class="steps">
-  {steps.map((step, index) => <li><span>{String(index + 1).padStart(2, '0')}</span><div><h3>{step.title}</h3><p>{step.text}</p></div></li>)}
+  {steps.map((step, index) => <li class="ds-flashlight"><span>{String(index + 1).padStart(2, '0')}</span><div><h3>{step.title}</h3><p>{step.text}</p></div></li>)}
 </ol>
